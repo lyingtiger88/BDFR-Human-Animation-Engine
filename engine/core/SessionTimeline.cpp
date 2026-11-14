@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <cmath>
 #include <limits>
+#include <iterator>
 #include <utility>
 
 namespace bdfr::performance {
@@ -31,10 +32,11 @@ bool SessionRecorder::append(PerformanceFrame frame) {
     if (!active_ || frame.session_time_ns < 0) return false;
     if (!session_.frames.empty() &&
         frame.session_time_ns < session_.frames.back().session_time_ns) return false;
-    Session candidate = session_;
-    candidate.frames.push_back(std::move(frame));
-    if (!validate(candidate).ok) return false;
-    session_.frames.push_back(std::move(candidate.frames.back()));
+    session_.frames.push_back(std::move(frame));
+    if (!validate(session_).ok) {
+        session_.frames.pop_back();
+        return false;
+    }
     return true;
 }
 
