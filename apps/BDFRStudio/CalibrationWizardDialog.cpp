@@ -11,6 +11,7 @@
 #include <QLineEdit>
 #include <QPlainTextEdit>
 #include <QProcess>
+#include <QStringList>
 #include <QPushButton>
 #include <QSpinBox>
 #include <QVBoxLayout>
@@ -172,7 +173,7 @@ void CalibrationWizardDialog::start_calibration() {
     QString program;
     QStringList args;
     if (!rig) {
-        program = QStringLiteral(BDFR_CAMERA_CALIBRATE_EXE);
+        program = QString::fromUtf8(BDFR_CAMERA_CALIBRATE_EXE);
         args = {QString::number(camera_index_->value()),
                 QString::number(columns_->value()),
                 QString::number(rows_->value()),
@@ -184,7 +185,7 @@ void CalibrationWizardDialog::start_calibration() {
             log_->appendPlainText("Select a valid intrinsics profile before rig calibration.");
             return;
         }
-        program = QStringLiteral(BDFR_RIG_CALIBRATE_EXE);
+        program = QString::fromUtf8(BDFR_RIG_CALIBRATE_EXE);
         args = {input, QString::number(reference_index_->value()),
                 QString::number(columns_->value()),
                 QString::number(rows_->value()),
