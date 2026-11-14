@@ -108,6 +108,58 @@ performance::PerformanceFrame to_engine_frame(
     return output;
 }
 
+performance::RetargetedSkeletonSample retarget_to_engine(
+    const performance::SkeletonSample& source,
+    const bdfrpc::RetargetProfile& profile) {
+    bdfrpc::SkeletonPose pose;
+    pose.timestamp_ns = source.header.source_time_ns;
+    pose.confidence = source.header.confidence;
+    pose.translation = {source.root_translation.x, source.root_translation.y, source.root_translation.z};
+
+    const bdfrpc::Quaternion root_q{
+        source.root_rotation.w, source.root_rotation.x,
+        source.root_rotation.y, source.root_rotation.z
+    };
+    const auto root_axis_angle = bdfrpc::quaternion_to_axis_angle(root_q);
+    pose.global_orientation = {root_axis_angle.x, root_axis_angle.y, root_axis_angle.z};
+
+    pose.joints.reserve(source.joints.size());
+    for (const auto& source_joint : source.joints) {
+        bdfrpc::JointPose joint;
+        joint.name = source_joint.name;
+        joint.parent = source_joint.parent_index;
+        const bdfrpc::Quaternion q{
+            source_joint.rotation.w, source_joint.rotation.x,
+            source_joint.rotation.y, source_joint.rotation.z
+        };
+        joint.rotation = bdfrpc::quaternion_to_axis_angle(q);
+        pose.joints.push_back(std::move(joint));
+    }
+
+    const auto retargeted = bdfrpc::retarget_skeleton(pose, profile);
+    performance::RetargetedSkeletonSample output;
+    output.header = source.header;
+    output.profile_name = retargeted.profile_name;
+    output.root_translation = {
+        retargeted.root_translation[0],
+        retargeted.root_translation[1],
+        retargeted.root_translation[2]
+    };
+    output.root_rotation = axis_angle_to_quaternion({
+        retargeted.root_orientation[0],
+        retargeted.root_orientation[1],
+        retargeted.root_orientation[2]
+    });
+    output.bones.reserve(retargeted.bones.size());
+    for (const auto& bone : retargeted.bones) {
+        output.bones.push_back({
+            bone.bone,
+            axis_angle_to_quaternion(bone.rotation)
+        });
+    }
+    return output;
+}
+
 performance::SkeletonSample to_engine_skeleton(
     const bdfrpc::SkeletonPose& source,
     performance::Nanoseconds session_time_ns,
