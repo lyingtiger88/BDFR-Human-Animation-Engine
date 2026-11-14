@@ -1,7 +1,15 @@
 name: Engine CI
 
 on:
-  # Deliberately manual-only while the owner requested development without builds.
+  # Run the platform matrix after a substantial engine capability lands.
+  push:
+    branches: [main]
+    paths:
+      - 'engine/**'
+      - 'tests/**'
+      - 'CMakeLists.txt'
+      - '.github/workflows/ci.yml'
+      - 'migration/**'
   workflow_dispatch:
 
 jobs:
