@@ -43,8 +43,9 @@ std::vector<performance::ScalarChannel> copy_channels(
 
 performance::PerformanceFrame fuse_to_engine_frame(
     const bdfrpc::SyncedFrameSet& source,
-    performance::Nanoseconds session_time_ns) {
-    bdfrpc::FusionCore fusion;
+    performance::Nanoseconds session_time_ns,
+    bdfrpc::SourceRouter router) {
+    bdfrpc::FusionCore fusion(std::move(router));
     return to_engine_frame(fusion.fuse(source), session_time_ns, "bdfrpc-fusion");
 }
 
@@ -69,7 +70,6 @@ performance::PerformanceFrame to_engine_frame(
 
     for (const auto& sample : source.samples) {
         if (!sample.channels_valid()) continue;
-
         switch (sample.domain) {
         case bdfrpc::Domain::Face: {
             performance::FaceSample face;
