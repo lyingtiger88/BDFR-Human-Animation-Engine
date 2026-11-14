@@ -10,6 +10,7 @@
 #include "bdfr/audio/WavAudio.h"
 #include "bdfr/audio/AudioBehavior.h"
 #include "bdfr/speech/TextSpeech.h"
+#include "bdfr/speech/LanguageProfile.h"
 #include "bdfr/expression/BehaviorEngine.h"
 #include "bdfr/expression/EmotionEngine.h"
 
@@ -17,6 +18,19 @@
 #include <vector>
 
 namespace bdfr::integration {
+
+struct TimedPhoneme {
+    std::string phoneme;
+    double start_seconds = 0.0;
+    double duration_seconds = 0.0;
+    float confidence = 1.0F;
+};
+
+std::vector<performance::PerformanceFrame> to_engine_phoneme_frames(
+    const std::vector<TimedPhoneme>& phonemes,
+    const bdfr::speech::LanguageProfile& language,
+    performance::Nanoseconds session_start_ns,
+    const std::string& source_id = "phoneme-alignment");
 
 performance::PerformanceFrame to_engine_frame(
     const bdfr::FacialFrame& source,
