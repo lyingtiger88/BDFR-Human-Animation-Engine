@@ -114,6 +114,28 @@ int main() {
     assert(bdfr::integration::sample_procedural_face(
         behavior_profile, -1.0, 0).faces.empty());
 
+    const auto english_phonemes = bdfr::integration::to_engine_phoneme_frames(
+        {{"m", 0.0, 0.08, 0.95F}, {"iy", 0.08, 0.10, 0.8F}},
+        bdfr::speech::LanguageProfile::englishBootstrap(), 900000000, "asr-en");
+    assert(english_phonemes.size() == 2);
+    assert(english_phonemes[0].speech[0].phoneme == "m");
+    assert(english_phonemes[0].speech[0].viseme == "MBP");
+    assert(english_phonemes[0].faces.size() == 1);
+    bool has_mouth_close = false;
+    for (const auto& curve : english_phonemes[0].faces[0].curves)
+        has_mouth_close = has_mouth_close || curve.name == "mouthClose";
+    assert(has_mouth_close);
+    assert(english_phonemes[1].speech[0].viseme == "EE");
+
+    const auto persian_phonemes = bdfr::integration::to_engine_phoneme_frames(
+        {{"kh", 0.0, 0.09, 0.9F}, {"zh", 0.09, 0.11, 0.7F}},
+        bdfr::speech::LanguageProfile::persianBootstrap(), 1200000000, "asr-fa");
+    assert(persian_phonemes.size() == 2);
+    assert(persian_phonemes[0].speech[0].viseme == "KNG");
+    assert(persian_phonemes[1].speech[0].viseme == "CHSH");
+    assert(bdfr::integration::to_engine_phoneme_frames(
+        {{"m", -0.1, 0.08, 1.0F}}, bdfr::speech::LanguageProfile::englishBootstrap(), 0).empty());
+
     const auto planned_speech = bdfr::integration::plan_text_speech("Hello world", 700000000, "dialogue-track");
     assert(!planned_speech.empty());
     assert(planned_speech.front().header.source_id == "dialogue-track");
