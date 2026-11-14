@@ -50,6 +50,9 @@ int main() {
     assert(facial_frame.faces.size() == 1);
     assert(facial_frame.faces[0].header.source_time_ns == 250000000);
     assert(facial_frame.heads[0].channels.size() == 3);
+    assert(facial_frame.heads[0].rotation.w != 1.0F);
+    assert(facial_frame.faces[0].head_rotation.w != 1.0F);
+    assert(facial_frame.faces[0].gaze_direction.z == 1.0F);
     assert(facial_frame.gaze[0].channels.size() == 2);
 
     bdfrpc::SkeletonPose pose;
