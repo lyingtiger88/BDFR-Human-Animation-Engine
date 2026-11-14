@@ -8,8 +8,10 @@ Pinned source trees:
 
 ## Current execution policy
 
-- [x] CI workflow changed to manual-only (`workflow_dispatch`) while the owner has requested development without builds.
-- [ ] Do not trigger Build, CTest or Release workflows until the owner explicitly requests a build.
+- [x] Owner-approved milestone policy: run the Windows x64/Linux x86-64 Build + CTest matrix after a substantial engine capability is integrated.
+- [x] CI remains manually dispatchable and now also runs on relevant `main` changes under `engine/**`, `tests/**`, `CMakeLists.txt`, `.github/workflows/ci.yml` and `migration/**`.
+- [x] First milestone under the revised policy: unified camera-calibration profile/projection capability added; CI trigger enabled for this milestone.
+- [ ] Confirm the resulting Windows/Linux CI run and resolve any compile/test failures before marking this milestone validated.
 
 ## Exact source snapshot migration
 - [x] All 244 tracked Facial Animation files copied.
@@ -49,9 +51,11 @@ The snapshots preserve all tracked source files and paths. They do not mirror so
 - [ ] Concrete ASR/forced-alignment backend, model packaging/licensing and recorded-speech acceptance tests.
 - [x] Cross-module integration regression tests for facial, skeleton, audio, text-viseme and procedural behavior paths.
 - [x] Release test targets explicitly retain assertions (NDEBUG disabled) so CI assertions execute in Release builds.
-- [ ] Latest expanded integration CI run pending; see GitHub Actions for current Windows/Linux status.
+- [ ] Latest camera-calibration milestone CI run pending; see GitHub Actions for current Windows/Linux status.
 - [x] Canonical signed-axis permutation, handedness-aware quaternion conversion and unit scaling for skeleton and hand samples.
-- [ ] Camera/sensor extrinsic calibration, per-device calibration workflow and rig-specific basis-profile authoring.
+- [x] Camera calibration data model promoted into `bdfr_engine_core`: intrinsics, distortion, extrinsics, profile upsert/find/erase, versioned serialization, camera projection and reprojection RMSE.
+- [x] Synthetic tests added for projection, behind-camera rejection, reprojection error and calibration-profile round-trip.
+- [ ] Camera calibration estimation/solver, sensor extrinsic solve, per-device calibration workflow and rig-specific basis-profile authoring.
 - [x] Generic six-component hand-PCA basis expansion into canonical 25-joint hand samples; model basis remains caller-supplied.
 - [x] Coordinate profile transforms for skeleton root/joints and hand palm/joints.
 - [ ] Integrate authorized MANO/SMPL-X basis assets and validate against official model outputs.
