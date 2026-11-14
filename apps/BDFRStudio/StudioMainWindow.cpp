@@ -218,7 +218,7 @@ void StudioMainWindow::refresh_cameras() {
         show_preview_placeholder("No camera detected");
         start_button_->setEnabled(false);
     } else {
-        status_->setText(QString("%1 camera input(s) detected").arg(devices.size()));
+        status_->setText(QString("%1 camera input(s) detected").arg(static_cast<qulonglong>(devices.size())));
         camera_details_->setText("Select a camera and start live preview");
         start_button_->setEnabled(cameras_.empty());
     }
@@ -266,7 +266,7 @@ void StudioMainWindow::start_camera() {
     refresh_button_->setEnabled(false);
     start_button_->setEnabled(false);
     stop_button_->setEnabled(true);
-    camera_details_->setText(QString("%1 camera(s) active · synchronization tolerance 8 ms").arg(cameras_.size()));
+    camera_details_->setText(QString("%1 camera(s) active · synchronization tolerance 8 ms").arg(static_cast<qulonglong>(cameras_.size())));
     status_->setText("Multi-camera capture started; waiting for synchronized frames.");
     preview_timer_->start();
 }
@@ -381,7 +381,7 @@ void StudioMainWindow::refresh_sessions() {
             QString::fromLatin1(bdfrpc::TakeSessionIndex::format_name(session.format)),
             QString("%1 MB").arg(
                 static_cast<double>(session.size_bytes) / (1024.0 * 1024.0), 0, 'f', 2),
-            QString::number(session.frame_count),
+            QString::number(static_cast<qulonglong>(session.frame_count)),
             QString("%1 s").arg(
                 static_cast<double>(session.duration_ns) / 1.0e9, 0, 'f', 2),
             session.valid ? "Valid" : QString("Invalid: %1").arg(
