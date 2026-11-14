@@ -95,6 +95,17 @@ if(BDFR_MIGRATE_BUILD_CAPTURE_MODULE)
     add_subdirectory(migration/source-snapshots/BDFR_PerformanceCapture)
 endif()
 
+if(BDFR_BUILD_TESTS AND BDFR_MIGRATE_BUILD_CAPTURE_MODULE)
+    add_executable(bdfr_frame_synchronizer_tests tests/test_frame_synchronizer.cpp)
+    target_link_libraries(bdfr_frame_synchronizer_tests PRIVATE bdfrpc_core)
+    add_test(NAME bdfr_frame_synchronizer_tests COMMAND bdfr_frame_synchronizer_tests)
+    if(MSVC)
+        target_compile_options(bdfr_frame_synchronizer_tests PRIVATE /UNDEBUG)
+    else()
+        target_compile_options(bdfr_frame_synchronizer_tests PRIVATE -UNDEBUG)
+    endif()
+endif()
+
 # Canonical integration facade: one public engine frame model over both migrated modules.
 if(BDFR_MIGRATE_BUILD_FACE_MODULE AND BDFR_MIGRATE_BUILD_CAPTURE_MODULE)
     add_library(bdfr_human_runtime

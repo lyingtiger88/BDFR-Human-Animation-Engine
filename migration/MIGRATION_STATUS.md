@@ -67,7 +67,13 @@ The snapshots preserve all tracked source files and paths. They do not mirror so
 - [ ] Full live camera/audio/face/body/hand end-to-end tests.
 - [x] Initial unified Qt Studio application shell and camera/rig calibration workspace added under `apps/BDFRStudio`.
 - [x] Studio calibration workflow wired to the migrated OpenCV intrinsic and synchronized rig-extrinsic calibration tools.
-- [ ] Full capture/session dashboard, camera preview integration, Qt/OpenCV CI acceptance and Android capture application.
+- [x] Live Capture tab implemented: OpenCV camera enumeration, start/stop controls, BGR frame preview and FPS/sequence/drop metrics.
+- [x] Session Library tab implemented: directory scan, format/size/frame/duration/validation columns and selected-take inspection.
+- [ ] Feature branch has not been built or hardware-tested; keep build disabled until owner approval.
+- [x] Multi-camera selection, all-or-nothing camera startup, host-monotonic timestamp synchronization and mosaic preview implemented in Studio.
+- [x] Synthetic FrameSynchronizer regression test added for pair matching, skew rejection and stale-frame recovery.
+- [ ] Feature branch not built or tested with physical cameras; 8 ms host-clock tolerance requires hardware validation.
+- [ ] Multi-camera Take recording, session playback/scrubbing and Android capture application.
 
 ## Licensing and external assets
 - [x] Third-party dependency and model-asset review register created at `Docs/THIRD_PARTY_DEPENDENCIES.md`.
