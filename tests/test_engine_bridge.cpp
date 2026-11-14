@@ -40,7 +40,7 @@ int main() {
     auto mixed = bdfr::integration::mix_face_curves({{"jawOpen", 0.2F}}, {smile});
     assert(mixed.size() == 2);
 
-    bdfrpc::SourceRouter router;
+    bdfr::FacialFrame facial;\n    facial.timestampSeconds = 0.25;\n    facial.confidence = 0.9F;\n    facial.curves["jawOpen"] = 0.4F;\n    facial.head = {0.1F, 0.2F, 0.3F};\n    facial.gaze = {0.5F, -0.2F, 0.8F};\n    auto facial_frame = bdfr::integration::to_engine_frame(facial, 250000000, "facial-camera");\n    assert(facial_frame.faces.size() == 1);\n    assert(facial_frame.faces[0].header.source_time_ns == 250000000);\n    assert(facial_frame.heads[0].channels.size() == 3);\n    assert(facial_frame.gaze[0].channels.size() == 2);\n\n    bdfrpc::SkeletonPose pose;\n    pose.model = bdfrpc::SkeletonModel::SMPL24;\n    pose.timestamp_ns = 300;\n    pose.confidence = 0.95F;\n    pose.translation = {1.0F, 2.0F, 3.0F};\n    pose.joints.push_back({"pelvis", -1, {0.0F, 0.0F, 0.0F}});\n    pose.joints.push_back({"spine", 0, {0.0F, 0.0F, 0.5F}});\n    pose.shape = {0.1F, 0.2F};\n    pose.left_hand_pca = {0.3F};\n    auto skeleton = bdfr::integration::to_engine_skeleton(pose, 400, "body-worker");\n    assert(skeleton.joints.size() == 2);\n    assert(skeleton.joints[1].parent_index == 0);\n    assert(skeleton.channels.size() == 3);\n    assert(skeleton.root_translation.y == 2.0F);\n\n    bdfrpc::SourceRouter router;
     router.set_route(bdfrpc::Domain::Face, {{"camera-1", 0.5F, 1000000}});
     bdfrpc::SyncedFrameSet synced;
     synced.timestamp_ns = 555;
