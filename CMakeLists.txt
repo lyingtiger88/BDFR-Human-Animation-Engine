@@ -20,6 +20,8 @@ add_library(bdfr_engine_core
     engine/core/Platform.cpp
     engine/core/Validation.cpp
     engine/core/SessionCodec.cpp
+    engine/core/HandPca.cpp
+    engine/core/SessionTimeline.cpp
 )
 target_include_directories(bdfr_engine_core PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/engine/include>
@@ -40,14 +42,24 @@ if(BDFR_BUILD_TESTS)
     add_executable(bdfr_session_codec_tests tests/test_session_codec.cpp)
     target_link_libraries(bdfr_session_codec_tests PRIVATE bdfr_engine_core)
     add_test(NAME bdfr_session_codec_tests COMMAND bdfr_session_codec_tests)
+    add_executable(bdfr_session_timeline_tests tests/test_session_timeline.cpp)
+    target_link_libraries(bdfr_session_timeline_tests PRIVATE bdfr_engine_core)
+    add_test(NAME bdfr_session_timeline_tests COMMAND bdfr_session_timeline_tests)
+    add_executable(bdfr_hand_pca_tests tests/test_hand_pca.cpp)
+    target_link_libraries(bdfr_hand_pca_tests PRIVATE bdfr_engine_core)
+    add_test(NAME bdfr_hand_pca_tests COMMAND bdfr_hand_pca_tests)
 
     # Keep assert-based test checks active even when the CI configuration is Release.
     if(MSVC)
         target_compile_options(bdfr_platform_tests PRIVATE /UNDEBUG)
         target_compile_options(bdfr_session_codec_tests PRIVATE /UNDEBUG)
+        target_compile_options(bdfr_session_timeline_tests PRIVATE /UNDEBUG)
+        target_compile_options(bdfr_hand_pca_tests PRIVATE /UNDEBUG)
     else()
         target_compile_options(bdfr_platform_tests PRIVATE -UNDEBUG)
         target_compile_options(bdfr_session_codec_tests PRIVATE -UNDEBUG)
+        target_compile_options(bdfr_session_timeline_tests PRIVATE -UNDEBUG)
+        target_compile_options(bdfr_hand_pca_tests PRIVATE -UNDEBUG)
     endif()
 endif()
 
