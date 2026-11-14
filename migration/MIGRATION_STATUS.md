@@ -48,4 +48,7 @@ The snapshots preserve all tracked source files and paths. They do not mirror so
 - [ ] Review upstream licenses, MetaHuman/SMPL/MANO terms and downloadable model assets.
 
 ## Repository retirement
-The source snapshot copy is complete and SHA-verified, but this is not yet proof of full application-level parity. Do not delete either original repository until current Windows/Linux CI passes, the licensing/asset review is complete, representative end-to-end tests pass, and the final feature parity checklist is approved.
+- [x] Evidence-based cutover assessment created at `Docs/CUTOVER_READINESS.md`.
+- [ ] Product parity, live hardware acceptance, legal/asset clearance and history/asset retention checks remain open.
+
+**Decision: NOT READY to delete either original repository.** The destination is suitable as the active integration repository, but the source repositories must remain available until the blockers in `Docs/CUTOVER_READINESS.md` are closed.
