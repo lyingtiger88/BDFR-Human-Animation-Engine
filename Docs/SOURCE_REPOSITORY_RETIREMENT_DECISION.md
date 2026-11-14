@@ -76,3 +76,18 @@ The commit archive is **metadata preservation**, not a native Git object databas
 Likewise, release metadata and asset URLs are preserved, but the three binary release assets have **not** been uploaded into the destination. The available GitHub actions do not expose release creation/asset upload, and direct asset downloads were unavailable. Keep the original releases accessible until their binaries are uploaded and checksums verified in the destination.
 
 Consequently, the source repositories are frozen for new development but are **not yet eligible for archive or deletion**. Do not represent the history or release binaries as fully migrated.
+
+
+## Final migration verification — 2026-11-14
+
+The hosted migration workflow completed successfully: [run 43596123322](https://github.com/lyingtiger88/BDFR-Human-Animation-Engine/actions/runs/43596123322).
+
+- 326/326 tracked source files passed exact Git blob SHA comparison.
+- Native commit histories imported and enumerated: 472 FacialAnimation commits, 82 PerformanceCapture main commits, and 90 PerformanceCapture architecture-branch commits (644 total).
+- Two legacy release tags and three release assets imported.
+- All three release assets passed SHA-256 checks before upload and after downloading from the destination.
+- Both source repositories had zero Issues and zero Pull Requests in the inspected API listings.
+
+**History rewrite note:** GitHub's built-in Actions token refused workflow-file pushes without the separate Workflows permission. To avoid a personal access token, historical `.github/workflows/` files were relocated to inert `legacy-workflows/` paths during history import. This rewrites commit SHAs while retaining the commit graph and content. Original source SHAs remain in the metadata archive. The imported workflow YAML files are not active destination workflows.
+
+**Final status: READY FOR OWNER-MANAGED MANUAL DELETION**, provided any untracked local assets, external model weights/datasets, secrets, or organization-level settings have been separately checked. The old repositories remain unchanged and have not been deleted.
