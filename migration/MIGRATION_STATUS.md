@@ -39,6 +39,8 @@ The snapshots preserve all tracked source files and paths. They do not mirror so
 - [x] Procedural blink, gaze and head-motion adapter with degree-to-radian normalization.
 - [x] EmotionEngine pose mapping and instant facial-event mapping (blink, double blink, brow flick, lip twitch, nose flare, jaw clench) into canonical face/emotion tracks.
 - [x] Prosody-driven audio behavior adapter mapping speech pauses and emphasis to canonical blink, head-nod, breath and emphasis cues.
+- [x] Provider-neutral timed phoneme adapter mapping externally aligned English/Persian phonemes through LanguageProfile into canonical speech and facial-viseme frames.
+- [ ] ASR / forced-alignment provider integration and recorded-speech acceptance tests (timed-phoneme adapter is ready for provider output; recognizer itself is not included).
 - [x] Cross-module integration regression tests for facial, skeleton, audio, text-viseme and procedural behavior paths.
 - [x] Release test targets explicitly retain assertions (NDEBUG disabled) so CI assertions execute in Release builds.
 - [ ] Latest expanded integration CI run pending; see GitHub Actions for current Windows/Linux status.
