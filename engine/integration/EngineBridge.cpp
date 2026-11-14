@@ -7,6 +7,7 @@
 #include <cmath>
 #include <iomanip>
 #include <limits>
+#include <map>
 #include <sstream>
 #include <utility>
 
@@ -416,6 +417,59 @@ std::vector<performance::SpeechSample> plan_text_speech(
         sample.normalized_energy = std::clamp(event.emphasis, 0.0F, 1.0F);
         output.push_back(std::move(sample));
     }
+    return output;
+}
+
+std::vector<performance::FaceCurve> sample_phoneme_lipsync_curves(
+    const std::vector<TimedPhoneme>& phonemes,
+    const bdfr::speech::LanguageProfile& language,
+    double time_seconds,
+    double coarticulation_seconds) {
+    if (!std::isfinite(time_seconds) || time_seconds < 0.0 ||
+        !std::isfinite(coarticulation_seconds) || coarticulation_seconds < 0.0)
+        return {};
+
+    std::map<std::string, float> accumulated;
+    double total_weight = 0.0;
+    for (const auto& event : phonemes) {
+        if (event.phoneme.empty() || !std::isfinite(event.start_seconds) ||
+            !std::isfinite(event.duration_seconds) || !std::isfinite(event.confidence) ||
+            event.start_seconds < 0.0 || event.duration_seconds <= 0.0)
+            continue;
+        const double end_seconds = event.start_seconds + event.duration_seconds;
+        if (!std::isfinite(end_seconds)) continue;
+
+        double temporal_weight = 0.0;
+        if (time_seconds >= event.start_seconds && time_seconds <= end_seconds) {
+            temporal_weight = 1.0;
+        } else if (coarticulation_seconds > 0.0) {
+            const double distance = time_seconds < event.start_seconds
+                ? event.start_seconds - time_seconds
+                : time_seconds - end_seconds;
+            if (distance < coarticulation_seconds) {
+                const double linear = 1.0 - distance / coarticulation_seconds;
+                temporal_weight = linear * linear * (3.0 - 2.0 * linear);
+            }
+        }
+        const double weight = temporal_weight *
+            static_cast<double>(std::clamp(event.confidence, 0.0F, 1.0F));
+        if (weight <= 0.0) continue;
+
+        const auto viseme = language.mapPhoneme(event.phoneme);
+        const auto pose = bdfr::speech::VisemeSynthesizer::pose(
+            viseme, static_cast<float>(weight));
+        for (const auto& curve : pose)
+            accumulated[curve.first] += curve.second;
+        total_weight += weight;
+    }
+
+    if (total_weight <= 0.0) return {};
+    std::vector<performance::FaceCurve> output;
+    output.reserve(accumulated.size());
+    for (const auto& curve : accumulated)
+        output.push_back({curve.first, std::clamp(
+            static_cast<float>(static_cast<double>(curve.second) / total_weight),
+            0.0F, 1.0F)});
     return output;
 }
 
