@@ -114,6 +114,18 @@ int main() {
     assert(bdfr::integration::sample_procedural_face(
         behavior_profile, -1.0, 0).faces.empty());
 
+    bdfr::performance::HandPcaBasis hand_basis;
+    hand_basis.components[0] = 1.0F;
+    const auto expanded_hand = bdfr::integration::to_engine_hand(
+        {0.2F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F},
+        hand_basis, true, 100, 200, "mano-basis-test", 0.95F);
+    assert(expanded_hand.header.source_id == "mano-basis-test");
+    assert(expanded_hand.joints[0].name == "wrist");
+    assert(expanded_hand.joints[2].name == "left_index_1");
+    assert(expanded_hand.joints[2].rotation.w < 1.0F);
+    assert(bdfr::integration::to_engine_hand(
+        {0.2F}, hand_basis, true, 100, 200, "invalid-pca").header.source_id.empty());
+
     const auto english_phonemes = bdfr::integration::to_engine_phoneme_frames(
         {{"m", 0.0, 0.08, 0.95F}, {"iy", 0.08, 0.10, 0.8F}},
         bdfr::speech::LanguageProfile::englishBootstrap(), 900000000, "asr-en");
