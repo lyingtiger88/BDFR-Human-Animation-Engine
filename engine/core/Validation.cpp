@@ -76,12 +76,23 @@ ValidationResult validate(const Session& session) {
             if (!valid_header(head.header) || !valid_channels(head.channels))
                 return {false, "Invalid head sample or channels"};
         }
+        for (const auto& gaze : frame.gaze) {
+            if (!valid_header(gaze.header) || !valid_channels(gaze.channels))
+                return {false, "Invalid gaze sample or channels"};
+        }
         for (const auto& body : frame.bodies) {
             if (!valid_header(body.header) || !valid_channels(body.channels))
                 return {false, "Invalid body sample or channels"};
-            for (const auto& joint : body.joints)
+            for (std::size_t i = 0; i < body.joints.size(); ++i) {
+                const auto& joint = body.joints[i];
                 if (!valid_joint(joint))
                     return {false, "Invalid skeletal joint"};
+                if (joint.parent_index >= 0 &&
+                    static_cast<std::size_t>(joint.parent_index) >= body.joints.size())
+                    return {false, "Skeletal joint parent index is out of range"};
+                if (joint.parent_index == static_cast<std::int32_t>(i))
+                    return {false, "Skeletal joint cannot parent itself"};
+            }
         }
         for (const auto& hand : frame.left_hands) {
             if (!valid_header(hand.header) || !valid_channels(hand.channels))
