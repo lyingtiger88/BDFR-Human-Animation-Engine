@@ -4,6 +4,7 @@
 #include <cassert>
 #include <cstdint>
 #include <string>
+#include <limits>
 #include <vector>
 
 using namespace bdfr::performance;
@@ -117,6 +118,14 @@ int main() {
     auto bad_magic = bytes;
     bad_magic[0] = 0;
     assert(!deserialize_session(bad_magic, unchanged, &error));
+
+    Session future = original;
+    future.schema_version_minor = schema_minor + 1;
+    assert(!validate(future).ok);
+
+    Session non_finite = original;
+    non_finite.frames[0].faces[0].head_translation.x = std::numeric_limits<float>::quiet_NaN();
+    assert(!validate(non_finite).ok);
 
     Session invalid = original;
     invalid.session_id.clear();
