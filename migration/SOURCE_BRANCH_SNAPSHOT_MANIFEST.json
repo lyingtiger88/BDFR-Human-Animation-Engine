@@ -1,0 +1,50 @@
+{
+  "source_repository": "lyingtiger88/BDFR_PerformanceCapture",
+  "source_branch": "architecture/unified-human-engine-v1",
+  "comparison_against_main": {
+    "ahead_by": 8,
+    "behind_by": 0
+  },
+  "files": [
+    {
+      "source_path": "Docs/CANONICAL_PERFORMANCE_CONTRACT.md",
+      "destination_path": "migration/source-branch-snapshots/BDFR_PerformanceCapture_architecture-unified-human-engine-v1/Docs/CANONICAL_PERFORMANCE_CONTRACT.md",
+      "blob_sha": "7fcb5128c74b2294ebe0fe75af123fafa1434b7f"
+    },
+    {
+      "source_path": "Docs/MIGRATION_AND_PURGE_PLAN.md",
+      "destination_path": "migration/source-branch-snapshots/BDFR_PerformanceCapture_architecture-unified-human-engine-v1/Docs/MIGRATION_AND_PURGE_PLAN.md",
+      "blob_sha": "b01158ef499976fdbe817c04d47a493c55749b12"
+    },
+    {
+      "source_path": "Docs/UNIFIED_ENGINE_ARCHITECTURE.md",
+      "destination_path": "migration/source-branch-snapshots/BDFR_PerformanceCapture_architecture-unified-human-engine-v1/Docs/UNIFIED_ENGINE_ARCHITECTURE.md",
+      "blob_sha": "5709aa6328c70daf78f85c7a9b5a4ce940aef4de"
+    },
+    {
+      "source_path": "Docs/decisions/ADR-0001-new-engine-boundary.md",
+      "destination_path": "migration/source-branch-snapshots/BDFR_PerformanceCapture_architecture-unified-human-engine-v1/Docs/decisions/ADR-0001-new-engine-boundary.md",
+      "blob_sha": "1fb137873b6afa3dc491faed57ba7a82777f24d8"
+    },
+    {
+      "source_path": "ROADMAP_UNIFIED_ENGINE.md",
+      "destination_path": "migration/source-branch-snapshots/BDFR_PerformanceCapture_architecture-unified-human-engine-v1/ROADMAP_UNIFIED_ENGINE.md",
+      "blob_sha": "7f1b675d54a2d38635229b4a74556c4d9593b167"
+    },
+    {
+      "source_path": "include/bdfr/PerformanceFrame.h",
+      "destination_path": "migration/source-branch-snapshots/BDFR_PerformanceCapture_architecture-unified-human-engine-v1/include/bdfr/PerformanceFrame.h",
+      "blob_sha": "c3faea304851bdeb2a469be3d95d921d0a938dd8"
+    },
+    {
+      "source_path": "tests/test_performance_contract.cpp",
+      "destination_path": "migration/source-branch-snapshots/BDFR_PerformanceCapture_architecture-unified-human-engine-v1/tests/test_performance_contract.cpp",
+      "blob_sha": "928597ebde9d44023affe21e137f20ca6e87ed0c"
+    },
+    {
+      "source_path": "CMakeLists.txt",
+      "destination_path": "migration/source-branch-snapshots/BDFR_PerformanceCapture_architecture-unified-human-engine-v1/CMakeLists.txt",
+      "blob_sha": "28448fc9109dc36a15ce911fefc3bc04348b38ad"
+    }
+  ]
+}
