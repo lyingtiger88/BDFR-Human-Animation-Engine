@@ -57,4 +57,4 @@ Build and test status is recorded in `migration/MIGRATION_STATUS.md`; the exact 
 
 ## Unified Studio work in progress
 
-The feature branch `feature/studio-live-camera-preview` adds a Live Capture tab with OpenCV device enumeration and a live preview, plus a Session Library tab for scanning and inspecting recorded `.bdfrtake` / CSV sessions. It also retains the camera/rig calibration wizard. This branch is development-only at present: no build was run and live hardware acceptance remains pending. See `Docs/STUDIO_WORKSPACE.md` for usage and prerequisites.
+The feature branch `feature/studio-live-camera-preview` adds selectable multi-camera OpenCV capture, host-clock frame synchronization and a camera mosaic with skew/FPS/drop metrics, plus a Session Library tab for scanning and inspecting `.bdfrtake` / CSV sessions. It retains the camera/rig calibration wizard and adds a synthetic synchronizer regression test. This branch is development-only: no build or physical-camera acceptance has been run. See `Docs/STUDIO_WORKSPACE.md` for usage and prerequisites.
