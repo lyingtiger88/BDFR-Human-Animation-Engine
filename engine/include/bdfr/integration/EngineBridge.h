@@ -8,6 +8,7 @@
 #include "bdfrpc/Skeleton.h"
 #include "bdfrpc/Retarget.h"
 #include "bdfr/audio/WavAudio.h"
+#include "bdfr/speech/TextSpeech.h"
 
 #include <string>
 #include <vector>
@@ -36,6 +37,12 @@ performance::PerformanceFrame fuse_to_engine_frame(
 std::vector<performance::FaceCurve> mix_face_curves(
     const std::vector<performance::FaceCurve>& base,
     std::vector<bdfr::CurveLayer> layers);
+
+std::vector<performance::SpeechSample> plan_text_speech(
+    const std::string& text,
+    performance::Nanoseconds session_start_ns,
+    const std::string& source_id = "text-speech",
+    const bdfr::speech::TextSpeechOptions& options = {});
 
 performance::PerformanceFrame to_engine_frame(
     const bdfr::audio::AudioBuffer& source,
