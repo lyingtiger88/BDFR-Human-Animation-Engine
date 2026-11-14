@@ -236,6 +236,52 @@ std::vector<performance::FaceCurve> mix_face_curves(
     return output;
 }
 
+std::vector<performance::SpeechSample> plan_text_speech(
+    const std::string& text,
+    performance::Nanoseconds session_start_ns,
+    const std::string& source_id,
+    const bdfr::speech::TextSpeechOptions& options) {
+    std::vector<performance::SpeechSample> output;
+    if (text.empty() || source_id.empty()) return output;
+    const auto events = bdfr::speech::TextSpeechPlanner::plan(text, options);
+    output.reserve(events.size());
+    for (const auto& event : events) {
+        if (!std::isfinite(event.startSeconds) || !std::isfinite(event.durationSeconds) ||
+            !std::isfinite(event.emphasis) || event.startSeconds < 0.0 ||
+            event.durationSeconds < 0.0) continue;
+        const long double offset = static_cast<long double>(event.startSeconds) * 1000000000.0L;
+        if (offset > static_cast<long double>(std::numeric_limits<performance::Nanoseconds>::max()))
+            continue;
+        const auto offset_ns = static_cast<performance::Nanoseconds>(std::llround(offset));
+        if (session_start_ns > std::numeric_limits<performance::Nanoseconds>::max() - offset_ns)
+            continue;
+
+        performance::SpeechSample sample;
+        sample.header = make_header(offset_ns, session_start_ns + offset_ns,
+                                    source_id, 1.0F);
+        sample.text = event.token;
+        sample.phoneme = event.token;
+        switch (event.viseme) {
+        case bdfr::speech::Viseme::Rest: sample.viseme = "rest"; break;
+        case bdfr::speech::Viseme::MBP: sample.viseme = "MBP"; break;
+        case bdfr::speech::Viseme::FV: sample.viseme = "FV"; break;
+        case bdfr::speech::Viseme::TH: sample.viseme = "TH"; break;
+        case bdfr::speech::Viseme::L: sample.viseme = "L"; break;
+        case bdfr::speech::Viseme::R: sample.viseme = "R"; break;
+        case bdfr::speech::Viseme::WQ: sample.viseme = "WQ"; break;
+        case bdfr::speech::Viseme::EE: sample.viseme = "EE"; break;
+        case bdfr::speech::Viseme::AA: sample.viseme = "AA"; break;
+        case bdfr::speech::Viseme::OH: sample.viseme = "OH"; break;
+        case bdfr::speech::Viseme::CHSH: sample.viseme = "CHSH"; break;
+        case bdfr::speech::Viseme::KNG: sample.viseme = "KNG"; break;
+        case bdfr::speech::Viseme::SZTDN: sample.viseme = "SZTDN"; break;
+        }
+        sample.normalized_energy = std::clamp(event.emphasis, 0.0F, 1.0F);
+        output.push_back(std::move(sample));
+    }
+    return output;
+}
+
 performance::PerformanceFrame to_engine_frame(
     const bdfr::audio::AudioBuffer& source,
     performance::Nanoseconds session_time_ns,
