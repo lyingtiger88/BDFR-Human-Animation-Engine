@@ -236,6 +236,21 @@ std::vector<performance::FaceCurve> mix_face_curves(
     return output;
 }
 
+std::vector<performance::FaceCurve> sample_text_lipsync_curves(
+    const std::string& text,
+    double time_seconds,
+    const bdfr::speech::TextSpeechOptions& options) {
+    if (text.empty() || !std::isfinite(time_seconds) || time_seconds < 0.0) return {};
+    const auto events = bdfr::speech::TextSpeechPlanner::plan(text, options);
+    const auto curves = bdfr::speech::VisemeSynthesizer::sample(events, time_seconds);
+    std::vector<performance::FaceCurve> output;
+    output.reserve(curves.size());
+    for (const auto& item : curves) output.push_back({item.first, item.second});
+    std::sort(output.begin(), output.end(),
+              [](const auto& a, const auto& b) { return a.name < b.name; });
+    return output;
+}
+
 std::vector<performance::SpeechSample> plan_text_speech(
     const std::string& text,
     performance::Nanoseconds session_start_ns,
@@ -260,7 +275,8 @@ std::vector<performance::SpeechSample> plan_text_speech(
         sample.header = make_header(offset_ns, session_start_ns + offset_ns,
                                     source_id, 1.0F);
         sample.text = event.token;
-        sample.phoneme = event.token;
+        // TextSpeechPlanner emits grapheme tokens, not acoustically recognized phonemes.
+        sample.phoneme.clear();
         switch (event.viseme) {
         case bdfr::speech::Viseme::Rest: sample.viseme = "rest"; break;
         case bdfr::speech::Viseme::MBP: sample.viseme = "MBP"; break;
