@@ -45,8 +45,10 @@ The snapshots preserve all tracked source files and paths. They do not mirror so
 - [x] Cross-module integration regression tests for facial, skeleton, audio, text-viseme and procedural behavior paths.
 - [x] Release test targets explicitly retain assertions (NDEBUG disabled) so CI assertions execute in Release builds.
 - [ ] Latest expanded integration CI run pending; see GitHub Actions for current Windows/Linux status.
-- [ ] Full coordinate-system calibration/conversion and rig-specific basis-profile authoring.
+- [x] Canonical signed-axis permutation, handedness-aware quaternion conversion and unit scaling for skeleton and hand samples.
+- [ ] Camera/sensor extrinsic calibration, per-device calibration workflow and rig-specific basis-profile authoring.
 - [x] Generic six-component hand-PCA basis expansion into canonical 25-joint hand samples; model basis remains caller-supplied.
+- [x] Coordinate profile transforms for skeleton root/joints and hand palm/joints.
 - [ ] Integrate authorized MANO/SMPL-X basis assets and validate against official model outputs.
 - [x] Versioned canonical session serialization and deterministic round-trip/corruption/schema validation tests.
 - [x] Streaming session recorder with incremental frame validation and monotonic timestamp enforcement.
