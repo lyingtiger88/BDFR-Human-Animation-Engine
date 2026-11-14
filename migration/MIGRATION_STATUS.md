@@ -32,7 +32,8 @@ The snapshots preserve all tracked source files and paths. They do not mirror so
 - [x] Configurable capture FusionCore to canonical frame bridge.
 - [x] Facial CurveMixer integration helper.
 - [x] Cross-module integration regression test added.
-- [ ] Current post-validation commit must complete Windows and Linux CI.
+- [x] Current integration build and all 12 CTest cases pass on Linux x86-64 (run `43581980673`).
+- [ ] The matching Windows x64 build and CTest job is still running.
 - [ ] Full coordinate-system conversion and named retarget-profile implementation.
 - [ ] Lossless canonical session serialization and schema migration tests.
 - [ ] Full live camera/audio/face/body/hand end-to-end tests.
