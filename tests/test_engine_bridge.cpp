@@ -65,7 +65,13 @@ int main() {
     assert(skeleton.joints.size() == 2);
     assert(skeleton.joints[1].parent_index == 0);
     assert(skeleton.channels.size() == 3);
-    assert(skeleton.root_translation.y == 2.0F);\n    auto target_skeleton = bdfr::integration::retarget_to_engine(\n        skeleton, bdfrpc::RetargetProfile::unreal_mannequin());\n    assert(target_skeleton.profile_name == "Unreal Mannequin");\n    assert(target_skeleton.bones.size() == 2);\n    assert(target_skeleton.bones[1].target_bone == "spine_01");
+    assert(skeleton.root_translation.y == 2.0F);
+
+    auto target_skeleton = bdfr::integration::retarget_to_engine(
+        skeleton, bdfrpc::RetargetProfile::unreal_mannequin());
+    assert(target_skeleton.profile_name == "Unreal Mannequin");
+    assert(target_skeleton.bones.size() == 2);
+    assert(target_skeleton.bones[1].target_bone == "spine_01");
 
     bdfrpc::SourceRouter router;
     router.set_route(bdfrpc::Domain::Face, {{"camera-1", 0.5F, 1000000}});
