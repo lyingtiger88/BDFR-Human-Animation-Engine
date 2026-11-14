@@ -16,10 +16,11 @@ struct HandPcaBasis {
     bool valid() const noexcept;
 };
 
-// Expands six PCA coefficients into a canonical 25-joint hand:
-// wrist + four joints for each of five digits. The first digit joint is
-// a neutral metacarpal; the 15 predicted rotations drive proximal,
-// intermediate and distal joints.
+// Expands six PCA coefficients into the standard 21-landmark hand topology
+// (wrist + four joints for each of five digits) stored in the fixed 25-slot
+// HandSample container. Slot order is wrist, then index/middle/ring/pinky/thumb;
+// each digit has a neutral metacarpal followed by proximal/intermediate/distal
+// joints driven by the 15 predicted axis-angle rotations. Unused slots stay empty.
 bool expand_hand_pca(
     const std::array<float, 6>& coefficients,
     const HandPcaBasis& basis,
