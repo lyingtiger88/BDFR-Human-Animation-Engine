@@ -22,7 +22,7 @@ This matrix distinguishes exact source preservation from compilation, canonical 
 | Body root / joint hierarchy | Yes | Yes | Parent indices and quaternion conversion | Synthetic test |
 | Coordinate basis and unit conversion | Yes | Yes | Signed-axis permutation, handedness conversion and unit scaling for skeleton/hand transforms | Synthetic vector/quaternion conversion tests |
 | Hand PCA channels | Yes | Yes | Preserved as named scalar channels | Synthetic test |
-| Full MANO/SMPL-X hand articulation | Yes | Yes | Generic 6-component basis expansion to canonical 25-joint hands; licensed MANO/SMPL-X basis assets remain external | Synthetic basis regression test; no official model-basis acceptance test |
+| Full MANO/SMPL-X hand articulation | Yes | Yes | Generic 6-component basis expansion to the standard 21-landmark hand topology in the fixed 25-slot canonical hand container; licensed MANO/SMPL-X basis assets remain external | Synthetic basis regression test; no official model-basis acceptance test |
 | Camera calibration profile / projection | Yes | Core module registered in CMake | Intrinsics, distortion, extrinsics, profile persistence, projection and reprojection RMSE promoted to `bdfr_engine_core` | New synthetic regression test added; CI pending |
 | OpenCV camera acquisition / calibration solver | Yes | Optional build target | Acquisition adapter exists; calibration estimation and device workflow remain pending | Not enabled in default CI |
 | BVH export | Yes | Yes | Direct canonical export pending | No |
