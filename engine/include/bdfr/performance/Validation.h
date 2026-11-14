@@ -8,4 +8,5 @@ struct ValidationResult {
     std::string error;
 };
 ValidationResult validate(const Session& session);
+ValidationResult validate_frame(const PerformanceFrame& frame);
 }
