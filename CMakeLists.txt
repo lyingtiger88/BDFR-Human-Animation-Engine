@@ -82,14 +82,6 @@ if(BDFR_ENABLE_OPENCV)
     target_compile_definitions(bdfr_engine_core PUBLIC BDFR_HAS_OPENCV=1)
 endif()
 
-if(BDFR_BUILD_STUDIO)
-    if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/apps/BDFRStudio/CMakeLists.txt")
-        message(FATAL_ERROR "The unified BDFRStudio target has not been migrated yet. Keep BDFR_BUILD_STUDIO=OFF.")
-    endif()
-    find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
-    add_subdirectory(apps/BDFRStudio)
-endif()
-
 # Migration bridge: compile the two preserved implementations as independently
 # testable modules under the single 64-bit engine superbuild. Their source
 # snapshots remain immutable until their APIs are promoted into engine/*.
@@ -129,4 +121,17 @@ if(BDFR_MIGRATE_BUILD_FACE_MODULE AND BDFR_MIGRATE_BUILD_CAPTURE_MODULE)
             target_compile_options(bdfr_engine_bridge_tests PRIVATE -UNDEBUG)
         endif()
     endif()
+endif()
+
+# Unified Qt Studio is added after the migrated capture targets so its
+# calibration workflow can bind directly to the OpenCV calibration tools.
+if(BDFR_BUILD_STUDIO)
+    if(NOT BDFR_ENABLE_OPENCV)
+        message(FATAL_ERROR "BDFR_BUILD_STUDIO requires BDFR_ENABLE_OPENCV=ON for camera capture and calibration.")
+    endif()
+    if(NOT BDFR_MIGRATE_BUILD_CAPTURE_MODULE OR NOT TARGET bdfrpc_calibrate_camera OR NOT TARGET bdfrpc_calibrate_rig)
+        message(FATAL_ERROR "BDFR_BUILD_STUDIO requires the migrated Performance Capture module and its calibration tools.")
+    endif()
+    find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
+    add_subdirectory(apps/BDFRStudio)
 endif()
