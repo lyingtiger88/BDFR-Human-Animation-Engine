@@ -3,7 +3,8 @@ project(BDFR_Human_Animation_Engine VERSION 0.1.0 LANGUAGES CXX)
 
 option(BDFR_BUILD_TESTS "Build engine tests" ON)
 option(BDFR_BUILD_STUDIO "Build Qt 6 desktop Studio" OFF)
-option(BDFR_ENABLE_OPENCV "Enable OpenCV capture adapters" OFF)
+option(BDFR_ENABLE_OPENCV "Link OpenCV to the engine core" OFF)
+option(BDFRPC_ENABLE_OPENCV "Build migrated OpenCV camera adapters and calibration tools" OFF)
 option(BDFR_MIGRATE_BUILD_FACE_MODULE "Build the migrated facial-animation module from its preserved source snapshot" ON)
 option(BDFR_MIGRATE_BUILD_CAPTURE_MODULE "Build the migrated performance-capture module from its preserved source snapshot" ON)
 
@@ -57,6 +58,7 @@ if(BDFR_MIGRATE_BUILD_FACE_MODULE)
 endif()
 
 if(BDFR_MIGRATE_BUILD_CAPTURE_MODULE)
+    set(BDFRPC_ENABLE_OPENCV ${BDFRPC_ENABLE_OPENCV} CACHE BOOL "Enable migrated OpenCV camera adapters" FORCE)
     set(BDFRPC_BUILD_STUDIO OFF CACHE BOOL "Keep legacy capture Studio disabled in engine superbuild" FORCE)
     add_subdirectory(migration/source-snapshots/BDFR_PerformanceCapture)
 endif()
