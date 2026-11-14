@@ -1,7 +1,7 @@
 {
   "summary": {
     "generated_at": "2026-11-14",
-    "type": "Commit metadata preservation export; not a Git object database or git bundle",
+    "type": "Commit metadata + source ref inventory + release metadata/digest archive; NOT a native Git mirror",
     "histories": [
       {
         "repository": "lyingtiger88/BDFR_FacialAnimation",
@@ -25,7 +25,7 @@
         "oldest_sha": "796ef0524c5f9ef915b07f379cf26fed975cbad8"
       }
     ],
-    "note": "Original Git commit SHAs, parent relationships, messages, author/committer timestamps and source URLs are preserved. Exact Git history import requires a mirror clone/push or Git bundle because source Git objects cannot be transferred by the available GitHub file/commit actions."
+    "note": "Preserves all inspected source commit records, parent relationships, authorship timestamps, source refs and release asset SHA-256 digests. Native Git objects and binary release assets still require mirror Git transport and upload."
   },
   "histories": [
     {
@@ -11673,5 +11673,117 @@
         ]
       }
     ]
+  },
+  "release_metadata": {
+    "source_repository": "lyingtiger88/BDFR_FacialAnimation",
+    "releases": [
+      {
+        "tag_name": "studio-test-latest",
+        "name": "BDFR Studio — Latest Test Build",
+        "html_url": "https://github.com/lyingtiger88/BDFR_FacialAnimation/releases/tag/studio-test-latest",
+        "target_commitish": "main",
+        "created_at": "2026-10-10T08:10:57Z",
+        "published_at": "2026-10-03T15:44:42Z",
+        "prerelease": true,
+        "body": "Latest tested Windows build of the BDFR Studio desktop GUI.",
+        "assets": [
+          {
+            "name": "BDFR_Studio_Windows.zip",
+            "size": 23023626,
+            "content_type": "application/zip",
+            "digest": "sha256:2996fe814603e97123a07d90b42a2d6cd510fa6baa4ac510aac2f1536bab3422",
+            "state": "uploaded",
+            "browser_download_url": "https://github.com/lyingtiger88/BDFR_FacialAnimation/releases/download/studio-test-latest/BDFR_Studio_Windows.zip",
+            "asset_api_url": "https://api.github.com/repos/lyingtiger88/BDFR_FacialAnimation/releases/assets/627407316"
+          }
+        ]
+      },
+      {
+        "tag_name": "hardware-test-latest",
+        "name": "BDFR Hardware Test — Latest",
+        "html_url": "https://github.com/lyingtiger88/BDFR_FacialAnimation/releases/tag/hardware-test-latest",
+        "target_commitish": "main",
+        "created_at": "2026-10-10T08:04:11Z",
+        "published_at": "2026-10-03T12:13:34Z",
+        "prerelease": true,
+        "body": "Latest test-ready Windows kit and Android APK for BDFR Facial Animation hardware integration. These assets are rebuilt from the current main branch after tests pass.",
+        "assets": [
+          {
+            "name": "BDFR_Android_Hardware_Test.apk",
+            "size": 54221734,
+            "content_type": "application/vnd.android.package-archive",
+            "digest": "sha256:ff86dc80d6ddae2854818e8d4260e4603728ba0d2bcf33f30f1a7ba7002fcdb9",
+            "state": "uploaded",
+            "browser_download_url": "https://github.com/lyingtiger88/BDFR_FacialAnimation/releases/download/hardware-test-latest/BDFR_Android_Hardware_Test.apk",
+            "asset_api_url": "https://api.github.com/repos/lyingtiger88/BDFR_FacialAnimation/releases/assets/627386445"
+          },
+          {
+            "name": "BDFR_Windows_Hardware_Test_Kit.zip",
+            "size": 177544,
+            "content_type": "application/zip",
+            "digest": "sha256:076250ea326a63119d75afe9b541edb235f4ab9ca5a045f566c0760f0b1374b6",
+            "state": "uploaded",
+            "browser_download_url": "https://github.com/lyingtiger88/BDFR_FacialAnimation/releases/download/hardware-test-latest/BDFR_Windows_Hardware_Test_Kit.zip",
+            "asset_api_url": "https://api.github.com/repos/lyingtiger88/BDFR_FacialAnimation/releases/assets/627386446"
+          }
+        ]
+      }
+    ]
+  },
+  "ref_inventory": {
+    "lyingtiger88/BDFR_FacialAnimation": [
+      {
+        "ref": "refs/heads/main",
+        "sha": "c090e6ab4612373e2c701f7ace39d69b68f242a5",
+        "type": "commit"
+      },
+      {
+        "ref": "refs/tags/hardware-test-latest",
+        "sha": "4a7eabe5338bc6fcf9eef79eda6610cfe9f246c1",
+        "type": "commit"
+      },
+      {
+        "ref": "refs/tags/studio-test-latest",
+        "sha": "c5af175f0227ae037af38f85dedcb8fca0cad277",
+        "type": "commit"
+      }
+    ],
+    "lyingtiger88/BDFR_PerformanceCapture": [
+      {
+        "ref": "refs/heads/main",
+        "sha": "4c36eeb06402cd16d635aa46bf9b5fce12aec832",
+        "type": "commit"
+      },
+      {
+        "ref": "refs/heads/architecture/unified-human-engine-v1",
+        "sha": "572a0628b5464aa49dc98adcc2f1cc6237b1de59",
+        "type": "commit"
+      }
+    ]
+  },
+  "verification": {
+    "checked_at": "2026-11-14",
+    "source_issue_counts": {
+      "BDFR_FacialAnimation": {
+        "open": 0,
+        "closed": 0
+      },
+      "BDFR_PerformanceCapture": {
+        "open": 0,
+        "closed": 0
+      }
+    },
+    "source_pull_request_counts": {
+      "BDFR_FacialAnimation": 0,
+      "BDFR_PerformanceCapture": 0
+    },
+    "destination_repository": "lyingtiger88/BDFR-Human-Animation-Engine",
+    "destination_existing_refs": [
+      "refs/heads/main",
+      "refs/heads/feature/studio-live-camera-preview"
+    ],
+    "native_git_object_transfer": "NOT_COMPLETED",
+    "release_asset_binary_transfer": "NOT_COMPLETED",
+    "reason": "The connected GitHub capability exposes Git object creation and read operations but not mirror Git transport or release asset upload. GitHub fetch is GET-only and cannot download binary release assets. Commit records and release metadata are preserved, but the destination does not contain source commit objects or uploaded release binaries."
   }
 }
