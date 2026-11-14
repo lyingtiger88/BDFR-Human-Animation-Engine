@@ -2,6 +2,7 @@
 #include "bdfr/performance/Validation.h"
 
 #include <cassert>
+#include <utility>
 
 int main() {
     bdfrpc::FusedPerformanceFrame fused;
@@ -39,10 +40,13 @@ int main() {
     auto mixed = bdfr::integration::mix_face_curves({{"jawOpen", 0.2F}}, {smile});
     assert(mixed.size() == 2);
 
-    bdfrpc::SourceRouter router;\n    router.set_route(bdfrpc::Domain::Face, {{"camera-1", 0.5F, 1000000}});\n    bdfrpc::SyncedFrameSet synced;
+    bdfrpc::SourceRouter router;
+    router.set_route(bdfrpc::Domain::Face, {{"camera-1", 0.5F, 1000000}});
+    bdfrpc::SyncedFrameSet synced;
     synced.timestamp_ns = 555;
     bdfrpc::CaptureFrame capture;
-    capture.timestamp_ns = 555;\n    capture.source_id = "camera-1";
+    capture.timestamp_ns = 555;
+    capture.source_id = "camera-1";
     capture.samples.push_back({bdfrpc::Domain::Face, 0.95F, {0.6F}, {"jawOpen"}});
     synced.frames.push_back(capture);
     auto fused_frame = bdfr::integration::fuse_to_engine_frame(synced, 777, std::move(router));
