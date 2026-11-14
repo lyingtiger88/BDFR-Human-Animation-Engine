@@ -7,6 +7,24 @@
 #include <vector>
 #include <utility>
 
+class FakeSpeechProvider final : public bdfr::speech::SpeechRecognitionProvider {
+public:
+    bool transcribe_and_align(
+        const bdfr::audio::AudioBuffer& audio,
+        bdfr::speech::SpeechRecognitionResult& result,
+        std::string* error) const override {
+        if (!audio.valid()) {
+            if (error) *error = "bad audio";
+            return false;
+        }
+        result.transcript = "me";
+        result.confidence = 0.92F;
+        result.phonemes = {{"m", 0.0, 0.08, 0.95F}, {"iy", 0.08, 0.12, 0.90F}};
+        if (error) error->clear();
+        return true;
+    }
+};
+
 int main() {
     bdfrpc::FusedPerformanceFrame fused;
     fused.timestamp_ns = 123456789;
@@ -125,6 +143,21 @@ int main() {
     assert(expanded_hand.joints[2].rotation.w < 1.0F);
     assert(bdfr::integration::to_engine_hand(
         {0.2F}, hand_basis, true, 100, 200, "invalid-pca").header.source_id.empty());
+
+    bdfr::audio::AudioBuffer asr_audio;
+    asr_audio.sampleRate = 16000;
+    asr_audio.channels = 1;
+    asr_audio.samples.assign(1600, 0.0F);
+    FakeSpeechProvider fake_provider;
+    bdfr::integration::AlignedSpeechFrames aligned;
+    std::string alignment_error;
+    assert(bdfr::integration::process_audio_speech(
+        fake_provider, asr_audio, bdfr::speech::LanguageProfile::englishBootstrap(),
+        1500000000, aligned, &alignment_error));
+    assert(alignment_error.empty());
+    assert(aligned.transcript == "me");
+    assert(aligned.frames.size() == 2);
+    assert(aligned.frames[0].speech[0].viseme == "MBP");
 
     const auto english_phonemes = bdfr::integration::to_engine_phoneme_frames(
         {{"m", 0.0, 0.08, 0.95F}, {"iy", 0.08, 0.10, 0.8F}},
