@@ -36,3 +36,15 @@ ctest --test-dir build --output-on-failure
 ```
 
 See `Docs/` and `migration/` for the architecture, feature inventory and source provenance.
+
+## Migration integration status
+
+The exact tracked source trees from both predecessor repositories are preserved under `migration/source-snapshots/` and checked against `migration/SNAPSHOT_MANIFEST.json` by `migration/verify_snapshot.py`.
+
+The top-level CMake superbuild compiles the migrated facial and performance-capture libraries as separate modules while exposing a shared canonical runtime. The current integration adapters cover:
+- Facial solver frames to face, head and gaze tracks.
+- EasyMocap/SMPL skeleton poses to canonical joints, root transforms and shape/expression/hand-PCA channels.
+- Capture FusionCore output to canonical face, head, body and hand tracks.
+- Facial CurveMixer layers to canonical facial curves.
+
+Build and test status is recorded in `migration/MIGRATION_STATUS.md`. The Qt Studio, Android capture client, full retargeting/coordinate conversion and production asset/license review remain separate migration gates.
