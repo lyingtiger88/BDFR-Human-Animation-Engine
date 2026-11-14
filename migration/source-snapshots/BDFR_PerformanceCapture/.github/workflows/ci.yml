@@ -1,0 +1,54 @@
+name: core-ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S . -B build -DBDFRPC_BUILD_TESTS=ON
+      - name: Build
+        run: cmake --build build --config Release
+      - name: Test
+        run: ctest --test-dir build -C Release --output-on-failure
+      - name: Test EasyMocap worker supervisor
+        if: runner.os == 'Linux'
+        run: python3 adapters/easymocap_worker.py --self-test
+      - name: Synthetic sync and fusion benchmark
+        if: runner.os == 'Linux'
+        run: ./build/bdfrpc_benchmark 20000 4
+
+  opencv-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install OpenCV
+        run: sudo apt-get update && sudo apt-get install -y libopencv-dev
+      - name: Configure with live camera backend
+        run: cmake -S . -B build-opencv -DBDFRPC_ENABLE_OPENCV=ON -DBDFRPC_BUILD_TESTS=ON
+      - name: Build
+        run: cmake --build build-opencv --config Release
+      - name: Test core
+        run: ctest --test-dir build-opencv -C Release --output-on-failure
+
+  studio:
+    runs-on: ubuntu-latest
+    env:
+      QT_QPA_PLATFORM: offscreen
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Qt and OpenCV
+        run: sudo apt-get update && sudo apt-get install -y libopencv-dev qt6-base-dev
+      - name: Configure Studio
+        run: cmake -S . -B build-studio -DBDFRPC_ENABLE_OPENCV=ON -DBDFRPC_BUILD_STUDIO=ON -DBDFRPC_BUILD_TESTS=ON
+      - name: Build Studio
+        run: cmake --build build-studio --config Release
+      - name: Test Studio and core
+        run: ctest --test-dir build-studio -C Release --output-on-failure
