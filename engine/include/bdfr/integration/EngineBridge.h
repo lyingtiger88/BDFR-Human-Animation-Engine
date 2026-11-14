@@ -12,7 +12,7 @@ namespace bdfr::integration {
 
 performance::PerformanceFrame fuse_to_engine_frame(
     const bdfrpc::SyncedFrameSet& source,
-    performance::Nanoseconds session_time_ns);
+    performance::Nanoseconds session_time_ns,\n    bdfrpc::SourceRouter router);
 
 std::vector<performance::FaceCurve> mix_face_curves(
     const std::vector<performance::FaceCurve>& base,
