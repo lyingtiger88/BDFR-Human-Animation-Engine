@@ -30,5 +30,9 @@ jobs:
         run: cmake -S . -B build -G "${{ matrix.generator }}" -DCMAKE_BUILD_TYPE=Release -DBDFR_BUILD_TESTS=ON
       - name: Build
         run: cmake --build build --config Release --parallel
-      - name: Test
+      - name: Test (Windows multi-config)
+        if: runner.os == 'Windows'
         run: ctest --test-dir build -C Release --output-on-failure
+      - name: Test (Linux single-config)
+        if: runner.os == 'Linux'
+        run: ctest --test-dir build --output-on-failure
