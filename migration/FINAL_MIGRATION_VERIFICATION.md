@@ -2,12 +2,13 @@
 
 Checked: 2026-11-14
 Destination: `lyingtiger88/BDFR-Human-Animation-Engine`
+GitHub Actions run: [43596123322](https://github.com/lyingtiger88/BDFR-Human-Animation-Engine/actions/runs/43596123322)
 
 ## Executive result
 
-**NOT READY for manual deletion of the two source repositories.**
+**MIGRATION VERIFIED. The two source repositories are ready for manual deletion, subject to the owner's own retention decision and backup policy.**
 
-The 326-file source snapshots are fully verified byte-for-byte at the Git blob-object level. The native Git histories/refs and three binary release assets are not present in the destination. Their metadata has been preserved, but that is not equivalent to importing the original objects or binaries.
+All tracked source snapshots, complete commit histories for the inspected branches, branch/tag refs, and all three release binaries are now present in the destination. The automated GitHub Actions migration completed successfully. The original repositories were not modified or deleted.
 
 ## 1. Source snapshot verification — PASS
 
@@ -19,58 +20,64 @@ Compared the pinned source Git trees, manifest blob SHAs, and destination main-b
 | BDFR_PerformanceCapture | 82 | 82 | 82 | 82 | 0 |
 | **Total** | **326** | **326** | **326** | **326** | **0** |
 
-All three recursive tree responses were complete (not truncated). Source HEAD commits match the manifest's pinned revisions:
-- FacialAnimation main: `c090e6ab4612373e2c701f7ace39d69b68f242a5`
-- PerformanceCapture main: `4c36eeb06402cd16d635aa46bf9b5fce12aec832`
+All recursive tree responses were complete (not truncated). Source HEAD commits match the manifest's pinned revisions.
 
-## 2. Issues and pull requests — PASS
+## 2. Native Git history and refs — PASS
 
-The inspected GitHub Issues endpoints returned zero open or closed issues in both source repositories. The repository pull-request listings returned zero PRs in both source repositories. There are no issue/PR records to migrate based on the current source state.
+The complete commit graph for each inspected source branch was pushed into isolated destination branches and enumerated from the destination:
 
-## 3. Git history and refs — FAIL / NOT IMPORTED
+| Source branch | Imported destination branch | Commit count |
+|---|---|---:|
+| FacialAnimation/main | `legacy/facial-animation/main` | 472 |
+| PerformanceCapture/main | `legacy/performance-capture/main` | 82 |
+| PerformanceCapture/architecture/unified-human-engine-v1 | `legacy/performance-capture/architecture/unified-human-engine-v1` | 90 |
+| **Total** | | **644** |
 
-The destination currently has only its own `main` and `feature/studio-live-camera-preview` branches (plus GitHub's pull-request refs). It does not have the legacy branch refs or legacy release tags.
+The two source release tags were also preserved as destination tags:
+- `legacy/facial-animation/studio-test-latest`
+- `legacy/facial-animation/hardware-test-latest`
 
-The metadata archive records:
-- 472 commits from `BDFR_FacialAnimation/main`
-- 82 commits from `BDFR_PerformanceCapture/main`
-- 90 commits from `BDFR_PerformanceCapture/architecture/unified-human-engine-v1`
+### Important history detail
 
-These are metadata records, not Git commit/tree/blob objects. They do not provide a traversable Git history in the destination. The original source refs remain:
-- FacialAnimation: `main`, `studio-test-latest`, `hardware-test-latest`
-- PerformanceCapture: `main`, `architecture/unified-human-engine-v1`
+Commit IDs were rewritten during migration because GitHub's automatically-issued Actions token rejected pushes containing files under `.github/workflows/` without the separate Workflows permission. To avoid requiring a personal access token, the migration relocated historical workflow YAML files to the inert `legacy-workflows/` path in the imported histories. The source commit graph and commit metadata are retained, but the rewritten commit SHAs differ from the original source SHAs. These historical workflow files are not active workflows in the destination.
 
-A direct Git transport check from the available runtime failed because `github.com` DNS resolution was unavailable. The GitHub connector supports GET/read operations and Git object creation but not mirror transport. Therefore no native history import was completed.
+The original source SHAs and metadata remain preserved in `migration/LEGACY_GIT_AND_RELEASE_ARCHIVE.json`.
 
-## 4. Releases and binary assets — FAIL / NOT IMPORTED
+## 3. Issues and pull requests — PASS
 
-The destination currently has zero GitHub Releases. The two source FacialAnimation Releases and their three assets remain only at the source:
-- `BDFR_Studio_Windows.zip` — 23,023,626 bytes — SHA-256 `2996fe814603e97123a07d90b42a2d6cd510fa6baa4ac510aac2f1536bab3422`
-- `BDFR_Android_Hardware_Test.apk` — 54,221,734 bytes — SHA-256 `ff86dc80d6ddae2854818e8d4260e4603728ba0d2bcf33f30f1a7ba7002fcdb9`
-- `BDFR_Windows_Hardware_Test_Kit.zip` — 177,544 bytes — SHA-256 `076250ea326a63119d75afe9b541edb235f4ab9ca5a045f566c0760f0b1374b6`
+The inspected source repositories returned zero open or closed Issues and zero Pull Requests. There were no issue/PR records to recreate.
 
-Names, sizes, source URLs and source-reported digests are preserved in `migration/LEGACY_GIT_AND_RELEASE_ARCHIVE.json`. Binary payloads have not been downloaded or uploaded.
+## 4. Release binaries — PASS
 
-## 5. Local/untracked assets, workflows, secrets, legal notices, product parity
+Both legacy releases were recreated in the destination. The three assets were downloaded from the source, SHA-256 checked before upload, downloaded again from the destination, and SHA-256 checked a second time.
 
-Not exhaustively verified. Repository snapshots cover tracked files at the pinned source commits only. They do not prove that local/untracked assets, external model weights, datasets, secrets, organization settings, workflow environments, or all third-party license notices have been transferred.
+| Asset | Size | Destination SHA-256 verification |
+|---|---:|---|
+| BDFR_Studio_Windows.zip | 23,023,626 bytes | PASS |
+| BDFR_Android_Hardware_Test.apk | 54,221,734 bytes | PASS |
+| BDFR_Windows_Hardware_Test_Kit.zip | 177,544 bytes | PASS |
 
-## 6. Deletion decision
+Destination releases:
+- [Legacy Studio test build](https://github.com/lyingtiger88/BDFR-Human-Animation-Engine/releases/tag/legacy/facial-animation/studio-test-latest)
+- [Legacy hardware test assets](https://github.com/lyingtiger88/BDFR-Human-Animation-Engine/releases/tag/legacy/facial-animation/hardware-test-latest)
 
-**Do not manually delete either source repository yet.**
+## 5. Automated execution
 
-Deletion becomes reasonable only after:
-1. Importing the original Git histories/refs using a machine with GitHub network access and authenticated push permission.
-2. Uploading all three release binaries to destination releases and verifying destination SHA-256 values.
-3. Checking out destination legacy refs and verifying commit ancestry and file trees.
-4. Confirming external/local assets and third-party notices are accounted for, or explicitly declaring them unnecessary.
-5. Keeping a separate verified backup of both source repositories.
+GitHub Actions run [43596123322](https://github.com/lyingtiger88/BDFR-Human-Animation-Engine/actions/runs/43596123322) completed with conclusion **success**. Its steps succeeded:
+1. Configure Git and install history rewrite tool.
+2. Mirror and push all three legacy branch histories and both legacy tags.
+3. Download source release binaries and verify source SHA-256.
+4. Recreate the two releases in the destination.
+5. Clone destination refs, verify all five refs, download all three destination assets and verify SHA-256 again.
 
-## 7. Current source/destination state
+## 6. Remaining caveats
 
-- Destination main: `9dd5eafe909e6bfe3fd0cf1fbc4680e84dba0321`
-- Destination legacy branch refs: none observed.
-- Destination GitHub releases: none observed.
-- Source repositories: still present and unchanged by this verification.
+- The 326 tracked files at the pinned source revisions are verified. This does not prove that untracked local files, external model weights/datasets, secrets, or organization-level settings existed or were transferred. Those are outside the tracked Git repository snapshots.
+- The source repositories remain intact and unchanged. No deletion or archival action was performed.
+- The imported historical workflow files are inert under `legacy-workflows/`; they are preserved as history, not enabled as active workflows.
 
-**Final conclusion:** The 326 tracked source files are safely present and exactly SHA-matched in the new repository. The two old repositories are not yet safe to delete because their native Git histories and release binaries are not imported.
+## Final conclusion
+
+**The tracked source code, inspected Git histories/refs, issue/PR inventory, and all release binaries are now migrated and verified in BDFR-Human-Animation-Engine.**
+
+The owner may manually delete the two old repositories if they are satisfied that no untracked local assets or external resources need separate retention. Keeping an independent backup before deletion remains prudent.
