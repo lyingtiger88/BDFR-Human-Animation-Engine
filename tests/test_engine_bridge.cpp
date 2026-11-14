@@ -132,6 +132,27 @@ int main() {
     assert(bdfr::integration::sample_procedural_face(
         behavior_profile, -1.0, 0).faces.empty());
 
+    bdfr::performance::CoordinateProfile coordinate_profile;
+    coordinate_profile.axis = {1, 0, 2};
+    coordinate_profile.sign = {1, -1, 1};
+    coordinate_profile.unit_scale = 0.01F;
+    bdfr::performance::SkeletonSample coordinate_skeleton;
+    coordinate_skeleton.root_translation = {100.0F, 200.0F, 300.0F};
+    coordinate_skeleton.joints.push_back({"root", -1, {10.0F, 20.0F, 30.0F}, {}, 1.0F});
+    assert(bdfr::integration::transform_skeleton_coordinates(
+        coordinate_skeleton, coordinate_profile));
+    assert(std::abs(coordinate_skeleton.root_translation.x - 2.0F) < 1.0e-5F);
+    assert(std::abs(coordinate_skeleton.root_translation.y + 1.0F) < 1.0e-5F);
+    assert(std::abs(coordinate_skeleton.joints[0].translation.z - 0.3F) < 1.0e-5F);
+
+    bdfr::performance::HandSample coordinate_hand;
+    coordinate_hand.has_palm_pose = true;
+    coordinate_hand.palm_position = {100.0F, 0.0F, 0.0F};
+    assert(bdfr::integration::transform_hand_coordinates(
+        coordinate_hand, coordinate_profile));
+    assert(std::abs(coordinate_hand.palm_position.x) < 1.0e-5F);
+    assert(std::abs(coordinate_hand.palm_position.y + 1.0F) < 1.0e-5F);
+
     bdfr::performance::HandPcaBasis hand_basis;
     hand_basis.components[0] = 1.0F;
     const auto expanded_hand = bdfr::integration::to_engine_hand(
