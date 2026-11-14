@@ -4,6 +4,8 @@ project(BDFR_Human_Animation_Engine VERSION 0.1.0 LANGUAGES CXX)
 option(BDFR_BUILD_TESTS "Build engine tests" ON)
 option(BDFR_BUILD_STUDIO "Build Qt 6 desktop Studio" OFF)
 option(BDFR_ENABLE_OPENCV "Enable OpenCV capture adapters" OFF)
+option(BDFR_MIGRATE_BUILD_FACE_MODULE "Build the migrated facial-animation module from its preserved source snapshot" ON)
+option(BDFR_MIGRATE_BUILD_CAPTURE_MODULE "Build the migrated performance-capture module from its preserved source snapshot" ON)
 
 if(NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
     message(FATAL_ERROR "BDFR Human Animation Engine requires a 64-bit target. Configure an x64/arm64 toolchain.")
@@ -44,4 +46,17 @@ endif()
 if(BDFR_BUILD_STUDIO)
     find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
     add_subdirectory(apps/BDFRStudio)
+endif()
+
+# Migration bridge: compile the two preserved implementations as independently
+# testable modules under the single 64-bit engine superbuild. Their source
+# snapshots remain immutable until their APIs are promoted into engine/*.
+if(BDFR_MIGRATE_BUILD_FACE_MODULE)
+    set(BDFR_BUILD_STUDIO OFF CACHE BOOL "Keep legacy facial Studio disabled in engine superbuild" FORCE)
+    add_subdirectory(migration/source-snapshots/BDFR_FacialAnimation EXCLUDE_FROM_ALL)
+endif()
+
+if(BDFR_MIGRATE_BUILD_CAPTURE_MODULE)
+    set(BDFRPC_BUILD_STUDIO OFF CACHE BOOL "Keep legacy capture Studio disabled in engine superbuild" FORCE)
+    add_subdirectory(migration/source-snapshots/BDFR_PerformanceCapture EXCLUDE_FROM_ALL)
 endif()
