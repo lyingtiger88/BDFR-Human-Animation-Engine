@@ -11763,7 +11763,24 @@
   },
   "verification": {
     "checked_at": "2026-11-14",
-    "source_issue_counts": {
+    "github_actions_run": "https://github.com/lyingtiger88/BDFR-Human-Animation-Engine/actions/runs/43596123322",
+    "native_git_history_transfer": "COMPLETED",
+    "history_rewrite": "Historical .github/workflows files relocated to inert legacy-workflows paths because GITHUB_TOKEN lacks Workflows permission; commit SHAs rewritten.",
+    "imported_commit_counts": {
+      "BDFR_FacialAnimation/main": 472,
+      "BDFR_PerformanceCapture/main": 82,
+      "BDFR_PerformanceCapture/architecture/unified-human-engine-v1": 90
+    },
+    "imported_refs": [
+      "refs/heads/legacy/facial-animation/main",
+      "refs/heads/legacy/performance-capture/main",
+      "refs/heads/legacy/performance-capture/architecture/unified-human-engine-v1",
+      "refs/tags/legacy/facial-animation/studio-test-latest",
+      "refs/tags/legacy/facial-animation/hardware-test-latest"
+    ],
+    "release_asset_binary_transfer": "COMPLETED",
+    "release_asset_sha256_verification": "PASSED before upload and after download from destination for all three assets",
+    "issue_counts": {
       "BDFR_FacialAnimation": {
         "open": 0,
         "closed": 0
@@ -11773,17 +11790,11 @@
         "closed": 0
       }
     },
-    "source_pull_request_counts": {
+    "pull_request_counts": {
       "BDFR_FacialAnimation": 0,
       "BDFR_PerformanceCapture": 0
     },
-    "destination_repository": "lyingtiger88/BDFR-Human-Animation-Engine",
-    "destination_existing_refs": [
-      "refs/heads/main",
-      "refs/heads/feature/studio-live-camera-preview"
-    ],
-    "native_git_object_transfer": "NOT_COMPLETED",
-    "release_asset_binary_transfer": "NOT_COMPLETED",
-    "reason": "The connected GitHub capability exposes Git object creation and read operations but not mirror Git transport or release asset upload. GitHub fetch is GET-only and cannot download binary release assets. Commit records and release metadata are preserved, but the destination does not contain source commit objects or uploaded release binaries."
+    "source_repositories_deleted": false,
+    "caveat": "Untracked local assets, external datasets/model weights, secrets and organization-level settings require separate owner-side inventory."
   }
 }
