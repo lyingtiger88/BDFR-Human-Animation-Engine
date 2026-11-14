@@ -60,3 +60,19 @@ This is a source-preservation copy only. It is not automatically approved as pro
 **Retirement status:** NOT CLEARED FOR ARCHIVE OR DELETION.
 
 Recommended final action, after all gates pass: archive both old repositories first, retain them through an agreed rollback period, and only consider permanent deletion after a separate explicit approval and verified backups.
+
+
+## Follow-up export completed on 2026-11-14
+
+- A commit-metadata archive has been added at `migration/LEGACY_GIT_AND_RELEASE_ARCHIVE.json`.
+- It contains 472 commits from `BDFR_FacialAnimation/main`, 82 commits from `BDFR_PerformanceCapture/main`, and 90 commits from `BDFR_PerformanceCapture/architecture/unified-human-engine-v1`. Each record retains the original SHA, parent SHA(s), full message, author/committer identity and timestamps, and source commit URL.
+- Both source repositories currently return zero GitHub Issues (open or closed) and zero open/closed pull requests in the inspected repository endpoints; therefore there are no issue records to recreate.
+- The two FacialAnimation Releases and all three asset names, sizes and original download URLs are recorded in the archive JSON.
+
+## Important limitation — not a full Git mirror or Release import
+
+The commit archive is **metadata preservation**, not a native Git object database: it does not contain commit trees/blobs and does not make original SHAs available as traversable commits in the destination repository. A true history migration requires `git clone --mirror` followed by `git push --mirror` (or a Git bundle import). That operation could not be completed in this environment because direct GitHub network access for Git transport is unavailable.
+
+Likewise, release metadata and asset URLs are preserved, but the three binary release assets have **not** been uploaded into the destination. The available GitHub actions do not expose release creation/asset upload, and direct asset downloads were unavailable. Keep the original releases accessible until their binaries are uploaded and checksums verified in the destination.
+
+Consequently, the source repositories are frozen for new development but are **not yet eligible for archive or deletion**. Do not represent the history or release binaries as fully migrated.
