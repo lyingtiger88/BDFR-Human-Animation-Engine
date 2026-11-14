@@ -79,6 +79,30 @@ int main() {
     assert(target_skeleton.bones.size() == 2);
     assert(target_skeleton.bones[1].target_bone == "spine_01");
 
+    const auto happy = bdfr::integration::sample_emotion(
+        bdfr::expression::Emotion::Happiness, 0.8F, 0.5, 2000000000, "emotion-worker");
+    assert(happy.faces.size() == 1 && happy.emotions.size() == 1);
+    assert(happy.emotions[0].label == "happiness");
+    assert(happy.emotions[0].intensity == 0.8F);
+    bool has_smile_curve = false;
+    for (const auto& curve : happy.faces[0].curves)
+        has_smile_curve = has_smile_curve || curve.name == "AU12";
+    assert(has_smile_curve);
+    assert(bdfr::integration::sample_emotion(
+        bdfr::expression::Emotion::Anger, 1.0F, -1.0, 0).emotions.empty());
+
+    bdfr::expression::InstantEvent blink;
+    blink.type = bdfr::expression::InstantEventType::Blink;
+    blink.startSeconds = 1.0;
+    blink.durationSeconds = 0.2;
+    const auto blink_frame = bdfr::integration::sample_instant_event(
+        blink, 1.1, 3000000000, "behavior-events");
+    assert(blink_frame.faces.size() == 1);
+    bool has_blink_curve = false;
+    for (const auto& curve : blink_frame.faces[0].curves)
+        has_blink_curve = has_blink_curve || curve.name == "eyeBlinkLeft";
+    assert(has_blink_curve);
+
     bdfr::expression::BehaviorProfile behavior_profile;
     const auto procedural = bdfr::integration::sample_procedural_face(
         behavior_profile, 0.05, 1000000000, 7, "behavior-worker");
