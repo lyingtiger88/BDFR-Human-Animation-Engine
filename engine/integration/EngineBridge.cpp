@@ -42,6 +42,21 @@ std::vector<performance::ScalarChannel> copy_channels(
     return result;
 }
 
+performance::Quaternionf euler_xyz_to_quaternion(float pitch, float yaw, float roll) {
+    const float hp = pitch * 0.5F;
+    const float hy = yaw * 0.5F;
+    const float hr = roll * 0.5F;
+    const float cp = std::cos(hp), sp = std::sin(hp);
+    const float cy = std::cos(hy), sy = std::sin(hy);
+    const float cr = std::cos(hr), sr = std::sin(hr);
+    return {
+        cr * cp * cy + sr * sp * sy,
+        sr * cp * cy - cr * sp * sy,
+        cr * sp * cy + sr * cp * sy,
+        cr * cp * sy - sr * sp * cy
+    };
+}
+
 performance::Quaternionf to_engine_quaternion(const bdfrpc::AxisAngle& value) {
     const float angle = std::sqrt(value.x * value.x + value.y * value.y + value.z * value.z);
     if (!std::isfinite(angle) || angle < 1.0e-8F) return {};
@@ -82,6 +97,10 @@ performance::PerformanceFrame to_engine_frame(
     const auto timestamp_ns = static_cast<performance::Nanoseconds>(std::llround(source_ns));
     performance::FaceSample face;
     face.header = make_header(timestamp_ns, session_time_ns, source_id, source.confidence);
+    // Facial HeadPose angles are radians in pitch/yaw/roll order.
+    face.head_rotation = euler_xyz_to_quaternion(
+        source.head.pitch, source.head.yaw, source.head.roll);
+    face.gaze_direction = {source.gaze.x, source.gaze.y, 1.0F};
     std::vector<std::pair<std::string, float>> ordered_curves(source.curves.begin(), source.curves.end());
     std::sort(ordered_curves.begin(), ordered_curves.end(),
               [](const auto& a, const auto& b) { return a.first < b.first; });
@@ -91,6 +110,7 @@ performance::PerformanceFrame to_engine_frame(
 
     performance::HeadSample head;
     head.header = make_header(timestamp_ns, session_time_ns, source_id, source.confidence);
+    head.rotation = face.head_rotation;
     head.channels = {
         {"pitch", source.head.pitch, source.confidence},
         {"yaw", source.head.yaw, source.confidence},
