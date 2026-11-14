@@ -79,6 +79,16 @@ int main() {
     assert(target_skeleton.bones.size() == 2);
     assert(target_skeleton.bones[1].target_bone == "spine_01");
 
+    const auto planned_speech = bdfr::integration::plan_text_speech("Hello world", 700000000, "dialogue-track");
+    assert(!planned_speech.empty());
+    assert(planned_speech.front().header.source_id == "dialogue-track");
+    assert(planned_speech.front().header.session_time_ns >= 700000000);
+    bool has_viseme = false;
+    for (const auto& event : planned_speech)
+        has_viseme = has_viseme || !event.viseme.empty();
+    assert(has_viseme);
+    assert(bdfr::integration::plan_text_speech("", 0).empty());
+
     bdfr::audio::AudioBuffer audio;
     audio.sampleRate = 16000;
     audio.channels = 1;
