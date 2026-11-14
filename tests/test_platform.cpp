@@ -2,6 +2,7 @@
 #include "bdfr/performance/Validation.h"
 
 #include <cassert>
+#include <limits>
 
 int main() {
     static_assert(sizeof(void*) == 8);
