@@ -399,6 +399,68 @@ std::vector<performance::SpeechSample> plan_text_speech(
     return output;
 }
 
+std::vector<performance::PerformanceFrame> plan_audio_behavior(
+    const bdfr::audio::AudioBuffer& source,
+    performance::Nanoseconds session_start_ns,
+    const std::string& source_id) {
+    std::vector<performance::PerformanceFrame> output;
+    if (!source.valid() || session_start_ns < 0 || source_id.empty()) return output;
+
+    const auto features = bdfr::audio::AudioFeatures::analyze(source);
+    const auto prosody = bdfr::audio::ProsodyAnalyzer::analyze(features);
+    const auto cues = bdfr::audio::AudioBehaviorPlanner::plan(prosody);
+    output.reserve(cues.size());
+
+    for (const auto& cue : cues) {
+        if (!std::isfinite(cue.startSeconds) || !std::isfinite(cue.durationSeconds) ||
+            !std::isfinite(cue.strength) || cue.startSeconds < 0.0 ||
+            cue.durationSeconds < 0.0) continue;
+        const long double offset = static_cast<long double>(cue.startSeconds) * 1000000000.0L;
+        if (offset > static_cast<long double>(std::numeric_limits<performance::Nanoseconds>::max()))
+            continue;
+        const auto offset_ns = static_cast<performance::Nanoseconds>(std::llround(offset));
+        if (session_start_ns > std::numeric_limits<performance::Nanoseconds>::max() - offset_ns)
+            continue;
+
+        const float strength = std::clamp(cue.strength, 0.0F, 1.0F);
+        const auto timestamp = session_start_ns + offset_ns;
+        performance::PerformanceFrame frame;
+        frame.session_time_ns = timestamp;
+
+        if (cue.type == bdfr::audio::AudioBehaviorCueType::Blink) {
+            performance::FaceSample face;
+            face.header = make_header(offset_ns, timestamp, source_id, strength);
+            face.curves = {{"eyeBlinkLeft", strength}, {"eyeBlinkRight", strength}};
+            frame.faces.push_back(std::move(face));
+        } else {
+            performance::HeadSample head;
+            head.header = make_header(offset_ns, timestamp, source_id, strength);
+            switch (cue.type) {
+            case bdfr::audio::AudioBehaviorCueType::HeadNod: {
+                const float pitch_radians = 0.10F * strength;
+                head.rotation = euler_xyz_to_quaternion(pitch_radians, 0.0F, 0.0F);
+                head.channels.push_back({"pitch", pitch_radians, strength});
+                head.channels.push_back({"audio_head_nod", strength, strength});
+                break;
+            }
+            case bdfr::audio::AudioBehaviorCueType::Breath:
+                head.channels.push_back({"breath_intensity", strength, strength});
+                head.channels.push_back({"breath_duration_seconds",
+                                         static_cast<float>(cue.durationSeconds), strength});
+                break;
+            case bdfr::audio::AudioBehaviorCueType::Emphasis:
+                head.channels.push_back({"speech_emphasis", strength, strength});
+                break;
+            case bdfr::audio::AudioBehaviorCueType::Blink:
+                break;
+            }
+            frame.heads.push_back(std::move(head));
+        }
+        output.push_back(std::move(frame));
+    }
+    return output;
+}
+
 performance::PerformanceFrame to_engine_frame(
     const bdfr::audio::AudioBuffer& source,
     performance::Nanoseconds session_time_ns,
