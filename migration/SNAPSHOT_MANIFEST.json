@@ -1,0 +1,1977 @@
+{
+  "manifest_version": 1,
+  "destination": "lyingtiger88/BDFR-Human-Animation-Engine",
+  "verification": "git hash-object SHA-1 per imported file; source blob SHA must equal destination blob SHA",
+  "sources": [
+    {
+      "repository": "lyingtiger88/BDFR_FacialAnimation",
+      "branch": "main",
+      "tree_sha": "c090e6ab4612373e2c701f7ace39d69b68f242a5",
+      "files": [
+        {
+          "source_path": ".github/workflows/android-ci.yml",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/.github/workflows/android-ci.yml",
+          "blob_sha": "1eaa5b57df6ab566e5effdba78621d30edec4049",
+          "size": 1811
+        },
+        {
+          "source_path": ".github/workflows/core-ci.yml",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/.github/workflows/core-ci.yml",
+          "blob_sha": "16786da870723a87866733294fd5a59707e36323",
+          "size": 2751
+        },
+        {
+          "source_path": ".github/workflows/facebuilder-ci.yml",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/.github/workflows/facebuilder-ci.yml",
+          "blob_sha": "b1b6c9fa9eb01ead18a621754470822faa69d4f8",
+          "size": 1185
+        },
+        {
+          "source_path": ".github/workflows/hardware-test-release.yml",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/.github/workflows/hardware-test-release.yml",
+          "blob_sha": "6bb6f7ef04f2ea15a37152723115e5f7fb1b2d84",
+          "size": 4880
+        },
+        {
+          "source_path": ".github/workflows/metahuman-ci.yml",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/.github/workflows/metahuman-ci.yml",
+          "blob_sha": "207691e8d332e7f8fbb88ef791ad94b0247854ac",
+          "size": 1063
+        },
+        {
+          "source_path": ".github/workflows/studio-ci.yml",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/.github/workflows/studio-ci.yml",
+          "blob_sha": "0ac6ca658ea824f5ee6fd860434d945448745974",
+          "size": 3590
+        },
+        {
+          "source_path": ".gitignore",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/.gitignore",
+          "blob_sha": "efa4094fea29edc86a3bbb9ae59324ffabcf96b8",
+          "size": 130
+        },
+        {
+          "source_path": "CMakeLists.txt",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/CMakeLists.txt",
+          "blob_sha": "04c6172fd826cc712dc5df4d5acf76440177a364",
+          "size": 7630
+        },
+        {
+          "source_path": "Docs/ARCHITECTURE.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/ARCHITECTURE.md",
+          "blob_sha": "d2dce95429e89894cad6450a5c41edc977fcba2a",
+          "size": 7136
+        },
+        {
+          "source_path": "Docs/ARKIT52.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/ARKIT52.md",
+          "blob_sha": "1b1c7055aa003a6b498e5ae5af0149218a154872",
+          "size": 896
+        },
+        {
+          "source_path": "Docs/AUDIO_BEHAVIOR.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/AUDIO_BEHAVIOR.md",
+          "blob_sha": "edf5567f93f2a2dbd8da5d9b830c8c082043d9f7",
+          "size": 596
+        },
+        {
+          "source_path": "Docs/AUDIO_FRONTEND.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/AUDIO_FRONTEND.md",
+          "blob_sha": "42defad59e3d164ee3c0a79f9193b968d0bcf60e",
+          "size": 749
+        },
+        {
+          "source_path": "Docs/CALIBRATION.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/CALIBRATION.md",
+          "blob_sha": "d936c8301934427f51da19c2c3bd9fd560022045",
+          "size": 703
+        },
+        {
+          "source_path": "Docs/CLI.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/CLI.md",
+          "blob_sha": "2b076c6f5d7b0dadb2bdf293cf8a53e81905642c",
+          "size": 622
+        },
+        {
+          "source_path": "Docs/CURVE_TUNING.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/CURVE_TUNING.md",
+          "blob_sha": "9ce35ac5a47f473438b1e88bd9c6ea11d3353d7a",
+          "size": 571
+        },
+        {
+          "source_path": "Docs/DEVELOPMENT.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/DEVELOPMENT.md",
+          "blob_sha": "927ea0f6a13c7032c088a8330c472bdbd5db24eb",
+          "size": 2840
+        },
+        {
+          "source_path": "Docs/DIAGNOSTICS.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/DIAGNOSTICS.md",
+          "blob_sha": "3cf2462a466602b2c48c80a21e1010862dc916a5",
+          "size": 1244
+        },
+        {
+          "source_path": "Docs/DIALOGUE_COMPILER.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/DIALOGUE_COMPILER.md",
+          "blob_sha": "a88507f478c009129d28312563e5b4e197eef9b2",
+          "size": 728
+        },
+        {
+          "source_path": "Docs/DIALOGUE_MARKUP.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/DIALOGUE_MARKUP.md",
+          "blob_sha": "ea60aa1980619b6b97ff908d34b89321234fa2b1",
+          "size": 676
+        },
+        {
+          "source_path": "Docs/DOWNLOADS.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/DOWNLOADS.md",
+          "blob_sha": "c5bca9d201cc75b770feabfb793dbe7eac4d69f0",
+          "size": 1092
+        },
+        {
+          "source_path": "Docs/EXPRESSION_ENGINE.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/EXPRESSION_ENGINE.md",
+          "blob_sha": "1bd6985585d7720be861f5f35ecede098a7a48a8",
+          "size": 736
+        },
+        {
+          "source_path": "Docs/FACEBUILDER_EOS.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/FACEBUILDER_EOS.md",
+          "blob_sha": "0e5bdf09defa62494ddbdbf7c93f015eaa4c7de7",
+          "size": 1043
+        },
+        {
+          "source_path": "Docs/FACEBUILDER_STUDIO_TEST.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/FACEBUILDER_STUDIO_TEST.md",
+          "blob_sha": "c90adea91a6688044043092008fa3a442dea8cc3",
+          "size": 1421
+        },
+        {
+          "source_path": "Docs/FACECAPTURE_CONTRACT.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/FACECAPTURE_CONTRACT.md",
+          "blob_sha": "7a3e3f0b078d768941f8e24e4c657487e8333abd",
+          "size": 978
+        },
+        {
+          "source_path": "Docs/HARDWARE_LIVE_TEST.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/HARDWARE_LIVE_TEST.md",
+          "blob_sha": "750dac4cb9ebf50b322009bf46e4985038b70f9b",
+          "size": 1518
+        },
+        {
+          "source_path": "Docs/INITIAL_TEST.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/INITIAL_TEST.md",
+          "blob_sha": "547515b1d75475d5f75a3c5dd75e992601e71468",
+          "size": 2772
+        },
+        {
+          "source_path": "Docs/LIVE_RECEIVER.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/LIVE_RECEIVER.md",
+          "blob_sha": "21d5ee5f42b32bfbfffd24bff9b0141b154833c4",
+          "size": 678
+        },
+        {
+          "source_path": "Docs/LIVE_RUNTIME.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/LIVE_RUNTIME.md",
+          "blob_sha": "dbb271e435e367f5869a0a19acf8d11c525977d4",
+          "size": 967
+        },
+        {
+          "source_path": "Docs/METAHUMAN_FULL_VIEWPORT_TEST.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/METAHUMAN_FULL_VIEWPORT_TEST.md",
+          "blob_sha": "f2b11465317f1a2bc7f0e38fc5436ac25defb51a",
+          "size": 2081
+        },
+        {
+          "source_path": "Docs/METAHUMAN_MESH_TEXTURE.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/METAHUMAN_MESH_TEXTURE.md",
+          "blob_sha": "15304a891dfc5a9647376dc5e6a4e0353ed708f8",
+          "size": 1939
+        },
+        {
+          "source_path": "Docs/METAHUMAN_OPENRIGLOGIC.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/METAHUMAN_OPENRIGLOGIC.md",
+          "blob_sha": "8ebcf6176aca565f8a57ea110fee769fdaf721c8",
+          "size": 1740
+        },
+        {
+          "source_path": "Docs/MOCAP_ADAPTERS.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/MOCAP_ADAPTERS.md",
+          "blob_sha": "86e0d164fd2fb736c27a9b89262fac8214157ffd",
+          "size": 998
+        },
+        {
+          "source_path": "Docs/MOCAP_CSV.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/MOCAP_CSV.md",
+          "blob_sha": "2da6f65bb481778416af544aa52619f39cec5aa2",
+          "size": 794
+        },
+        {
+          "source_path": "Docs/MODEL_MANAGEMENT.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/MODEL_MANAGEMENT.md",
+          "blob_sha": "bc7a64fb0121cc541033a516fbbc2c9cd0211e86",
+          "size": 533
+        },
+        {
+          "source_path": "Docs/NEUTRAL_DRIFT.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/NEUTRAL_DRIFT.md",
+          "blob_sha": "e2e547b3ee7f13fb6d45a0f646cd80b0bdd21bfd",
+          "size": 766
+        },
+        {
+          "source_path": "Docs/OFFLINE_VIDEO_PIPELINE.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/OFFLINE_VIDEO_PIPELINE.md",
+          "blob_sha": "d9e93d09cbf64317cadf97fbab8c4f93a51949b8",
+          "size": 1077
+        },
+        {
+          "source_path": "Docs/PERFORMANCE_FUSION.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/PERFORMANCE_FUSION.md",
+          "blob_sha": "7990584616371e371318291300128543e1e9bf77",
+          "size": 844
+        },
+        {
+          "source_path": "Docs/PERSISTENCE.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/PERSISTENCE.md",
+          "blob_sha": "d1e56e6e0ddd0ee50f78a54f3c7e6c16b0bb3512",
+          "size": 1069
+        },
+        {
+          "source_path": "Docs/PERSONALITY.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/PERSONALITY.md",
+          "blob_sha": "42e818293f4e3f8f2ae79c8b6c7e4569f55d1fdd",
+          "size": 710
+        },
+        {
+          "source_path": "Docs/PITCH_TRACKING.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/PITCH_TRACKING.md",
+          "blob_sha": "fcc0db3e08e8e4b9ba26810a5258623deef40777",
+          "size": 672
+        },
+        {
+          "source_path": "Docs/PREBUILT_TEST.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/PREBUILT_TEST.md",
+          "blob_sha": "9a27fdb9daaa2107a881ab36181699ebb251cc3d",
+          "size": 938
+        },
+        {
+          "source_path": "Docs/PROCEDURAL_BEHAVIOR.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/PROCEDURAL_BEHAVIOR.md",
+          "blob_sha": "93bceb45af0f33c735eea78b5ff5f2b101bb56d1",
+          "size": 851
+        },
+        {
+          "source_path": "Docs/PROSODY.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/PROSODY.md",
+          "blob_sha": "430a7c40fe39851c22fdd6d1ca3c2dfe9b029c00",
+          "size": 688
+        },
+        {
+          "source_path": "Docs/QUALITY_TARGETS.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/QUALITY_TARGETS.md",
+          "blob_sha": "268d952e9e567c8e47227e3c326e7b56ab62b0b0",
+          "size": 2922
+        },
+        {
+          "source_path": "Docs/RECOVERY.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/RECOVERY.md",
+          "blob_sha": "f7e7d5fd03faeb0d3b4cf6fcae5d7982cd36580d",
+          "size": 736
+        },
+        {
+          "source_path": "Docs/RESEARCH_ALIGNMENT_2026.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/RESEARCH_ALIGNMENT_2026.md",
+          "blob_sha": "ff6a0ab534c4c8d16cc66eef511e270bd3d53556",
+          "size": 3614
+        },
+        {
+          "source_path": "Docs/RETARGETING.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/RETARGETING.md",
+          "blob_sha": "07c5c119c5ed40fefc94737cfa3e035fade6ec69",
+          "size": 684
+        },
+        {
+          "source_path": "Docs/SEQUENCE_COMPARE.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/SEQUENCE_COMPARE.md",
+          "blob_sha": "87345f14edd7bff6d157d1c1fdf2bdf89af9f80f",
+          "size": 624
+        },
+        {
+          "source_path": "Docs/SESSION_STREAM.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/SESSION_STREAM.md",
+          "blob_sha": "bd7ec7887210eead72e80841296956e8c68a43eb",
+          "size": 606
+        },
+        {
+          "source_path": "Docs/SMART_CLEANUP.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/SMART_CLEANUP.md",
+          "blob_sha": "07a540e4a585b4959aeb8fd30587ae0269faea5d",
+          "size": 941
+        },
+        {
+          "source_path": "Docs/SPEECHFACE.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/SPEECHFACE.md",
+          "blob_sha": "4fa4c08abc1ea81c4ce1e5a224b2f02af89c1fc6",
+          "size": 925
+        },
+        {
+          "source_path": "Docs/SPEECH_PROVIDERS.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/SPEECH_PROVIDERS.md",
+          "blob_sha": "cfedb44053b226d75c6b6a469de83e91e2339592",
+          "size": 838
+        },
+        {
+          "source_path": "Docs/STREAM_PROTOCOL.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/STREAM_PROTOCOL.md",
+          "blob_sha": "1a98db8f80a374585d88190dded963dde63da4ae",
+          "size": 985
+        },
+        {
+          "source_path": "Docs/STUDIO.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/STUDIO.md",
+          "blob_sha": "bc169305583a3568d47e2d6fad5472bf624744ce",
+          "size": 2436
+        },
+        {
+          "source_path": "Docs/TESTING.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/TESTING.md",
+          "blob_sha": "c029ddc4c1e97637e992ae5ed444490a58f12435",
+          "size": 1367
+        },
+        {
+          "source_path": "Docs/TEXT_AUDIO_TIMING.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/TEXT_AUDIO_TIMING.md",
+          "blob_sha": "26a082ac6c56a2749e611b405acb29b25f3d5007",
+          "size": 684
+        },
+        {
+          "source_path": "Docs/TIMECODE.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Docs/TIMECODE.md",
+          "blob_sha": "1189c8ef6e135b0daae3b4aef9bf29b94be8c67c",
+          "size": 589
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/MEDIAPIPE.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/MEDIAPIPE.md",
+          "blob_sha": "2658812c2d9f75d6e40717e92bab6b2230eb63a9",
+          "size": 848
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/MODEL_SETUP.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/MODEL_SETUP.md",
+          "blob_sha": "8547a0f5d2547ef52b3662deabed9e0d6bbd5763",
+          "size": 649
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/OFFLINE_VIDEO.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/OFFLINE_VIDEO.md",
+          "blob_sha": "4393711261a8fa905ffefafc32567452923e8de9",
+          "size": 869
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/README.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/README.md",
+          "blob_sha": "8684043b11037ada5bfc765689b5fa9bf5568fbd",
+          "size": 1220
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/app/build.gradle",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/app/build.gradle",
+          "blob_sha": "a16271c3a2232518f7a3bbd48bfe634bccd9eca4",
+          "size": 954
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/app/src/main/AndroidManifest.xml",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/app/src/main/AndroidManifest.xml",
+          "blob_sha": "df44fc977aaf1f150d9fc8f644bd2525ae2fea2b",
+          "size": 884
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/app/src/main/assets/README.txt",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/app/src/main/assets/README.txt",
+          "blob_sha": "1149de4998a3c1a88d9d752b9b33f3bc12902da5",
+          "size": 519
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/app/src/main/java/com/bdfr/facecapture/BdfrFacialFrame.java",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/app/src/main/java/com/bdfr/facecapture/BdfrFacialFrame.java",
+          "blob_sha": "041172d58dbc523cbc6c91ffd570288db30ae0f6",
+          "size": 512
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/app/src/main/java/com/bdfr/facecapture/BdfrPacketCodec.java",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/app/src/main/java/com/bdfr/facecapture/BdfrPacketCodec.java",
+          "blob_sha": "8bb4a0db80df34ea1c4b7efedf8939adc19cf6cf",
+          "size": 3364
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/app/src/main/java/com/bdfr/facecapture/BdfrSessionRecorder.java",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/app/src/main/java/com/bdfr/facecapture/BdfrSessionRecorder.java",
+          "blob_sha": "b937153d56b2f307a1553fdb5066e7e44a4d2fb4",
+          "size": 2657
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/app/src/main/java/com/bdfr/facecapture/FaceModelManager.java",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/app/src/main/java/com/bdfr/facecapture/FaceModelManager.java",
+          "blob_sha": "49f3d0130a5e368c4ea14ebd4b7589c02d1c8f04",
+          "size": 6084
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/app/src/main/java/com/bdfr/facecapture/LiveStreamClient.java",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/app/src/main/java/com/bdfr/facecapture/LiveStreamClient.java",
+          "blob_sha": "0e7662ce6c78ca4680b2763a2c54a3ae1a5453bc",
+          "size": 2124
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/app/src/main/java/com/bdfr/facecapture/MainActivity.java",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/app/src/main/java/com/bdfr/facecapture/MainActivity.java",
+          "blob_sha": "34760af3dba427786d75070e8c189644f8a50088",
+          "size": 17337
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/app/src/main/java/com/bdfr/facecapture/MediaPipeFaceTracker.java",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/app/src/main/java/com/bdfr/facecapture/MediaPipeFaceTracker.java",
+          "blob_sha": "f467daa01542de5c3ee32d9c492e312fcfce54d4",
+          "size": 2575
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/app/src/main/java/com/bdfr/facecapture/MediaPipeLiveFaceTracker.java",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/app/src/main/java/com/bdfr/facecapture/MediaPipeLiveFaceTracker.java",
+          "blob_sha": "eecdb3f36df1b54875265a4d449b34761fcc544b",
+          "size": 3576
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/app/src/main/java/com/bdfr/facecapture/MediaPipeResultMapper.java",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/app/src/main/java/com/bdfr/facecapture/MediaPipeResultMapper.java",
+          "blob_sha": "0f32f739c490419c706fe2ac266d82a35b50e895",
+          "size": 1802
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/app/src/main/java/com/bdfr/facecapture/OfflineVideoSolver.java",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/app/src/main/java/com/bdfr/facecapture/OfflineVideoSolver.java",
+          "blob_sha": "148f15cb934293583c23fe790f8071e263ab277a",
+          "size": 4613
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/app/src/main/res/layout/activity_main.xml",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/app/src/main/res/layout/activity_main.xml",
+          "blob_sha": "7fd2fda0de3d538d80614299ac51b0950df6943e",
+          "size": 3206
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/app/src/main/res/values/styles.xml",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/app/src/main/res/values/styles.xml",
+          "blob_sha": "b74a01390d7c89eab9f99017ec9a3b5e3a7bc66d",
+          "size": 227
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/app/src/test/java/com/bdfr/facecapture/BdfrPacketCodecTest.java",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/app/src/test/java/com/bdfr/facecapture/BdfrPacketCodecTest.java",
+          "blob_sha": "d76789cf29857620530d593e9bffa655ac2e08ab",
+          "size": 789
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/app/src/test/java/com/bdfr/facecapture/BdfrSessionFormatTest.java",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/app/src/test/java/com/bdfr/facecapture/BdfrSessionFormatTest.java",
+          "blob_sha": "e7e047c8ba156d2c66c0c2b64cb1a05d16ecdd0c",
+          "size": 624
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/build.gradle",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/build.gradle",
+          "blob_sha": "9a0c48ae316faa507559841fec2a4557a7703fd8",
+          "size": 73
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/gradle/wrapper/gradle-wrapper.properties",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/gradle/wrapper/gradle-wrapper.properties",
+          "blob_sha": "7e7d24f6f29f0b86e10a92b8660106d628b9c3aa",
+          "size": 252
+        },
+        {
+          "source_path": "Mobile/BDFR_FaceCapture_Android/settings.gradle",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Mobile/BDFR_FaceCapture_Android/settings.gradle",
+          "blob_sha": "3bc2b906ee50890c8e33e7f13703381a1a60b34b",
+          "size": 335
+        },
+        {
+          "source_path": "Models/README.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Models/README.md",
+          "blob_sha": "9ee6aa0e6ac1a7031e62440afe7ef83351219a8e",
+          "size": 793
+        },
+        {
+          "source_path": "README.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/README.md",
+          "blob_sha": "463a4e2a11a5eeb36a37aaec4aa8e88068697ac6",
+          "size": 11979
+        },
+        {
+          "source_path": "ROADMAP.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/ROADMAP.md",
+          "blob_sha": "55778b0881d63048b3e42437571b78e3aea9fa6f",
+          "size": 21977
+        },
+        {
+          "source_path": "Unreal/BDFRFacialAnimation/BDFRFacialAnimation.uplugin",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Unreal/BDFRFacialAnimation/BDFRFacialAnimation.uplugin",
+          "blob_sha": "88dbd14120917288156236ca4b74c41c5eb58794",
+          "size": 438
+        },
+        {
+          "source_path": "Unreal/BDFRFacialAnimation/HARDWARE_TEST.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Unreal/BDFRFacialAnimation/HARDWARE_TEST.md",
+          "blob_sha": "620e389b87ed60cc0a6fcde2983ce0e030033363",
+          "size": 1651
+        },
+        {
+          "source_path": "Unreal/BDFRFacialAnimation/LIVELINK.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Unreal/BDFRFacialAnimation/LIVELINK.md",
+          "blob_sha": "638c740af5556967c3e9c6870168956317cc16be",
+          "size": 1289
+        },
+        {
+          "source_path": "Unreal/BDFRFacialAnimation/README.md",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Unreal/BDFRFacialAnimation/README.md",
+          "blob_sha": "fcf56a0e7536da3beb756c874b83a40031f64752",
+          "size": 532
+        },
+        {
+          "source_path": "Unreal/BDFRFacialAnimation/Source/BDFRFacialAnimation/BDFRFacialAnimation.Build.cs",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Unreal/BDFRFacialAnimation/Source/BDFRFacialAnimation/BDFRFacialAnimation.Build.cs",
+          "blob_sha": "82e4fcee390b553dc317726d32fa2ffc15548939",
+          "size": 503
+        },
+        {
+          "source_path": "Unreal/BDFRFacialAnimation/Source/BDFRFacialAnimation/Private/BDFRFacialAnimationModule.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Unreal/BDFRFacialAnimation/Source/BDFRFacialAnimation/Private/BDFRFacialAnimationModule.cpp",
+          "blob_sha": "f6a5953065c671ab9854cfa92b79e976ad2e4bac",
+          "size": 272
+        },
+        {
+          "source_path": "Unreal/BDFRFacialAnimation/Source/BDFRFacialAnimation/Private/BDFRFacialComponent.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Unreal/BDFRFacialAnimation/Source/BDFRFacialAnimation/Private/BDFRFacialComponent.cpp",
+          "blob_sha": "79bfa90c626cc715b7e42514d0a7bb570ddbadbe",
+          "size": 1767
+        },
+        {
+          "source_path": "Unreal/BDFRFacialAnimation/Source/BDFRFacialAnimation/Private/BDFRLiveLinkSource.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Unreal/BDFRFacialAnimation/Source/BDFRFacialAnimation/Private/BDFRLiveLinkSource.cpp",
+          "blob_sha": "0bd76bf757b6454ba93a4f1d4052c9c637b5b3cb",
+          "size": 4490
+        },
+        {
+          "source_path": "Unreal/BDFRFacialAnimation/Source/BDFRFacialAnimation/Private/BDFRLiveReceiverComponent.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Unreal/BDFRFacialAnimation/Source/BDFRFacialAnimation/Private/BDFRLiveReceiverComponent.cpp",
+          "blob_sha": "c7ad55e0e7ee042c26b80e25d9230e45caaae7b5",
+          "size": 15178
+        },
+        {
+          "source_path": "Unreal/BDFRFacialAnimation/Source/BDFRFacialAnimation/Private/BDFRRetargetProfileAsset.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Unreal/BDFRFacialAnimation/Source/BDFRFacialAnimation/Private/BDFRRetargetProfileAsset.cpp",
+          "blob_sha": "1756e8d86bdcb2de04815ee7c0a8004dbe7e56da",
+          "size": 506
+        },
+        {
+          "source_path": "Unreal/BDFRFacialAnimation/Source/BDFRFacialAnimation/Public/BDFRFacialComponent.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Unreal/BDFRFacialAnimation/Source/BDFRFacialAnimation/Public/BDFRFacialComponent.h",
+          "blob_sha": "b739c92efa48c4f4ba0afaad99a3617260138c51",
+          "size": 1381
+        },
+        {
+          "source_path": "Unreal/BDFRFacialAnimation/Source/BDFRFacialAnimation/Public/BDFRLiveLinkSource.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Unreal/BDFRFacialAnimation/Source/BDFRFacialAnimation/Public/BDFRLiveLinkSource.h",
+          "blob_sha": "2fe3c4c36c4781b7e0b958571cb2deacedc2ae67",
+          "size": 1449
+        },
+        {
+          "source_path": "Unreal/BDFRFacialAnimation/Source/BDFRFacialAnimation/Public/BDFRLiveReceiverComponent.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Unreal/BDFRFacialAnimation/Source/BDFRFacialAnimation/Public/BDFRLiveReceiverComponent.h",
+          "blob_sha": "6a64236aa57e4c1171f7c325b8fe2ce7a9e31f84",
+          "size": 3455
+        },
+        {
+          "source_path": "Unreal/BDFRFacialAnimation/Source/BDFRFacialAnimation/Public/BDFRRetargetProfileAsset.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/Unreal/BDFRFacialAnimation/Source/BDFRFacialAnimation/Public/BDFRRetargetProfileAsset.h",
+          "blob_sha": "6bab317d6722e3bbf1f5a7837975df3d0a00ae63",
+          "size": 1309
+        },
+        {
+          "source_path": "apps/BDFRStudio/CMakeLists.txt",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/apps/BDFRStudio/CMakeLists.txt",
+          "blob_sha": "1cbfef564df57f145f2133053a4f52d1f7d2b00d",
+          "size": 767
+        },
+        {
+          "source_path": "apps/BDFRStudio/FacePreviewWidget.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/apps/BDFRStudio/FacePreviewWidget.cpp",
+          "blob_sha": "a95da48a4fa0ed59a10b5c6bf7b88badf2992438",
+          "size": 6691
+        },
+        {
+          "source_path": "apps/BDFRStudio/FacePreviewWidget.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/apps/BDFRStudio/FacePreviewWidget.h",
+          "blob_sha": "5a982acf80e81cf9753b32801a3197c372a6f7ce",
+          "size": 439
+        },
+        {
+          "source_path": "apps/BDFRStudio/MetaHumanViewportWidget.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/apps/BDFRStudio/MetaHumanViewportWidget.cpp",
+          "blob_sha": "c3a5936ddbf441fd2fb6dfbf2ef67324f6dcdf17",
+          "size": 33229
+        },
+        {
+          "source_path": "apps/BDFRStudio/MetaHumanViewportWidget.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/apps/BDFRStudio/MetaHumanViewportWidget.h",
+          "blob_sha": "4209370a7755318d0b2d4f7cf7909e5435f4428c",
+          "size": 3086
+        },
+        {
+          "source_path": "apps/BDFRStudio/StudioMainWindow.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/apps/BDFRStudio/StudioMainWindow.cpp",
+          "blob_sha": "bb1f32093b820f404761d42c9bc344adc2ac744c",
+          "size": 49503
+        },
+        {
+          "source_path": "apps/BDFRStudio/StudioMainWindow.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/apps/BDFRStudio/StudioMainWindow.h",
+          "blob_sha": "adf02ceab5b79d3158fa1d0cf952a90c55533de8",
+          "size": 4127
+        },
+        {
+          "source_path": "apps/BDFRStudio/main.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/apps/BDFRStudio/main.cpp",
+          "blob_sha": "94fa06dbbb54f584ad941830f62880c384f553ab",
+          "size": 800
+        },
+        {
+          "source_path": "include/bdfr/audio/AudioBehavior.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/audio/AudioBehavior.h",
+          "blob_sha": "13535f9f47baf43e3afb8bfa15e9f29c0781f63e",
+          "size": 633
+        },
+        {
+          "source_path": "include/bdfr/audio/AudioFeatures.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/audio/AudioFeatures.h",
+          "blob_sha": "37ea76c16b2c91e0f23a0f458ff54a41336dcfad",
+          "size": 488
+        },
+        {
+          "source_path": "include/bdfr/audio/PitchTracker.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/audio/PitchTracker.h",
+          "blob_sha": "57a11f32dab1527e3a0a7bc2dc1b5cfd5e82d538",
+          "size": 583
+        },
+        {
+          "source_path": "include/bdfr/audio/Prosody.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/audio/Prosody.h",
+          "blob_sha": "d54ba1ad10dc6701a1198c00daa64f3039fcfed8",
+          "size": 844
+        },
+        {
+          "source_path": "include/bdfr/audio/WavAudio.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/audio/WavAudio.h",
+          "blob_sha": "db9bacb308ff448a2578e7315f8c0befcf87390c",
+          "size": 867
+        },
+        {
+          "source_path": "include/bdfr/capture/CaptureQuality.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/capture/CaptureQuality.h",
+          "blob_sha": "f92897171b4b973a0826408c83ac60aa2439b8b6",
+          "size": 499
+        },
+        {
+          "source_path": "include/bdfr/capture/FaceObservation.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/capture/FaceObservation.h",
+          "blob_sha": "9f6546721f34c78ad35ad5fe92812c51c26ac0d2",
+          "size": 1232
+        },
+        {
+          "source_path": "include/bdfr/capture/FaceSolver.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/capture/FaceSolver.h",
+          "blob_sha": "4963bb23ecfa55e34b9c852ce80ca00c38445f3f",
+          "size": 322
+        },
+        {
+          "source_path": "include/bdfr/capture/OfflineVideoProcessor.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/capture/OfflineVideoProcessor.h",
+          "blob_sha": "15870bc6b12c15764fb0dc59cf1ddac9bdfb1bae",
+          "size": 1220
+        },
+        {
+          "source_path": "include/bdfr/capture/VideoSource.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/capture/VideoSource.h",
+          "blob_sha": "7c592a2dbb12abeb86ac4cde2f624731b9d0c677",
+          "size": 866
+        },
+        {
+          "source_path": "include/bdfr/core/Arkit52.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/Arkit52.h",
+          "blob_sha": "82cb18e13d72dbd35ca46c48249395f951147157",
+          "size": 255
+        },
+        {
+          "source_path": "include/bdfr/core/AutoMapper.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/AutoMapper.h",
+          "blob_sha": "d5d16bcb86b5d3b96b6e8e100fe08c9c20f41602",
+          "size": 540
+        },
+        {
+          "source_path": "include/bdfr/core/BinaryCodec.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/BinaryCodec.h",
+          "blob_sha": "ff2b3c86b19390ddfd8a2fe8e5d899f403618a40",
+          "size": 316
+        },
+        {
+          "source_path": "include/bdfr/core/Calibration.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/Calibration.h",
+          "blob_sha": "a3ea2993052814226a2fcd81c6d56d3108e2ab5a",
+          "size": 786
+        },
+        {
+          "source_path": "include/bdfr/core/CorrectiveEngine.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/CorrectiveEngine.h",
+          "blob_sha": "6778335ca48ca1a99a7291fd5993657aa0c304f4",
+          "size": 761
+        },
+        {
+          "source_path": "include/bdfr/core/CurveCatalog.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/CurveCatalog.h",
+          "blob_sha": "b35a337598ab921a72777dcd9ddbe1e17eb1195e",
+          "size": 571
+        },
+        {
+          "source_path": "include/bdfr/core/CurveDynamics.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/CurveDynamics.h",
+          "blob_sha": "48d508a3f983adb403357c0a957bd6c15511c0df",
+          "size": 615
+        },
+        {
+          "source_path": "include/bdfr/core/CurveMixer.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/CurveMixer.h",
+          "blob_sha": "e4d1cc6fb957b9859a023ef3548d62628253543d",
+          "size": 1177
+        },
+        {
+          "source_path": "include/bdfr/core/CurveRegistry.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/CurveRegistry.h",
+          "blob_sha": "d902718c9263819ca7743928c9fefda005323ec4",
+          "size": 617
+        },
+        {
+          "source_path": "include/bdfr/core/CurveTools.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/CurveTools.h",
+          "blob_sha": "92010f425f5ee5a643d748ef16175692ba54ad37",
+          "size": 579
+        },
+        {
+          "source_path": "include/bdfr/core/CurveTuning.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/CurveTuning.h",
+          "blob_sha": "ca00faa15b0c35d6bcc899619064ef53563aaa2c",
+          "size": 767
+        },
+        {
+          "source_path": "include/bdfr/core/Diagnostics.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/Diagnostics.h",
+          "blob_sha": "1f6e5dacd007401b5f772839128dc6261744365d",
+          "size": 924
+        },
+        {
+          "source_path": "include/bdfr/core/ExpressionStack.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/ExpressionStack.h",
+          "blob_sha": "2af24336f918bfef80299456e755e8e26bd7fe9a",
+          "size": 765
+        },
+        {
+          "source_path": "include/bdfr/core/FacialTypes.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/FacialTypes.h",
+          "blob_sha": "0093969accb3dc58740e48590d9bedfe08efed96",
+          "size": 787
+        },
+        {
+          "source_path": "include/bdfr/core/History.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/History.h",
+          "blob_sha": "d6ff4316244e743d578681f575a2c3886773e9a7",
+          "size": 1567
+        },
+        {
+          "source_path": "include/bdfr/core/JsonCodec.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/JsonCodec.h",
+          "blob_sha": "28e1d43a0b293ddc7fb9e70e4ba5e9e8b1aa2bb7",
+          "size": 916
+        },
+        {
+          "source_path": "include/bdfr/core/KeyReducer.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/KeyReducer.h",
+          "blob_sha": "f45ef1251b5a0a20f77dd2d45d6606e9c40d38c4",
+          "size": 419
+        },
+        {
+          "source_path": "include/bdfr/core/NeutralDrift.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/NeutralDrift.h",
+          "blob_sha": "c1dfc13da4ed183cd0731636631461721d5db9dd",
+          "size": 775
+        },
+        {
+          "source_path": "include/bdfr/core/PerformanceFusion.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/PerformanceFusion.h",
+          "blob_sha": "1762f0b3899d73952a0093063c9a3069998debe5",
+          "size": 888
+        },
+        {
+          "source_path": "include/bdfr/core/Persistence.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/Persistence.h",
+          "blob_sha": "6176b7ff8b92f838a5b1306130727fff6c4b03d4",
+          "size": 852
+        },
+        {
+          "source_path": "include/bdfr/core/Project.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/Project.h",
+          "blob_sha": "7e439a2407c16ddc8366dff83e98ce3fca8381a7",
+          "size": 712
+        },
+        {
+          "source_path": "include/bdfr/core/Recovery.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/Recovery.h",
+          "blob_sha": "222472733dfcdb6b3a11ea5cd6ee44dddee71e18",
+          "size": 679
+        },
+        {
+          "source_path": "include/bdfr/core/Retargeter.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/Retargeter.h",
+          "blob_sha": "8c937aa3fa8c91fafe11fe518bfbe62587f5dacf",
+          "size": 940
+        },
+        {
+          "source_path": "include/bdfr/core/Schema.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/Schema.h",
+          "blob_sha": "5d74e21da58953a16035e8a2c46fded050197419",
+          "size": 655
+        },
+        {
+          "source_path": "include/bdfr/core/Sequence.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/Sequence.h",
+          "blob_sha": "59b69d12deb6283d522e207cafb279ece590c123",
+          "size": 457
+        },
+        {
+          "source_path": "include/bdfr/core/SequenceCleanup.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/SequenceCleanup.h",
+          "blob_sha": "70e94ad5f54f1ce1a65f5ae3022aed2e642cf8a9",
+          "size": 282
+        },
+        {
+          "source_path": "include/bdfr/core/SequenceCompare.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/SequenceCompare.h",
+          "blob_sha": "b2517d7cf90cfa619c5743ae8b170e10e5a49a1d",
+          "size": 737
+        },
+        {
+          "source_path": "include/bdfr/core/SequenceDiagnostics.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/SequenceDiagnostics.h",
+          "blob_sha": "eafdc5b0edecc73ec033ea465adeaf5ed148bcb4",
+          "size": 774
+        },
+        {
+          "source_path": "include/bdfr/core/SequenceFilter.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/SequenceFilter.h",
+          "blob_sha": "a2e0d7f0b6bb14fd55e363116458cee20ccaeb85",
+          "size": 400
+        },
+        {
+          "source_path": "include/bdfr/core/SequencePlayback.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/SequencePlayback.h",
+          "blob_sha": "eaa1166031036af49a55a503ab8e2e21d8f52ad9",
+          "size": 878
+        },
+        {
+          "source_path": "include/bdfr/core/Session.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/Session.h",
+          "blob_sha": "0cac371ef3fc78e7ebec1e70789ef9ee30d25df8",
+          "size": 951
+        },
+        {
+          "source_path": "include/bdfr/core/Timecode.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/Timecode.h",
+          "blob_sha": "5fab30171cb216806f2f897ffd0b64c3a9e3a28c",
+          "size": 1279
+        },
+        {
+          "source_path": "include/bdfr/core/Timeline.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/core/Timeline.h",
+          "blob_sha": "806c93895d30d9d2efc1174d1e0ece9c78751804",
+          "size": 1456
+        },
+        {
+          "source_path": "include/bdfr/expression/BehaviorEngine.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/expression/BehaviorEngine.h",
+          "blob_sha": "ede8f8345008d4f3f1e8084ee43877b521fd60a6",
+          "size": 672
+        },
+        {
+          "source_path": "include/bdfr/expression/EmotionEngine.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/expression/EmotionEngine.h",
+          "blob_sha": "3ebd027faee33895a785d925804d8c597d3e17cc",
+          "size": 917
+        },
+        {
+          "source_path": "include/bdfr/expression/Personality.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/expression/Personality.h",
+          "blob_sha": "d2e6f283ec2c0a7caac1acbc25a09c02c3545f6a",
+          "size": 527
+        },
+        {
+          "source_path": "include/bdfr/facebuilder/FaceBuilder.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/facebuilder/FaceBuilder.h",
+          "blob_sha": "6fe7d9dda26056b53a18ea753994bea48006766c",
+          "size": 1882
+        },
+        {
+          "source_path": "include/bdfr/metahuman/MetaHumanRig.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/metahuman/MetaHumanRig.h",
+          "blob_sha": "1496e2d5f1afcf6edbbcece7e9d5e1e79a3b8f6a",
+          "size": 3526
+        },
+        {
+          "source_path": "include/bdfr/mocap/ExternalMocap.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/mocap/ExternalMocap.h",
+          "blob_sha": "79e6ce453c03e6ad193d73493e25368564e03fbd",
+          "size": 1107
+        },
+        {
+          "source_path": "include/bdfr/mocap/MocapCsv.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/mocap/MocapCsv.h",
+          "blob_sha": "929865b05799daf7fd264e2a7b04512a671e4c33",
+          "size": 550
+        },
+        {
+          "source_path": "include/bdfr/models/ModelRegistry.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/models/ModelRegistry.h",
+          "blob_sha": "4bdf3c8de8e09c90c1db0695f79015695123f6f9",
+          "size": 903
+        },
+        {
+          "source_path": "include/bdfr/runtime/FramePacketCodec.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/runtime/FramePacketCodec.h",
+          "blob_sha": "f933a07de4756220b1cefee030f1298cc8c4b6a3",
+          "size": 378
+        },
+        {
+          "source_path": "include/bdfr/runtime/LiveRuntime.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/runtime/LiveRuntime.h",
+          "blob_sha": "cdd26479e8dd1db0757e1ba1a9f0e55b359f7022",
+          "size": 1363
+        },
+        {
+          "source_path": "include/bdfr/runtime/LiveSessionReceiver.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/runtime/LiveSessionReceiver.h",
+          "blob_sha": "2c0e6f9f5a1031239a834fb8a6b5ec66b9319dee",
+          "size": 1298
+        },
+        {
+          "source_path": "include/bdfr/runtime/SessionStream.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/runtime/SessionStream.h",
+          "blob_sha": "e4f625bbe899a76cfe7e1c2435251f6f5a52174f",
+          "size": 801
+        },
+        {
+          "source_path": "include/bdfr/runtime/UdpTransport.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/runtime/UdpTransport.h",
+          "blob_sha": "27dd5afbd305b924f2b7afc23b328a5a8e45958f",
+          "size": 1286
+        },
+        {
+          "source_path": "include/bdfr/speech/DialogueCompiler.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/speech/DialogueCompiler.h",
+          "blob_sha": "8d4643983cc5538eb62bc1682eb76005b4969c2b",
+          "size": 711
+        },
+        {
+          "source_path": "include/bdfr/speech/DialogueMarkup.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/speech/DialogueMarkup.h",
+          "blob_sha": "24610a05b3052507d57015c6f2b1abb4d50b12af",
+          "size": 602
+        },
+        {
+          "source_path": "include/bdfr/speech/LanguageProfile.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/speech/LanguageProfile.h",
+          "blob_sha": "2fe81e7306a54faa1d7613302720045639894556",
+          "size": 800
+        },
+        {
+          "source_path": "include/bdfr/speech/SpeechProviders.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/speech/SpeechProviders.h",
+          "blob_sha": "786b3a745a580884e3e2ded7a65d9198256434ee",
+          "size": 1623
+        },
+        {
+          "source_path": "include/bdfr/speech/TextSpeech.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/speech/TextSpeech.h",
+          "blob_sha": "4834318c346a9f404e10c9aacbeb1d4332c9421f",
+          "size": 968
+        },
+        {
+          "source_path": "include/bdfr/speech/TranscriptTiming.h",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/include/bdfr/speech/TranscriptTiming.h",
+          "blob_sha": "7596f093163417efbd28b35d885388a5edeb2c6b",
+          "size": 648
+        },
+        {
+          "source_path": "scripts/run_hardware_receiver.ps1",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/scripts/run_hardware_receiver.ps1",
+          "blob_sha": "12a2039614e7b5fb7928590f3f2bb18000ccc84f",
+          "size": 1137
+        },
+        {
+          "source_path": "scripts/run_hardware_receiver.sh",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/scripts/run_hardware_receiver.sh",
+          "blob_sha": "a8133298db9a23cb0887f898ee9070ee3c07255b",
+          "size": 669
+        },
+        {
+          "source_path": "scripts/run_initial_test.ps1",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/scripts/run_initial_test.ps1",
+          "blob_sha": "028a4380127e60819b6e1cb85e4cd6e21fe16436",
+          "size": 936
+        },
+        {
+          "source_path": "scripts/run_initial_test.sh",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/scripts/run_initial_test.sh",
+          "blob_sha": "7828d4b05435b67c95fdcd74e7efb40b056468da",
+          "size": 538
+        },
+        {
+          "source_path": "scripts/run_prebuilt_test.ps1",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/scripts/run_prebuilt_test.ps1",
+          "blob_sha": "42cd684daffc451313d04ff866747b5722de7c75",
+          "size": 838
+        },
+        {
+          "source_path": "scripts/run_prebuilt_test.sh",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/scripts/run_prebuilt_test.sh",
+          "blob_sha": "f6e12c5dc7f10f297453e4bf4f23ca861b6263de",
+          "size": 554
+        },
+        {
+          "source_path": "src/Arkit52.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/Arkit52.cpp",
+          "blob_sha": "b92fa8ec97417e050d19fa85b6dc371d71657a3e",
+          "size": 1568
+        },
+        {
+          "source_path": "src/AudioBehavior.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/AudioBehavior.cpp",
+          "blob_sha": "e2d2796cfe24e46d250abf3798f4d18a3d230325",
+          "size": 2391
+        },
+        {
+          "source_path": "src/AudioFeatures.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/AudioFeatures.cpp",
+          "blob_sha": "9d39b6147702e9cc38f1b81288ea322ee7de31c7",
+          "size": 2556
+        },
+        {
+          "source_path": "src/AutoMapper.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/AutoMapper.cpp",
+          "blob_sha": "eba711f43e6beb3b306ff0336de81809b3f263f0",
+          "size": 2689
+        },
+        {
+          "source_path": "src/BehaviorEngine.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/BehaviorEngine.cpp",
+          "blob_sha": "94f5b63f13157059b35c85a15fb3caed98b2e91c",
+          "size": 2420
+        },
+        {
+          "source_path": "src/BinaryCodec.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/BinaryCodec.cpp",
+          "blob_sha": "b5c99c1bbe7e28b2747f7ea61d161c5e0232804f",
+          "size": 5586
+        },
+        {
+          "source_path": "src/Calibration.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/Calibration.cpp",
+          "blob_sha": "f329a38f61acdaf33063afdf12c2a3f16e65af2b",
+          "size": 1910
+        },
+        {
+          "source_path": "src/CaptureQuality.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/CaptureQuality.cpp",
+          "blob_sha": "0da2b147bb0b32e04402e22adde5f4395a69c33c",
+          "size": 1334
+        },
+        {
+          "source_path": "src/CorrectiveEngine.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/CorrectiveEngine.cpp",
+          "blob_sha": "b1c59de7e60dd40e572ed9b4ba480e7864ed92a5",
+          "size": 1983
+        },
+        {
+          "source_path": "src/CurveCatalog.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/CurveCatalog.cpp",
+          "blob_sha": "f50bfd115b83da59e8050dd7f65949750f01547e",
+          "size": 1568
+        },
+        {
+          "source_path": "src/CurveDynamics.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/CurveDynamics.cpp",
+          "blob_sha": "b2d0e33a2dd1f25d744e309f91480622ec7c2470",
+          "size": 2147
+        },
+        {
+          "source_path": "src/CurveMixer.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/CurveMixer.cpp",
+          "blob_sha": "9c061f1f1aafd19da6d4480152539648adaee8d8",
+          "size": 2559
+        },
+        {
+          "source_path": "src/CurveRegistry.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/CurveRegistry.cpp",
+          "blob_sha": "0bd1da7e8f7465f23a4bcf78bd12c4198895fe4c",
+          "size": 3309
+        },
+        {
+          "source_path": "src/CurveTools.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/CurveTools.cpp",
+          "blob_sha": "5b8fd37cec746c80f976089a99029d79d1515563",
+          "size": 1568
+        },
+        {
+          "source_path": "src/CurveTuning.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/CurveTuning.cpp",
+          "blob_sha": "e796c08e4df9d7f647835f6bf66d495be74cbda7",
+          "size": 1927
+        },
+        {
+          "source_path": "src/Diagnostics.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/Diagnostics.cpp",
+          "blob_sha": "ef9cdbc3b290db1765c325bd1e7412c647e338e9",
+          "size": 1464
+        },
+        {
+          "source_path": "src/DialogueCompiler.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/DialogueCompiler.cpp",
+          "blob_sha": "4fb693b2cf9cd8bfcca4b92730b8f909a230d615",
+          "size": 7075
+        },
+        {
+          "source_path": "src/DialogueMarkup.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/DialogueMarkup.cpp",
+          "blob_sha": "a0c8627078593a97aa033ec1cfc2f6bb5138d612",
+          "size": 3853
+        },
+        {
+          "source_path": "src/EmotionEngine.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/EmotionEngine.cpp",
+          "blob_sha": "1043d92f647ca1ba9135d489542305c84a44c650",
+          "size": 4208
+        },
+        {
+          "source_path": "src/ExpressionStack.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/ExpressionStack.cpp",
+          "blob_sha": "6b0779717a2760764ebb7aa7cfeeafedd660e7bd",
+          "size": 1476
+        },
+        {
+          "source_path": "src/ExternalMocap.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/ExternalMocap.cpp",
+          "blob_sha": "6526668fc4d2198bab5b21b7ff310b21f804b620",
+          "size": 1644
+        },
+        {
+          "source_path": "src/FaceBuilderEos.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/FaceBuilderEos.cpp",
+          "blob_sha": "ab155050cbf53b430d3b18314a2651fd9b4edda9",
+          "size": 13883
+        },
+        {
+          "source_path": "src/FaceBuilderStub.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/FaceBuilderStub.cpp",
+          "blob_sha": "5696ac5d99ef9b2d08637e05fb698f856b5c2ac3",
+          "size": 804
+        },
+        {
+          "source_path": "src/FaceObservation.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/FaceObservation.cpp",
+          "blob_sha": "82ec6aefabd13cc9a2cbad09a83a2add32a2b2b0",
+          "size": 883
+        },
+        {
+          "source_path": "src/FramePacketCodec.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/FramePacketCodec.cpp",
+          "blob_sha": "6f5415542294fcebb166c72726611ef1cd846801",
+          "size": 3859
+        },
+        {
+          "source_path": "src/JsonCodec.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/JsonCodec.cpp",
+          "blob_sha": "ed6d3061c0b0e0e08dd058437379843826bb2d36",
+          "size": 17347
+        },
+        {
+          "source_path": "src/KeyReducer.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/KeyReducer.cpp",
+          "blob_sha": "9c9b632cc7e4785120f802c4ce0c0ef9484b023c",
+          "size": 2988
+        },
+        {
+          "source_path": "src/LanguageProfile.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/LanguageProfile.cpp",
+          "blob_sha": "51f2c2f9ce936050d6d98fdc625e40453a2c20a3",
+          "size": 3558
+        },
+        {
+          "source_path": "src/LiveRuntime.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/LiveRuntime.cpp",
+          "blob_sha": "c233492fbec8f2b32fdeff5daa0a720bf58ac0ab",
+          "size": 2973
+        },
+        {
+          "source_path": "src/LiveSessionReceiver.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/LiveSessionReceiver.cpp",
+          "blob_sha": "96c1dbc77c1aa5ecd3eb83a535dfb1fea5f1991c",
+          "size": 2804
+        },
+        {
+          "source_path": "src/MetaHumanRigOpenRigLogic.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/MetaHumanRigOpenRigLogic.cpp",
+          "blob_sha": "fb62f81dee93f167ff0282831638f5db25f51716",
+          "size": 21328
+        },
+        {
+          "source_path": "src/MetaHumanRigStub.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/MetaHumanRigStub.cpp",
+          "blob_sha": "a61fab351493d4b6116a11ba397f3490ab7dde86",
+          "size": 2104
+        },
+        {
+          "source_path": "src/MocapCsv.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/MocapCsv.cpp",
+          "blob_sha": "c9d90f3143bf2e7cc73fc2af6acb89964dd109aa",
+          "size": 5297
+        },
+        {
+          "source_path": "src/ModelRegistry.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/ModelRegistry.cpp",
+          "blob_sha": "e37208221441d162055f8f0ee76278bdac1817ca",
+          "size": 1723
+        },
+        {
+          "source_path": "src/NeutralDrift.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/NeutralDrift.cpp",
+          "blob_sha": "e89b65cfc10c5df52c04583611a9a1ea0abf87b8",
+          "size": 2354
+        },
+        {
+          "source_path": "src/OfflineVideoProcessor.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/OfflineVideoProcessor.cpp",
+          "blob_sha": "d7d454984f4cbbd315958056a21aa520fdea7ab3",
+          "size": 1873
+        },
+        {
+          "source_path": "src/PerformanceFusion.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/PerformanceFusion.cpp",
+          "blob_sha": "0264e224bfbbd9592d1eae3478ea77ee5d3624b1",
+          "size": 1811
+        },
+        {
+          "source_path": "src/Persistence.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/Persistence.cpp",
+          "blob_sha": "1bc47789c3380374c287fe86d6b9ba50eeca3664",
+          "size": 2716
+        },
+        {
+          "source_path": "src/Personality.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/Personality.cpp",
+          "blob_sha": "0aec87ae6d7d7dfa59ea9888ce9e655922b284a6",
+          "size": 2514
+        },
+        {
+          "source_path": "src/PitchTracker.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/PitchTracker.cpp",
+          "blob_sha": "f588e12ad9bb30007544148d5c141b350d626ca0",
+          "size": 3906
+        },
+        {
+          "source_path": "src/Project.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/Project.cpp",
+          "blob_sha": "2449b16b9cd3b2120dac0be806dab584dae60ef7",
+          "size": 1520
+        },
+        {
+          "source_path": "src/Prosody.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/Prosody.cpp",
+          "blob_sha": "b5cb9f750f2f914caa592c7be1cb934f00c9f889",
+          "size": 2090
+        },
+        {
+          "source_path": "src/Recovery.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/Recovery.cpp",
+          "blob_sha": "8a41ce500af78c5357a658cbe57899e81aebb122",
+          "size": 2024
+        },
+        {
+          "source_path": "src/Retargeter.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/Retargeter.cpp",
+          "blob_sha": "752c09f3d04c55a212cdd6a66d3237f2bbbb29a7",
+          "size": 1990
+        },
+        {
+          "source_path": "src/Schema.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/Schema.cpp",
+          "blob_sha": "75c7f10a48a27266c26021b666189c1ca3045480",
+          "size": 1085
+        },
+        {
+          "source_path": "src/Sequence.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/Sequence.cpp",
+          "blob_sha": "140a0e9a4a454e9b401cf46192b03db0b50fb513",
+          "size": 3348
+        },
+        {
+          "source_path": "src/SequenceCleanup.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/SequenceCleanup.cpp",
+          "blob_sha": "db3073fc81f4137b6ca520741357bf329b956205",
+          "size": 1591
+        },
+        {
+          "source_path": "src/SequenceCompare.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/SequenceCompare.cpp",
+          "blob_sha": "224eaf0124cf59f85d3615f7bd7e65ebfce98fc1",
+          "size": 2391
+        },
+        {
+          "source_path": "src/SequenceDiagnostics.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/SequenceDiagnostics.cpp",
+          "blob_sha": "8140d717db7f158ed0041e65454d7bd4baf4ac2b",
+          "size": 2352
+        },
+        {
+          "source_path": "src/SequenceFilter.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/SequenceFilter.cpp",
+          "blob_sha": "751d371e7676b135bb00a0d8f9c70af1ad1bbe08",
+          "size": 3567
+        },
+        {
+          "source_path": "src/SequencePlayback.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/SequencePlayback.cpp",
+          "blob_sha": "fd477271fdd4babf23a2c41d14843fe276cc0582",
+          "size": 1738
+        },
+        {
+          "source_path": "src/Session.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/Session.cpp",
+          "blob_sha": "e2f02e847bf18db0dbaa207f0bf84bdf4709fe5c",
+          "size": 2305
+        },
+        {
+          "source_path": "src/SessionStream.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/SessionStream.cpp",
+          "blob_sha": "278b44d3d78b8de66d5c19bdc7e123d4ff6187dc",
+          "size": 4562
+        },
+        {
+          "source_path": "src/TextSpeech.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/TextSpeech.cpp",
+          "blob_sha": "6640562d5321de6caeb32722ef4c737377a5f0bb",
+          "size": 6887
+        },
+        {
+          "source_path": "src/Timecode.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/Timecode.cpp",
+          "blob_sha": "cdfd145642273162e3d56f1c4645715af0c8aa25",
+          "size": 3370
+        },
+        {
+          "source_path": "src/Timeline.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/Timeline.cpp",
+          "blob_sha": "224f6c6a7ede36c7b06ee5dfde795ee95c9cc955",
+          "size": 3581
+        },
+        {
+          "source_path": "src/TranscriptTiming.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/TranscriptTiming.cpp",
+          "blob_sha": "740af12611291324b1509ef5c52bc0ef11babe5b",
+          "size": 1596
+        },
+        {
+          "source_path": "src/UdpTransport.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/UdpTransport.cpp",
+          "blob_sha": "d217a9fe4752f24cffde22bb604b067980ca4b43",
+          "size": 7738
+        },
+        {
+          "source_path": "src/WavAudio.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/src/WavAudio.cpp",
+          "blob_sha": "dd6cf913fb4fb701628f0d8c9f35133424215ec8",
+          "size": 5155
+        },
+        {
+          "source_path": "tests/test_core.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/tests/test_core.cpp",
+          "blob_sha": "24b58944380f9f1fc0964602b691b139dbc26a3d",
+          "size": 61513
+        },
+        {
+          "source_path": "tests/test_facebuilder_eos.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/tests/test_facebuilder_eos.cpp",
+          "blob_sha": "ff8402bb40c1fdbc2ae4e58d1f12a39ffa1338cf",
+          "size": 2428
+        },
+        {
+          "source_path": "tests/test_initial_smoke.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/tests/test_initial_smoke.cpp",
+          "blob_sha": "cf4ba74074d6496b3127f50e79a6dbc55155a51f",
+          "size": 5809
+        },
+        {
+          "source_path": "tests/test_metahuman_api.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/tests/test_metahuman_api.cpp",
+          "blob_sha": "58d65a7748db38c0f46eb5a99431a589222460a4",
+          "size": 1534
+        },
+        {
+          "source_path": "tests/test_offline_pipeline.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/tests/test_offline_pipeline.cpp",
+          "blob_sha": "d4906fddbd716d4ac203c02d5e42d4056f4d0d6a",
+          "size": 5403
+        },
+        {
+          "source_path": "tests/test_quality.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/tests/test_quality.cpp",
+          "blob_sha": "ae605ff86c5559ac2027f07b98d0305a81a21aa3",
+          "size": 2378
+        },
+        {
+          "source_path": "tests/test_sequence_compare.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/tests/test_sequence_compare.cpp",
+          "blob_sha": "653edf5afc57ed76495db43c925a5b0dc12f90ed",
+          "size": 2495
+        },
+        {
+          "source_path": "tools/bdfr_cli.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/tools/bdfr_cli.cpp",
+          "blob_sha": "731792e99c4b4740400c67c5d526f80ef48bdcf2",
+          "size": 5160
+        },
+        {
+          "source_path": "tools/bdfr_facebuilder_probe.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/tools/bdfr_facebuilder_probe.cpp",
+          "blob_sha": "e047237deb12062ff7c0891fb67d3a8a4a403f18",
+          "size": 352
+        },
+        {
+          "source_path": "tools/bdfr_live_receiver.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/tools/bdfr_live_receiver.cpp",
+          "blob_sha": "a6cf746ed47616953d1bc1a9cf9b75f692aa4c56",
+          "size": 6561
+        },
+        {
+          "source_path": "tools/bdfr_metahuman_probe.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_FacialAnimation/tools/bdfr_metahuman_probe.cpp",
+          "blob_sha": "618e8a52079d979e969b0899b7c2c86e7611cedd",
+          "size": 1378
+        }
+      ]
+    },
+    {
+      "repository": "lyingtiger88/BDFR_PerformanceCapture",
+      "branch": "main",
+      "tree_sha": "4c36eeb06402cd16d635aa46bf9b5fce12aec832",
+      "files": [
+        {
+          "source_path": ".github/workflows/ci.yml",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/.github/workflows/ci.yml",
+          "blob_sha": "753109e9297f9921ae8a3dddc1780246aced7371",
+          "size": 1809
+        },
+        {
+          "source_path": ".gitignore",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/.gitignore",
+          "blob_sha": "cb71aba3760e87bafcc31c25681997dde61eaac1",
+          "size": 111
+        },
+        {
+          "source_path": "CMakeLists.txt",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/CMakeLists.txt",
+          "blob_sha": "f864b7facb73297f4d28af3da97709b419f4c09f",
+          "size": 3809
+        },
+        {
+          "source_path": "Docs/ADAPTERS.md",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/Docs/ADAPTERS.md",
+          "blob_sha": "ea8517b880f6126a7b474debe22f58adbb58f445",
+          "size": 1670
+        },
+        {
+          "source_path": "Docs/ARCHITECTURE.md",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/Docs/ARCHITECTURE.md",
+          "blob_sha": "2f6caf4bdbba7831d89b72930edb8bf3a9486b08",
+          "size": 2203
+        },
+        {
+          "source_path": "Docs/LIVE_CAPTURE.md",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/Docs/LIVE_CAPTURE.md",
+          "blob_sha": "baa54de043a1fb285a774691efd4f16b6a86fe0f",
+          "size": 3228
+        },
+        {
+          "source_path": "README.md",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/README.md",
+          "blob_sha": "37ab51e679a08600490ddf312016ec915ff544e9",
+          "size": 6015
+        },
+        {
+          "source_path": "ROADMAP.md",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/ROADMAP.md",
+          "blob_sha": "5efc55717dff6c94bab6df5faff437af477caa26",
+          "size": 3962
+        },
+        {
+          "source_path": "adapters/easymocap_worker.py",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/adapters/easymocap_worker.py",
+          "blob_sha": "cdf7177feadc535ad9cfe1fabfe648cf160e5306",
+          "size": 10150
+        },
+        {
+          "source_path": "apps/BDFRPerformanceStudio/CMakeLists.txt",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/apps/BDFRPerformanceStudio/CMakeLists.txt",
+          "blob_sha": "1260f8ad1e75d44a5e7ac31005255e06968fe3d6",
+          "size": 894
+        },
+        {
+          "source_path": "apps/BDFRPerformanceStudio/CalibrationWizardDialog.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/apps/BDFRPerformanceStudio/CalibrationWizardDialog.cpp",
+          "blob_sha": "846433919d80f82fdb5a32d41292dbc532b2f277",
+          "size": 9259
+        },
+        {
+          "source_path": "apps/BDFRPerformanceStudio/CalibrationWizardDialog.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/apps/BDFRPerformanceStudio/CalibrationWizardDialog.h",
+          "blob_sha": "f84bf2937b69e07442041ac3c9c7ed269c90f4ca",
+          "size": 1231
+        },
+        {
+          "source_path": "apps/BDFRPerformanceStudio/PerformanceMainWindow.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/apps/BDFRPerformanceStudio/PerformanceMainWindow.cpp",
+          "blob_sha": "0cf7bedd9db60020a0ee149273f0c2bff7120a20",
+          "size": 41264
+        },
+        {
+          "source_path": "apps/BDFRPerformanceStudio/PerformanceMainWindow.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/apps/BDFRPerformanceStudio/PerformanceMainWindow.h",
+          "blob_sha": "761b632dc2920f7c42227ddec23bc5da7b8fc6f8",
+          "size": 4562
+        },
+        {
+          "source_path": "apps/BDFRPerformanceStudio/SkeletonViewportWidget.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/apps/BDFRPerformanceStudio/SkeletonViewportWidget.cpp",
+          "blob_sha": "e3ed9c9acef64b1cec24c190352be288d5473999",
+          "size": 4628
+        },
+        {
+          "source_path": "apps/BDFRPerformanceStudio/SkeletonViewportWidget.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/apps/BDFRPerformanceStudio/SkeletonViewportWidget.h",
+          "blob_sha": "9339cc124b9452f1585465f96b6172f80ed75135",
+          "size": 869
+        },
+        {
+          "source_path": "apps/BDFRPerformanceStudio/main.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/apps/BDFRPerformanceStudio/main.cpp",
+          "blob_sha": "ea05a005f1ddd9c1170f38af7e39157f5041375a",
+          "size": 467
+        },
+        {
+          "source_path": "include/bdfrpc/AdapterProtocol.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/AdapterProtocol.h",
+          "blob_sha": "fb83c8b680b8ca1a9e75d557a410f5191f8a5dbe",
+          "size": 368
+        },
+        {
+          "source_path": "include/bdfrpc/BDFRFacialUdpSource.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/BDFRFacialUdpSource.h",
+          "blob_sha": "993e9fcefe87f8b78621667aa631ad019bd9e61a",
+          "size": 1553
+        },
+        {
+          "source_path": "include/bdfrpc/BinaryTake.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/BinaryTake.h",
+          "blob_sha": "f3e77c05f29c2cdf72cfa6af5bb07c95003fd89f",
+          "size": 1791
+        },
+        {
+          "source_path": "include/bdfrpc/BvhExport.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/BvhExport.h",
+          "blob_sha": "00820ecc94d836d7902868f54744878fac2c1c29",
+          "size": 730
+        },
+        {
+          "source_path": "include/bdfrpc/Calibration.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/Calibration.h",
+          "blob_sha": "f4ee5b1a6be437aa5be995897987cae56b883c75",
+          "size": 1730
+        },
+        {
+          "source_path": "include/bdfrpc/CaptureManager.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/CaptureManager.h",
+          "blob_sha": "6281e94270d0fec7ba7733c6e6730d1b80b98389",
+          "size": 445
+        },
+        {
+          "source_path": "include/bdfrpc/ClockSync.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/ClockSync.h",
+          "blob_sha": "9e7ef7587fdd65d070e26f8ec64a0d2860e10c5d",
+          "size": 938
+        },
+        {
+          "source_path": "include/bdfrpc/DeviceDiscovery.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/DeviceDiscovery.h",
+          "blob_sha": "fdb7cf5019cc9cee245700f57837b654165b32fc",
+          "size": 1429
+        },
+        {
+          "source_path": "include/bdfrpc/EasyMocapTcpSource.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/EasyMocapTcpSource.h",
+          "blob_sha": "3d692ceaad2ab59e20467d4c94b88ac254a87b8a",
+          "size": 1572
+        },
+        {
+          "source_path": "include/bdfrpc/FrameFanout.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/FrameFanout.h",
+          "blob_sha": "19c23462c529ea819647b5dbe32e1c46a13e5c20",
+          "size": 1535
+        },
+        {
+          "source_path": "include/bdfrpc/FrameSynchronizer.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/FrameSynchronizer.h",
+          "blob_sha": "f7970f3b4cb5b13cb329e6e65d0d2b19120fe5ce",
+          "size": 1441
+        },
+        {
+          "source_path": "include/bdfrpc/FusionCore.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/FusionCore.h",
+          "blob_sha": "5fdab57acb1ed99ef45a99cbb54684c94f161072",
+          "size": 402
+        },
+        {
+          "source_path": "include/bdfrpc/FusionRuntime.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/FusionRuntime.h",
+          "blob_sha": "2b4f50f9490e1e59c3f5f2025336cb5718602cf6",
+          "size": 1111
+        },
+        {
+          "source_path": "include/bdfrpc/ICaptureSource.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/ICaptureSource.h",
+          "blob_sha": "23e716154138c0a9fb1036096cff575f9c3d11c1",
+          "size": 516
+        },
+        {
+          "source_path": "include/bdfrpc/Kinematics.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/Kinematics.h",
+          "blob_sha": "13e5c369d86f53233b3c58c718837bfd2faf4acc",
+          "size": 863
+        },
+        {
+          "source_path": "include/bdfrpc/LatestFrameStore.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/LatestFrameStore.h",
+          "blob_sha": "b726d2a8d1beb7d0c5ee39cd97e80c2c54828037",
+          "size": 787
+        },
+        {
+          "source_path": "include/bdfrpc/OpenCVCameraSource.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/OpenCVCameraSource.h",
+          "blob_sha": "ff6027839f2254c8bc23ab127840aadd5c4d2bc4",
+          "size": 1018
+        },
+        {
+          "source_path": "include/bdfrpc/OpenCVDeviceEnumerator.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/OpenCVDeviceEnumerator.h",
+          "blob_sha": "e5dbaef4f2f6242aa2b655ae342f8e0e8dc45e96",
+          "size": 268
+        },
+        {
+          "source_path": "include/bdfrpc/Retarget.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/Retarget.h",
+          "blob_sha": "5f5c62c0844569a12f160bdc4c930df8e57106ac",
+          "size": 2586
+        },
+        {
+          "source_path": "include/bdfrpc/Skeleton.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/Skeleton.h",
+          "blob_sha": "1a6075b82c5875c2503c0487768a4491f62ff4c7",
+          "size": 1414
+        },
+        {
+          "source_path": "include/bdfrpc/SolverAdapters.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/SolverAdapters.h",
+          "blob_sha": "a42390da21764f29fe6abe64e5e8d20804558217",
+          "size": 1779
+        },
+        {
+          "source_path": "include/bdfrpc/SourceHealth.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/SourceHealth.h",
+          "blob_sha": "198ebda4fa1a5e2d698f4d7e5cd14c1bc08ca26e",
+          "size": 1203
+        },
+        {
+          "source_path": "include/bdfrpc/SourceRouter.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/SourceRouter.h",
+          "blob_sha": "030760d3ee7f5b7284c0dc28ffe66b9095312117",
+          "size": 881
+        },
+        {
+          "source_path": "include/bdfrpc/TakeReader.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/TakeReader.h",
+          "blob_sha": "223d5c147f1414325332ea91da928c69ee362db1",
+          "size": 1086
+        },
+        {
+          "source_path": "include/bdfrpc/TakeRecorder.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/TakeRecorder.h",
+          "blob_sha": "2edf8978f0dcadb0fa62fe4b508c7f3073cc2add",
+          "size": 940
+        },
+        {
+          "source_path": "include/bdfrpc/TakeSessionIndex.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/TakeSessionIndex.h",
+          "blob_sha": "310fb856f2f3bbf0c34f069cb8d3819483c99086",
+          "size": 713
+        },
+        {
+          "source_path": "include/bdfrpc/Types.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/Types.h",
+          "blob_sha": "88d4b2b41fbc943a8e8490ace299afd4aa5b4376",
+          "size": 1893
+        },
+        {
+          "source_path": "include/bdfrpc/UnrealFacialUdpSender.h",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/include/bdfrpc/UnrealFacialUdpSender.h",
+          "blob_sha": "12c1ee7af95e88d0cbc39c1b80ff73574e9f9c79",
+          "size": 1762
+        },
+        {
+          "source_path": "src/AdapterProtocol.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/AdapterProtocol.cpp",
+          "blob_sha": "f646c8076d633182d1ac8dc8f8d2fa2dddb79293",
+          "size": 1335
+        },
+        {
+          "source_path": "src/BDFRFacialUdpSource.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/BDFRFacialUdpSource.cpp",
+          "blob_sha": "6d088b257b8ba801d6a4b123cb0e64439df2f6ec",
+          "size": 13408
+        },
+        {
+          "source_path": "src/BinaryTake.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/BinaryTake.cpp",
+          "blob_sha": "90ee2813fa20affb38b12b389f638c2f77327728",
+          "size": 10529
+        },
+        {
+          "source_path": "src/BvhExport.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/BvhExport.cpp",
+          "blob_sha": "b1a8851ccb4873a750329bc742307db72653b71c",
+          "size": 10086
+        },
+        {
+          "source_path": "src/Calibration.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/Calibration.cpp",
+          "blob_sha": "4f209fd289708694924ec2bbe662ac6d4d60f70d",
+          "size": 8844
+        },
+        {
+          "source_path": "src/CaptureManager.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/CaptureManager.cpp",
+          "blob_sha": "6c6735f77027643e840e82e7456eeab7f9f0aacc",
+          "size": 1187
+        },
+        {
+          "source_path": "src/ClockSync.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/ClockSync.cpp",
+          "blob_sha": "a05f539009faf1bad51ee9d875df5b369e5d7dc9",
+          "size": 2768
+        },
+        {
+          "source_path": "src/DeviceDiscovery.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/DeviceDiscovery.cpp",
+          "blob_sha": "f4177d38eeee6a234636ffe714a52daa89034bdf",
+          "size": 1534
+        },
+        {
+          "source_path": "src/EasyMocapTcpSource.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/EasyMocapTcpSource.cpp",
+          "blob_sha": "1b945930fe52a2ceca991e87e593123797e408e7",
+          "size": 15043
+        },
+        {
+          "source_path": "src/FrameFanout.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/FrameFanout.cpp",
+          "blob_sha": "79a2861f7fa0ce8383095125144c03690c61359d",
+          "size": 3282
+        },
+        {
+          "source_path": "src/FrameSynchronizer.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/FrameSynchronizer.cpp",
+          "blob_sha": "52ffdc0b27210d277239254e0eb0241b34e7b98f",
+          "size": 3206
+        },
+        {
+          "source_path": "src/FusionCore.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/FusionCore.cpp",
+          "blob_sha": "80149373beb94a6d0a431cb181bf8e948b5c68bc",
+          "size": 787
+        },
+        {
+          "source_path": "src/FusionRuntime.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/FusionRuntime.cpp",
+          "blob_sha": "6a41ff68bcfc64648f0a600e54a8cb1919b5d32c",
+          "size": 1091
+        },
+        {
+          "source_path": "src/Kinematics.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/Kinematics.cpp",
+          "blob_sha": "1a8a52239b1c5ef8582a0f2422a43373802dfacd",
+          "size": 5335
+        },
+        {
+          "source_path": "src/LatestFrameStore.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/LatestFrameStore.cpp",
+          "blob_sha": "d5a8e9571d7be9f6d0cf88c14157ea42296a5d52",
+          "size": 2105
+        },
+        {
+          "source_path": "src/OpenCVCameraSource.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/OpenCVCameraSource.cpp",
+          "blob_sha": "03792b6d25d94fcf3a5ecbb5116b36b4c10913fe",
+          "size": 6232
+        },
+        {
+          "source_path": "src/OpenCVDeviceEnumerator.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/OpenCVDeviceEnumerator.cpp",
+          "blob_sha": "a38b1947299c82073729beb32643c6d19007e9d4",
+          "size": 1166
+        },
+        {
+          "source_path": "src/Retarget.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/Retarget.cpp",
+          "blob_sha": "c923bf49b1e77e38110822f345d4ad1f7023b70d",
+          "size": 8344
+        },
+        {
+          "source_path": "src/Skeleton.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/Skeleton.cpp",
+          "blob_sha": "70331d7cc0933d481b9cea7efe9099e3f0e44bd0",
+          "size": 8463
+        },
+        {
+          "source_path": "src/SolverAdapters.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/SolverAdapters.cpp",
+          "blob_sha": "30ea3406ed20837ca49b600b02a6ee04608e5a77",
+          "size": 4228
+        },
+        {
+          "source_path": "src/SourceHealth.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/SourceHealth.cpp",
+          "blob_sha": "a985a3ac749d3af45ec3c15766dafa75c66d38f5",
+          "size": 3081
+        },
+        {
+          "source_path": "src/SourceRouter.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/SourceRouter.cpp",
+          "blob_sha": "a90eecc66648c89b4dab755cffd581514377b4d3",
+          "size": 1463
+        },
+        {
+          "source_path": "src/TakeReader.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/TakeReader.cpp",
+          "blob_sha": "d95bc3388460aa38f3bc19fcc4b846e9a4323076",
+          "size": 6846
+        },
+        {
+          "source_path": "src/TakeRecorder.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/TakeRecorder.cpp",
+          "blob_sha": "71d411bb90942a784e2806c700b2b7474f5cc23c",
+          "size": 3397
+        },
+        {
+          "source_path": "src/TakeSessionIndex.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/TakeSessionIndex.cpp",
+          "blob_sha": "bf6411fb7e7022f8b152e06a58f4e95b9a116cb6",
+          "size": 2945
+        },
+        {
+          "source_path": "src/UnrealFacialUdpSender.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/src/UnrealFacialUdpSender.cpp",
+          "blob_sha": "c95aec19918b6a00f46e061bd4275059d442b8c8",
+          "size": 11199
+        },
+        {
+          "source_path": "tests/test_core.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/tests/test_core.cpp",
+          "blob_sha": "01abf149da032d6f9b7f87371f823149d7397e5c",
+          "size": 30166
+        },
+        {
+          "source_path": "tools/bdfrpc_benchmark.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/tools/bdfrpc_benchmark.cpp",
+          "blob_sha": "16267b544952610a797af3d1a50de88cab490f9c",
+          "size": 5336
+        },
+        {
+          "source_path": "tools/bdfrpc_calibrate_camera.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/tools/bdfrpc_calibrate_camera.cpp",
+          "blob_sha": "0831909759ac5e4e02eaad553d9dfc1384fd7dad",
+          "size": 6885
+        },
+        {
+          "source_path": "tools/bdfrpc_calibrate_rig.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/tools/bdfrpc_calibrate_rig.cpp",
+          "blob_sha": "41d92f3c5cd945e9b2b7412cde320ae79b043025",
+          "size": 11254
+        },
+        {
+          "source_path": "tools/bdfrpc_camera_probe.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/tools/bdfrpc_camera_probe.cpp",
+          "blob_sha": "3602266763d202a03adc9197ee2e6ee2af52f2d9",
+          "size": 1141
+        },
+        {
+          "source_path": "tools/bdfrpc_devices.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/tools/bdfrpc_devices.cpp",
+          "blob_sha": "f9efeb4737a2c879c7496c008f267c63b33c3721",
+          "size": 680
+        },
+        {
+          "source_path": "tools/bdfrpc_easymocap_probe.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/tools/bdfrpc_easymocap_probe.cpp",
+          "blob_sha": "4ad1ba122edbb2eda47cc0be395bbc96595dda1e",
+          "size": 1444
+        },
+        {
+          "source_path": "tools/bdfrpc_export_bvh.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/tools/bdfrpc_export_bvh.cpp",
+          "blob_sha": "ec7b82e0f28c59984a6cd433970164113cbbeb54",
+          "size": 1474
+        },
+        {
+          "source_path": "tools/bdfrpc_facial_udp_probe.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/tools/bdfrpc_facial_udp_probe.cpp",
+          "blob_sha": "7bb66050534022d6ed890cead20030111a21f9c9",
+          "size": 1254
+        },
+        {
+          "source_path": "tools/bdfrpc_multicam_probe.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/tools/bdfrpc_multicam_probe.cpp",
+          "blob_sha": "3469c273f3a1835169e8aaae99c127a0ca19110e",
+          "size": 4220
+        },
+        {
+          "source_path": "tools/bdfrpc_probe.cpp",
+          "destination_path": "migration/source-snapshots/BDFR_PerformanceCapture/tools/bdfrpc_probe.cpp",
+          "blob_sha": "f9716c2f50f0a027464760e21f2bd89d65adb4ca",
+          "size": 766
+        }
+      ]
+    }
+  ]
+}
