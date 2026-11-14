@@ -1,21 +1,22 @@
 #pragma once
 
+#include "bdfrpc/FrameSynchronizer.h"
+
 #include <QMainWindow>
 #include <QImage>
 
 #include <memory>
+#include <vector>
 
-namespace bdfrpc {
-class OpenCVCameraSource;
-}
+namespace bdfrpc { class OpenCVCameraSource; }
 
 class QLabel;
 class QPushButton;
-class QComboBox;
 class QTimer;
 class QTabWidget;
 class QTableWidget;
 class QLineEdit;
+class QListWidget;
 
 class StudioMainWindow final : public QMainWindow {
 public:
@@ -27,7 +28,7 @@ private:
     void refresh_cameras();
     void start_camera();
     void stop_camera();
-    void update_camera_frame();
+    void update_camera_frames();
     void show_preview_placeholder(const QString& message);
     void choose_sessions_directory();
     void refresh_sessions();
@@ -44,11 +45,13 @@ private:
     QPushButton* choose_directory_button_{nullptr};
     QPushButton* refresh_sessions_button_{nullptr};
     QPushButton* inspect_session_button_{nullptr};
-    QComboBox* camera_selector_{nullptr};
+    QListWidget* camera_list_{nullptr};
     QLineEdit* sessions_directory_{nullptr};
     QTabWidget* tabs_{nullptr};
     QTableWidget* sessions_table_{nullptr};
     QTimer* preview_timer_{nullptr};
-    std::unique_ptr<bdfrpc::OpenCVCameraSource> camera_;
+    std::vector<std::unique_ptr<bdfrpc::OpenCVCameraSource>> cameras_;
+    bdfrpc::FrameSynchronizer synchronizer_{8'000'000, 8};
     QImage last_frame_;
+    std::uint64_t synchronized_sets_{0};
 };
