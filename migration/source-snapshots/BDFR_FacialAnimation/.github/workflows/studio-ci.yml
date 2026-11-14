@@ -1,0 +1,118 @@
+name: BDFR Studio CI
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'apps/BDFRStudio/**'
+      - 'include/**'
+      - 'src/**'
+      - 'CMakeLists.txt'
+      - '.github/workflows/studio-ci.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'apps/BDFRStudio/**'
+      - 'include/**'
+      - 'src/**'
+      - 'CMakeLists.txt'
+      - '.github/workflows/studio-ci.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: bdfr-studio-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  windows-studio:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Qt 6.8 LTS
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.8.*'
+          host: 'windows'
+          target: 'desktop'
+          arch: 'win64_msvc2022_64'
+          cache: true
+
+      - name: Configure
+        shell: pwsh
+        run: cmake -S . -B build-studio -DBDFR_BUILD_STUDIO=ON -DBDFR_ENABLE_OPENRIGLOGIC=ON -DBDFR_ENABLE_EOS_FACEBUILDER=ON
+
+      - name: Build Studio and tests
+        shell: pwsh
+        run: cmake --build build-studio --config Release --parallel
+
+      - name: Run Core Tests
+        shell: pwsh
+        run: ctest --test-dir build-studio -C Release --output-on-failure
+
+      - name: Package Studio
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path dist/BDFR_Studio_Windows | Out-Null
+          $exe = "build-studio/apps/BDFRStudio/Release/BDFR Studio.exe"
+          if (-not (Test-Path $exe)) {
+            throw "BDFR Studio executable not found: $exe"
+          }
+          Copy-Item $exe dist/BDFR_Studio_Windows/
+          windeployqt --release --no-translations --compiler-runtime "dist/BDFR_Studio_Windows/BDFR Studio.exe"
+
+      - name: Launch packaged Studio self-test
+        shell: pwsh
+        run: |
+          $process = Start-Process -FilePath "dist/BDFR_Studio_Windows/BDFR Studio.exe" -ArgumentList "--self-test" -Wait -PassThru
+          if ($process.ExitCode -ne 0) {
+            throw "BDFR Studio packaged self-test failed with exit code $($process.ExitCode)"
+          }
+
+      - name: Compress Studio package
+        shell: pwsh
+        run: |
+          Compress-Archive -Path dist/BDFR_Studio_Windows/* -DestinationPath dist/BDFR_Studio_Windows.zip -Force
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: BDFR_Studio_Windows
+          path: dist/BDFR_Studio_Windows.zip
+          if-no-files-found: error
+
+
+  publish-studio:
+    needs: [windows-studio]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: BDFR_Studio_Windows
+          path: release-assets
+
+      - name: Move latest Studio tag
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -f studio-test-latest "$GITHUB_SHA"
+          git push origin refs/tags/studio-test-latest --force
+
+      - name: Publish Studio prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          if ! gh release view studio-test-latest >/dev/null 2>&1; then
+            gh release create studio-test-latest --title "BDFR Studio — Latest Test Build" --notes "Latest tested Windows build of the BDFR Studio desktop GUI." --prerelease
+          fi
+          gh release upload studio-test-latest release-assets/BDFR_Studio_Windows.zip --clobber

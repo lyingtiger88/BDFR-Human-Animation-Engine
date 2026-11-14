@@ -1,0 +1,71 @@
+name: Core CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake -S . -B build
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Test
+        run: ctest --test-dir build -C Release --output-on-failure
+
+      - name: Prepare Windows initial test kit
+        if: matrix.os == 'windows-latest'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path artifact/BDFR_Initial_Test_Windows | Out-Null
+          Copy-Item build/Release/bdfr_cli.exe artifact/BDFR_Initial_Test_Windows/
+          Copy-Item build/Release/bdfr_initial_smoke_tests.exe artifact/BDFR_Initial_Test_Windows/
+          Copy-Item build/Release/bdfr_live_receiver.exe artifact/BDFR_Initial_Test_Windows/
+          Copy-Item scripts/run_prebuilt_test.ps1 artifact/BDFR_Initial_Test_Windows/
+          Copy-Item scripts/run_hardware_receiver.ps1 artifact/BDFR_Initial_Test_Windows/
+          Copy-Item Docs/PREBUILT_TEST.md artifact/BDFR_Initial_Test_Windows/README.md
+
+      - name: Upload Windows initial test kit
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: BDFR_Initial_Test_Windows
+          path: artifact/BDFR_Initial_Test_Windows
+          if-no-files-found: error
+
+      - name: Prepare Linux initial test kit
+        if: matrix.os == 'ubuntu-latest'
+        shell: bash
+        run: |
+          mkdir -p artifact/BDFR_Initial_Test_Linux
+          cp build/bdfr_cli artifact/BDFR_Initial_Test_Linux/
+          cp build/bdfr_initial_smoke_tests artifact/BDFR_Initial_Test_Linux/
+          cp build/bdfr_live_receiver artifact/BDFR_Initial_Test_Linux/
+          cp scripts/run_prebuilt_test.sh artifact/BDFR_Initial_Test_Linux/
+          cp scripts/run_hardware_receiver.sh artifact/BDFR_Initial_Test_Linux/
+          cp Docs/PREBUILT_TEST.md artifact/BDFR_Initial_Test_Linux/README.md
+          chmod +x artifact/BDFR_Initial_Test_Linux/bdfr_cli
+          chmod +x artifact/BDFR_Initial_Test_Linux/bdfr_initial_smoke_tests
+          chmod +x artifact/BDFR_Initial_Test_Linux/bdfr_live_receiver
+          chmod +x artifact/BDFR_Initial_Test_Linux/run_prebuilt_test.sh
+          chmod +x artifact/BDFR_Initial_Test_Linux/run_hardware_receiver.sh
+
+      - name: Upload Linux initial test kit
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: BDFR_Initial_Test_Linux
+          path: artifact/BDFR_Initial_Test_Linux
+          if-no-files-found: error
