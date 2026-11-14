@@ -1,6 +1,7 @@
 #pragma once
 
 #include "bdfr/performance/CanonicalSession.h"
+#include "bdfr/performance/HandPca.h"
 #include "bdfr/core/CurveMixer.h"
 #include "bdfr/core/FacialTypes.h"
 #include "bdfrpc/FusionCore.h"
@@ -40,6 +41,15 @@ performance::PerformanceFrame to_engine_frame(
 performance::RetargetedSkeletonSample retarget_to_engine(
     const performance::SkeletonSample& source,
     const bdfrpc::RetargetProfile& profile);
+
+performance::HandSample to_engine_hand(
+    const std::vector<float>& pca_coefficients,
+    const performance::HandPcaBasis& basis,
+    bool left_hand,
+    performance::Nanoseconds source_time_ns,
+    performance::Nanoseconds session_time_ns,
+    const std::string& source_id,
+    float confidence = 1.0F);
 
 performance::SkeletonSample to_engine_skeleton(
     const bdfrpc::SkeletonPose& source,
