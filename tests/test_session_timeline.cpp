@@ -1,4 +1,5 @@
 #include "bdfr/performance/SessionTimeline.h"
+#include "bdfr/performance/Validation.h"
 
 #include <cassert>
 #include <string>
@@ -6,6 +7,13 @@
 using namespace bdfr::performance;
 
 int main() {
+    PerformanceFrame invalid_frame;
+    invalid_frame.session_time_ns = 1;
+    FaceSample invalid_face;
+    invalid_face.header.source_id.clear();
+    invalid_frame.faces.push_back(invalid_face);
+    assert(!validate_frame(invalid_frame).ok);
+
     SessionRecorder recorder;
     assert(!recorder.begin(""));
     assert(recorder.begin("timeline-session"));
