@@ -12,6 +12,7 @@
 #include "bdfr/audio/AudioBehavior.h"
 #include "bdfr/speech/TextSpeech.h"
 #include "bdfr/speech/LanguageProfile.h"
+#include "bdfr/speech/SpeechRecognitionProvider.h"
 #include "bdfr/expression/BehaviorEngine.h"
 #include "bdfr/expression/EmotionEngine.h"
 
@@ -26,6 +27,21 @@ struct TimedPhoneme {
     double duration_seconds = 0.0;
     float confidence = 1.0F;
 };
+
+struct AlignedSpeechFrames {
+    std::string transcript;
+    float confidence{0.0F};
+    std::vector<performance::PerformanceFrame> frames;
+};
+
+bool process_audio_speech(
+    const bdfr::speech::SpeechRecognitionProvider& provider,
+    const bdfr::audio::AudioBuffer& audio,
+    const bdfr::speech::LanguageProfile& language,
+    performance::Nanoseconds session_start_ns,
+    AlignedSpeechFrames& output,
+    std::string* error = nullptr,
+    const std::string& source_id = "asr-provider");
 
 std::vector<performance::FaceCurve> sample_phoneme_lipsync_curves(
     const std::vector<TimedPhoneme>& phonemes,
