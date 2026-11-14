@@ -12,8 +12,8 @@ Sources:
 - Total: 326 tracked files, approximately 1,001,496 bytes.
 
 ## Snapshot status
-- [~] 16 Facial Animation files copied so far; 228 remain.
-- [~] 8 Performance Capture files copied so far; 74 remain.
+- [~] 20 Facial Animation files copied so far; 224 remain.
+- [~] 12 Performance Capture files copied so far; 70 remain.
 - [ ] Git LFS, submodules, releases and external model assets reviewed.
 - [ ] Source commit SHAs recorded.
 
