@@ -7,6 +7,7 @@
 #include "bdfrpc/Types.h"
 #include "bdfrpc/Skeleton.h"
 #include "bdfrpc/Retarget.h"
+#include "bdfr/audio/WavAudio.h"
 
 #include <string>
 #include <vector>
@@ -35,6 +36,11 @@ performance::PerformanceFrame fuse_to_engine_frame(
 std::vector<performance::FaceCurve> mix_face_curves(
     const std::vector<performance::FaceCurve>& base,
     std::vector<bdfr::CurveLayer> layers);
+
+performance::PerformanceFrame to_engine_frame(
+    const bdfr::audio::AudioBuffer& source,
+    performance::Nanoseconds session_time_ns,
+    const std::string& source_id = "audio-analysis");
 
 performance::PerformanceFrame to_engine_frame(
     const bdfrpc::FusedPerformanceFrame& source,
