@@ -25,7 +25,7 @@ This matrix distinguishes exact source preservation from compilation, canonical 
 | Retarget profiles / MetaHuman mapping | Yes | Yes | Yes, adapter to existing Unreal Mannequin and MetaHuman Body profiles | Unreal Mannequin synthetic regression test; MetaHuman runtime not tested |
 | FaceBuilder / eos | Yes | Stub target built; eos optional | Adapter boundary present | No photo-to-3D test |
 | OpenRigLogic / MetaHuman DNA | Yes | Stub target built; OpenRigLogic optional | Adapter boundary present | No MetaHuman runtime test |
-| Session / take recording and playback | Yes | Yes | Canonical serialization bridge pending | Legacy tests only |
+| Session / take recording and playback | Yes | Yes | Versioned canonical binary session codec with bounded deserialization and validation | Deterministic round-trip, corruption, schema-version and invalid-rig tests; runtime recorder/playback UI pending |
 | Qt desktop Studio | Yes | Not in unified target | Unified UI pending | No |
 | Android capture app | Yes | Not part of desktop CI | Companion client integration pending | No |
 | Unreal plugin / LiveLink | Yes | Not built in generic CI | Adapter boundary present | Requires Unreal toolchain |
@@ -36,4 +36,4 @@ This matrix distinguishes exact source preservation from compilation, canonical 
 - **Source migration complete:** all 326 tracked files are preserved and SHA-verified.
 - **Build integration complete at baseline:** both predecessor C++ modules are part of the 64-bit superbuild and have passed Windows/Linux CI.
 - **Core runtime integration in progress:** canonical adapters exist for face, head, gaze, capture fusion, body skeleton, hand channels, audio energy/pitch analysis and text-planned viseme events, text-driven facial lip curves, procedural blink/gaze/head motion and emotion/instant-event tracks.
-- **Product consolidation not complete:** the unified Studio, Android client, audio-to-phoneme recognition/alignment and speech-driven (rather than text-driven) lip-sync path, coordinate calibration, full hand articulation, canonical take playback and hardware end-to-end suite remain open.
+- **Product consolidation not complete:** the unified Studio, Android client, audio-to-phoneme recognition/alignment and speech-driven (rather than text-driven) lip-sync path, coordinate calibration, full hand articulation, runtime recorder/playback controls and hardware end-to-end suite remain open.
