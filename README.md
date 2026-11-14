@@ -53,3 +53,8 @@ The top-level CMake superbuild compiles the migrated facial and performance-capt
 - Camera calibration profiles in the canonical engine core, including intrinsic/distortion/extrinsic parameters, versioned persistence, 3D-to-2D projection and reprojection RMSE evaluation.
 
 Build and test status is recorded in `migration/MIGRATION_STATUS.md`; the exact capability-by-capability parity and remaining work are listed in `Docs/FEATURE_PARITY_MATRIX.md`. The Qt Studio, Android capture client, calibration estimation/device workflow, official model-basis integration, sensor extrinsic calibration, full retargeting and production asset/license review remain separate migration gates. The Windows/Linux Build + CTest matrix is now triggered after substantial engine changes, per owner approval.
+
+
+## Unified Studio work in progress
+
+The feature branch `feature/studio-live-camera-preview` adds a Live Capture tab with OpenCV device enumeration and a live preview, plus a Session Library tab for scanning and inspecting recorded `.bdfrtake` / CSV sessions. It also retains the camera/rig calibration wizard. This branch is development-only at present: no build was run and live hardware acceptance remains pending. See `Docs/STUDIO_WORKSPACE.md` for usage and prerequisites.
