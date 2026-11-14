@@ -185,6 +185,45 @@ performance::RetargetedSkeletonSample retarget_to_engine(
     return output;
 }
 
+bool transform_skeleton_coordinates(
+    performance::SkeletonSample& skeleton,
+    const performance::CoordinateProfile& profile) {
+    if (!profile.valid()) return false;
+    auto candidate = skeleton;
+    if (!profile.transform_position(skeleton.root_translation, candidate.root_translation) ||
+        !profile.transform_rotation(skeleton.root_rotation, candidate.root_rotation))
+        return false;
+    for (std::size_t i = 0; i < skeleton.joints.size(); ++i) {
+        if (!profile.transform_position(skeleton.joints[i].translation,
+                                        candidate.joints[i].translation) ||
+            !profile.transform_rotation(skeleton.joints[i].rotation,
+                                         candidate.joints[i].rotation))
+            return false;
+    }
+    skeleton = std::move(candidate);
+    return true;
+}
+
+bool transform_hand_coordinates(
+    performance::HandSample& hand,
+    const performance::CoordinateProfile& profile) {
+    if (!profile.valid()) return false;
+    auto candidate = hand;
+    if (hand.has_palm_pose &&
+        (!profile.transform_position(hand.palm_position, candidate.palm_position) ||
+         !profile.transform_rotation(hand.palm_rotation, candidate.palm_rotation)))
+        return false;
+    for (std::size_t i = 0; i < hand.joints.size(); ++i) {
+        if (!profile.transform_position(hand.joints[i].translation,
+                                        candidate.joints[i].translation) ||
+            !profile.transform_rotation(hand.joints[i].rotation,
+                                         candidate.joints[i].rotation))
+            return false;
+    }
+    hand = std::move(candidate);
+    return true;
+}
+
 performance::HandSample to_engine_hand(
     const std::vector<float>& pca_coefficients,
     const performance::HandPcaBasis& basis,
