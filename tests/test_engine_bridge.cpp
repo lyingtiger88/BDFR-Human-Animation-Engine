@@ -87,7 +87,14 @@ int main() {
     for (const auto& event : planned_speech)
         has_viseme = has_viseme || !event.viseme.empty();
     assert(has_viseme);
+    assert(planned_speech.front().phoneme.empty()); // no acoustic phoneme recognizer is wired yet
     assert(bdfr::integration::plan_text_speech("", 0).empty());
+    const auto lip_curves = bdfr::integration::sample_text_lipsync_curves("a", 0.01);
+    bool has_jaw_curve = false;
+    for (const auto& curve : lip_curves)
+        has_jaw_curve = has_jaw_curve || (curve.name == "jawOpen" && curve.value > 0.0F);
+    assert(has_jaw_curve);
+    assert(bdfr::integration::sample_text_lipsync_curves("a", -1.0).empty());
 
     bdfr::audio::AudioBuffer audio;
     audio.sampleRate = 16000;
