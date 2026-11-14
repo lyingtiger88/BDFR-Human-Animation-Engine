@@ -47,6 +47,7 @@ The top-level CMake superbuild compiles the migrated facial and performance-capt
 - Capture FusionCore output to canonical face, head, body and hand tracks.
 - Facial CurveMixer layers to canonical facial curves.
 - Procedural facial behavior (blink, gaze drift and head motion) to canonical face/head/gaze tracks.
+- Emotion poses and instant facial events (blink, brow flick, lip twitch, nose flare and jaw clench) to canonical face/emotion tracks.
 - Audio buffers to canonical speech tracks with windowed energy, prosody and pitch estimates.
 - TextSpeechPlanner output to timestamped canonical speech samples and heuristic grapheme-to-viseme facial curves (not audio-recognized phonemes or speech-driven lip sync).
 
