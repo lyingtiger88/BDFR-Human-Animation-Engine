@@ -53,10 +53,10 @@ endif()
 # snapshots remain immutable until their APIs are promoted into engine/*.
 if(BDFR_MIGRATE_BUILD_FACE_MODULE)
     set(BDFR_BUILD_STUDIO OFF CACHE BOOL "Keep legacy facial Studio disabled in engine superbuild" FORCE)
-    add_subdirectory(migration/source-snapshots/BDFR_FacialAnimation EXCLUDE_FROM_ALL)
+    add_subdirectory(migration/source-snapshots/BDFR_FacialAnimation)
 endif()
 
 if(BDFR_MIGRATE_BUILD_CAPTURE_MODULE)
     set(BDFRPC_BUILD_STUDIO OFF CACHE BOOL "Keep legacy capture Studio disabled in engine superbuild" FORCE)
-    add_subdirectory(migration/source-snapshots/BDFR_PerformanceCapture EXCLUDE_FROM_ALL)
+    add_subdirectory(migration/source-snapshots/BDFR_PerformanceCapture)
 endif()
