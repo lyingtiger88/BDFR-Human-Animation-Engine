@@ -65,7 +65,9 @@ The snapshots preserve all tracked source files and paths. They do not mirror so
 - [ ] Schema migration fixtures, long-session stress testing and UI recording/playback controls.
 - [ ] Production ASR/forced alignment and speech-driven lip-sync using a licensed model backend (provider interface and coarticulation sampler are implemented).
 - [ ] Full live camera/audio/face/body/hand end-to-end tests.
-- [ ] Unified Qt Studio and Android capture application.
+- [x] Initial unified Qt Studio application shell and camera/rig calibration workspace added under `apps/BDFRStudio`.
+- [x] Studio calibration workflow wired to the migrated OpenCV intrinsic and synchronized rig-extrinsic calibration tools.
+- [ ] Full capture/session dashboard, camera preview integration, Qt/OpenCV CI acceptance and Android capture application.
 
 ## Licensing and external assets
 - [x] Third-party dependency and model-asset review register created at `Docs/THIRD_PARTY_DEPENDENCIES.md`.
