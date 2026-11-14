@@ -236,6 +236,78 @@ std::vector<performance::FaceCurve> mix_face_curves(
     return output;
 }
 
+performance::PerformanceFrame sample_emotion(
+    bdfr::expression::Emotion emotion,
+    float intensity,
+    double time_seconds,
+    performance::Nanoseconds session_start_ns,
+    const std::string& source_id) {
+    performance::PerformanceFrame output;
+    output.session_time_ns = session_start_ns;
+    if (!std::isfinite(time_seconds) || time_seconds < 0.0 ||
+        !std::isfinite(intensity) || intensity < 0.0F ||
+        session_start_ns < 0 || source_id.empty()) return output;
+    const long double offset = static_cast<long double>(time_seconds) * 1000000000.0L;
+    if (offset > static_cast<long double>(std::numeric_limits<performance::Nanoseconds>::max()))
+        return output;
+    const auto offset_ns = static_cast<performance::Nanoseconds>(std::llround(offset));
+    if (session_start_ns > std::numeric_limits<performance::Nanoseconds>::max() - offset_ns)
+        return output;
+    const auto timestamp = session_start_ns + offset_ns;
+    const float normalized = std::clamp(intensity, 0.0F, 1.0F);
+    const auto curves = bdfr::expression::EmotionEngine::pose(emotion, normalized);
+
+    performance::FaceSample face;
+    face.header = make_header(offset_ns, timestamp, source_id, normalized);
+    std::vector<std::pair<std::string, float>> ordered(curves.begin(), curves.end());
+    std::sort(ordered.begin(), ordered.end(),
+              [](const auto& a, const auto& b) { return a.first < b.first; });
+    for (const auto& item : ordered) face.curves.push_back({item.first, item.second});
+    output.faces.push_back(std::move(face));
+
+    static constexpr const char* labels[] = {
+        "neutral", "happiness", "sadness", "anger",
+        "fear", "surprise", "disgust", "contempt"
+    };
+    const auto index = static_cast<std::size_t>(emotion);
+    if (index >= std::size(labels)) return {};
+    performance::EmotionSample sample;
+    sample.header = make_header(offset_ns, timestamp, source_id, normalized);
+    sample.label = labels[index];
+    sample.intensity = normalized;
+    output.emotions.push_back(std::move(sample));
+    return output;
+}
+
+performance::PerformanceFrame sample_instant_event(
+    const bdfr::expression::InstantEvent& event,
+    double time_seconds,
+    performance::Nanoseconds session_start_ns,
+    const std::string& source_id) {
+    performance::PerformanceFrame output;
+    output.session_time_ns = session_start_ns;
+    if (!std::isfinite(time_seconds) || time_seconds < 0.0 ||
+        !std::isfinite(event.startSeconds) || !std::isfinite(event.durationSeconds) ||
+        !std::isfinite(event.intensity) || event.startSeconds < 0.0 ||
+        event.durationSeconds <= 0.0 || session_start_ns < 0 || source_id.empty())
+        return output;
+    const long double offset = static_cast<long double>(time_seconds) * 1000000000.0L;
+    if (offset > static_cast<long double>(std::numeric_limits<performance::Nanoseconds>::max()))
+        return output;
+    const auto offset_ns = static_cast<performance::Nanoseconds>(std::llround(offset));
+    if (session_start_ns > std::numeric_limits<performance::Nanoseconds>::max() - offset_ns)
+        return output;
+    const auto curves = bdfr::expression::InstantEventGenerator::sample(event, time_seconds);
+    performance::FaceSample face;
+    face.header = make_header(offset_ns, session_start_ns + offset_ns, source_id, 1.0F);
+    std::vector<std::pair<std::string, float>> ordered(curves.begin(), curves.end());
+    std::sort(ordered.begin(), ordered.end(),
+              [](const auto& a, const auto& b) { return a.first < b.first; });
+    for (const auto& item : ordered) face.curves.push_back({item.first, item.second});
+    if (!face.curves.empty()) output.faces.push_back(std::move(face));
+    return output;
+}
+
 performance::PerformanceFrame sample_procedural_face(
     const bdfr::expression::BehaviorProfile& profile,
     double time_seconds,
