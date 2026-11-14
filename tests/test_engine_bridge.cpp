@@ -79,6 +79,17 @@ int main() {
     assert(target_skeleton.bones.size() == 2);
     assert(target_skeleton.bones[1].target_bone == "spine_01");
 
+    bdfr::expression::BehaviorProfile behavior_profile;
+    const auto procedural = bdfr::integration::sample_procedural_face(
+        behavior_profile, 0.05, 1000000000, 7, "behavior-worker");
+    assert(procedural.faces.size() == 1);
+    assert(procedural.heads.size() == 1);
+    assert(procedural.gaze.size() == 1);
+    assert(procedural.session_time_ns == 1050000000);
+    assert(procedural.faces[0].header.source_id == "behavior-worker");
+    assert(bdfr::integration::sample_procedural_face(
+        behavior_profile, -1.0, 0).faces.empty());
+
     const auto planned_speech = bdfr::integration::plan_text_speech("Hello world", 700000000, "dialogue-track");
     assert(!planned_speech.empty());
     assert(planned_speech.front().header.source_id == "dialogue-track");
