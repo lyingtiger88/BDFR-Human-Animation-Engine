@@ -27,6 +27,12 @@ struct TimedPhoneme {
     float confidence = 1.0F;
 };
 
+std::vector<performance::FaceCurve> sample_phoneme_lipsync_curves(
+    const std::vector<TimedPhoneme>& phonemes,
+    const bdfr::speech::LanguageProfile& language,
+    double time_seconds,
+    double coarticulation_seconds = 0.045);
+
 std::vector<performance::PerformanceFrame> to_engine_phoneme_frames(
     const std::vector<TimedPhoneme>& phonemes,
     const bdfr::speech::LanguageProfile& language,
