@@ -131,6 +131,19 @@ int main() {
     non_finite.frames[0].faces[0].head_translation.x = std::numeric_limits<float>::quiet_NaN();
     assert(!validate(non_finite).ok);
 
+    Session invalid_space = original;
+    invalid_space.frames[0].faces[0].header.space =
+        static_cast<CoordinateSpace>(255);
+    assert(!validate(invalid_space).ok);
+
+    Session cyclic_rig = original;
+    cyclic_rig.frames[0].bodies[0].joints[0].parent_index = 1;
+    assert(!validate(cyclic_rig).ok);
+
+    Session invalid_parent = original;
+    invalid_parent.frames[0].bodies[0].joints[1].parent_index = -2;
+    assert(!validate(invalid_parent).ok);
+
     Session invalid = original;
     invalid.session_id.clear();
     bool threw = false;
