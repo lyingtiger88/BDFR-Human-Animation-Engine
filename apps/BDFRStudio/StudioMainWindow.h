@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include <QImage>
 
+#include <cstdint>
 #include <memory>
 #include <vector>
 
