@@ -26,6 +26,15 @@ bool valid_channels(const std::vector<ScalarChannel>& channels) {
     return true;
 }
 
+bool valid_vec(const Vec3f& value) {
+    return std::isfinite(value.x) && std::isfinite(value.y) && std::isfinite(value.z);
+}
+
+bool valid_quat(const Quaternionf& value) {
+    return std::isfinite(value.x) && std::isfinite(value.y) &&
+           std::isfinite(value.z) && std::isfinite(value.w);
+}
+
 bool valid_joint(const JointSample& joint) {
     return !joint.name.empty() &&
            std::isfinite(joint.translation.x) &&
@@ -43,6 +52,8 @@ bool valid_joint(const JointSample& joint) {
 ValidationResult validate(const Session& session) {
     if (session.schema_version_major != schema_major)
         return {false, "Unsupported canonical session major version"};
+    if (session.schema_version_minor > schema_minor)
+        return {false, "Session uses a newer unsupported minor schema version"};
     if (session.session_id.empty())
         return {false, "Session ID must not be empty"};
     if (session.timebase != "nanoseconds")
@@ -65,15 +76,17 @@ ValidationResult validate(const Session& session) {
         previous = frame.session_time_ns;
 
         for (const auto& face : frame.faces) {
-            if (!valid_header(face.header))
-                return {false, "Invalid face sample header"};
+            if (!valid_header(face.header) || !valid_vec(face.head_translation) ||
+                !valid_quat(face.head_rotation) || !valid_vec(face.gaze_direction))
+                return {false, "Invalid face sample header or transforms"};
             for (const auto& curve : face.curves) {
                 if (curve.name.empty() || !std::isfinite(curve.value))
                     return {false, "Face curves require names and finite values"};
             }
         }
         for (const auto& head : frame.heads) {
-            if (!valid_header(head.header) || !valid_channels(head.channels))
+            if (!valid_header(head.header) || !valid_vec(head.translation) ||
+                !valid_quat(head.rotation) || !valid_channels(head.channels))
                 return {false, "Invalid head sample or channels"};
         }
         for (const auto& gaze : frame.gaze) {
@@ -81,7 +94,8 @@ ValidationResult validate(const Session& session) {
                 return {false, "Invalid gaze sample or channels"};
         }
         for (const auto& body : frame.bodies) {
-            if (!valid_header(body.header) || !valid_channels(body.channels))
+            if (!valid_header(body.header) || !valid_vec(body.root_translation) ||
+                !valid_quat(body.root_rotation) || !valid_channels(body.channels))
                 return {false, "Invalid body sample or channels"};
             for (std::size_t i = 0; i < body.joints.size(); ++i) {
                 const auto& joint = body.joints[i];
@@ -95,7 +109,8 @@ ValidationResult validate(const Session& session) {
             }
         }
         for (const auto& retargeted : frame.retargeted_bodies) {
-            if (!valid_header(retargeted.header) || retargeted.profile_name.empty())
+            if (!valid_header(retargeted.header) || retargeted.profile_name.empty() ||
+                !valid_vec(retargeted.root_translation) || !valid_quat(retargeted.root_rotation))
                 return {false, "Invalid retargeted skeleton sample"};
             for (const auto& bone : retargeted.bones) {
                 if (bone.target_bone.empty() ||
@@ -107,17 +122,19 @@ ValidationResult validate(const Session& session) {
             }
         }
         for (const auto& hand : frame.left_hands) {
-            if (!valid_header(hand.header) || !valid_channels(hand.channels))
+            if (!valid_header(hand.header) || !valid_channels(hand.channels) ||
+                !valid_vec(hand.palm_position) || !valid_quat(hand.palm_rotation))
                 return {false, "Invalid left-hand sample or channels"};
         }
         for (const auto& hand : frame.right_hands) {
-            if (!valid_header(hand.header) || !valid_channels(hand.channels))
+            if (!valid_header(hand.header) || !valid_channels(hand.channels) ||
+                !valid_vec(hand.palm_position) || !valid_quat(hand.palm_rotation))
                 return {false, "Invalid right-hand sample or channels"};
         }
         for (const auto& speech : frame.speech) {
             if (!valid_header(speech.header) ||
-                !std::isfinite(speech.normalized_energy) ||
-                !std::isfinite(speech.pitch_hz))
+                !valid_confidence(speech.normalized_energy) ||
+                !std::isfinite(speech.pitch_hz) || speech.pitch_hz < 0.0F)
                 return {false, "Invalid speech sample"};
         }
         for (const auto& emotion : frame.emotions) {
