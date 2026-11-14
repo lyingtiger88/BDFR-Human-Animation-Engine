@@ -50,5 +50,6 @@ The top-level CMake superbuild compiles the migrated facial and performance-capt
 - Emotion poses and instant facial events (blink, brow flick, lip twitch, nose flare and jaw clench) to canonical face/emotion tracks.
 - Audio buffers to canonical speech tracks with windowed energy, prosody and pitch estimates.
 - TextSpeechPlanner output to timestamped canonical speech samples and heuristic grapheme-to-viseme facial curves (not audio-recognized phonemes or speech-driven lip sync).
+- Camera calibration profiles in the canonical engine core, including intrinsic/distortion/extrinsic parameters, versioned persistence, 3D-to-2D projection and reprojection RMSE evaluation.
 
-Build and test status is recorded in `migration/MIGRATION_STATUS.md`; the exact capability-by-capability parity and remaining work are listed in `Docs/FEATURE_PARITY_MATRIX.md`. The Qt Studio, Android capture client, official model-basis integration, sensor extrinsic calibration, full retargeting and production asset/license review remain separate migration gates.
+Build and test status is recorded in `migration/MIGRATION_STATUS.md`; the exact capability-by-capability parity and remaining work are listed in `Docs/FEATURE_PARITY_MATRIX.md`. The Qt Studio, Android capture client, calibration estimation/device workflow, official model-basis integration, sensor extrinsic calibration, full retargeting and production asset/license review remain separate migration gates. The Windows/Linux Build + CTest matrix is now triggered after substantial engine changes, per owner approval.
