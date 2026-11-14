@@ -31,11 +31,12 @@ The snapshots preserve all tracked source files and paths. They do not mirror so
 - [x] Named-channel preservation for face, head, body and both hands.
 - [x] Native facial solver frame adapter (face curves, head pose and gaze).
 - [x] SMPL/SMPL-X skeleton adapter (root transform, joint hierarchy, shape/expression and hand-PCA channels).
+- [x] Canonical skeleton to Unreal Mannequin / MetaHuman Body retarget-profile adapter.
 - [x] Configurable capture FusionCore to canonical frame bridge.
 - [x] Facial CurveMixer integration helper.
 - [x] Cross-module integration regression test added.
 - [x] Current integration build and all 12 CTest cases pass on Linux x86-64 and Windows x64 (run `43582229770`).
-- [ ] Full coordinate-system conversion and named retarget-profile implementation.
+- [ ] Full coordinate-system calibration/conversion and rig-specific basis-profile authoring.
 - [ ] Full MANO/SMPL-X hand-PCA expansion to articulated hand joints.
 - [ ] Lossless canonical session serialization and schema migration tests.
 - [ ] Full live camera/audio/face/body/hand end-to-end tests.
