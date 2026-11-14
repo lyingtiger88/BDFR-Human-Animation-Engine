@@ -19,6 +19,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_library(bdfr_engine_core
     engine/core/Platform.cpp
     engine/core/Validation.cpp
+    engine/core/SessionCodec.cpp
 )
 target_include_directories(bdfr_engine_core PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/engine/include>
@@ -36,6 +37,9 @@ if(BDFR_BUILD_TESTS)
     add_executable(bdfr_platform_tests tests/test_platform.cpp)
     target_link_libraries(bdfr_platform_tests PRIVATE bdfr_engine_core)
     add_test(NAME bdfr_platform_tests COMMAND bdfr_platform_tests)
+    add_executable(bdfr_session_codec_tests tests/test_session_codec.cpp)
+    target_link_libraries(bdfr_session_codec_tests PRIVATE bdfr_engine_core)
+    add_test(NAME bdfr_session_codec_tests COMMAND bdfr_session_codec_tests)
 endif()
 
 if(BDFR_ENABLE_OPENCV)
