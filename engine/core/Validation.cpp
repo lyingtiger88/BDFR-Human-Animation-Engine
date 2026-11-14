@@ -94,6 +94,18 @@ ValidationResult validate(const Session& session) {
                     return {false, "Skeletal joint cannot parent itself"};
             }
         }
+        for (const auto& retargeted : frame.retargeted_bodies) {
+            if (!valid_header(retargeted.header) || retargeted.profile_name.empty())
+                return {false, "Invalid retargeted skeleton sample"};
+            for (const auto& bone : retargeted.bones) {
+                if (bone.target_bone.empty() ||
+                    !std::isfinite(bone.rotation.x) ||
+                    !std::isfinite(bone.rotation.y) ||
+                    !std::isfinite(bone.rotation.z) ||
+                    !std::isfinite(bone.rotation.w))
+                    return {false, "Invalid retargeted bone"};
+            }
+        }
         for (const auto& hand : frame.left_hands) {
             if (!valid_header(hand.header) || !valid_channels(hand.channels))
                 return {false, "Invalid left-hand sample or channels"};
