@@ -15,6 +15,9 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QLineEdit>
+#include <QListWidget>
+#include <QListWidgetItem>
+#include <QPainter>
 #include <QMessageBox>
 #include <QPushButton>
 #include <QStatusBar>
@@ -62,21 +65,22 @@ StudioMainWindow::StudioMainWindow(QWidget* parent)
     capture_layout->setSpacing(12);
 
     auto* toolbar = new QHBoxLayout();
-    camera_selector_ = new QComboBox(capture_page);
-    camera_selector_->setMinimumWidth(240);
-    camera_selector_->setPlaceholderText("Select a camera");
+    camera_list_ = new QListWidget(capture_page);
+    camera_list_->setMinimumHeight(110);
+    camera_list_->setMaximumHeight(150);
+    camera_list_->setSelectionMode(QAbstractItemView::NoSelection);
     refresh_button_ = new QPushButton("Refresh cameras", capture_page);
     start_button_ = new QPushButton("Start preview", capture_page);
     stop_button_ = new QPushButton("Stop", capture_page);
     stop_button_->setEnabled(false);
     calibration_button_ = new QPushButton("Camera & Rig Calibration", capture_page);
-    toolbar->addWidget(new QLabel("Video input:", capture_page));
-    toolbar->addWidget(camera_selector_, 1);
     toolbar->addWidget(refresh_button_);
     toolbar->addWidget(start_button_);
     toolbar->addWidget(stop_button_);
     toolbar->addWidget(calibration_button_);
     capture_layout->addLayout(toolbar);
+    capture_layout->addWidget(new QLabel("Select one or more cameras:", capture_page));
+    capture_layout->addWidget(camera_list_);
 
     preview_ = new QLabel(capture_page);
     preview_->setMinimumSize(640, 420);
@@ -154,7 +158,7 @@ StudioMainWindow::StudioMainWindow(QWidget* parent)
         stop_camera();
     });
     connect(preview_timer_, &QTimer::timeout, this, [this] {
-        update_camera_frame();
+        update_camera_frames();
     });
     connect(choose_directory_button_, &QPushButton::clicked, this, [this] {
         choose_sessions_directory();
@@ -190,8 +194,7 @@ void StudioMainWindow::open_calibration_wizard() {
 }
 
 void StudioMainWindow::refresh_cameras() {
-    const int previous_index = camera_selector_->currentData().toInt();
-    camera_selector_->clear();
+    camera_list_->clear();
     status_->setText("Scanning camera inputs…");
     refresh_button_->setEnabled(false);
 
@@ -202,11 +205,12 @@ void StudioMainWindow::refresh_cameras() {
             .arg(device.width)
             .arg(device.height)
             .arg(QString::fromStdString(device.backend));
-        camera_selector_->addItem(label, device.device_index);
+        auto* item = new QListWidgetItem(label, camera_list_);
+        item->setData(Qt::UserRole, device.device_index);
+        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+        item->setCheckState(Qt::Unchecked);
     }
 
-    const int previous_row = camera_selector_->findData(previous_index);
-    if (previous_row >= 0) camera_selector_->setCurrentIndex(previous_row);
 
     refresh_button_->setEnabled(true);
     if (devices.empty()) {
@@ -217,88 +221,118 @@ void StudioMainWindow::refresh_cameras() {
     } else {
         status_->setText(QString("%1 camera input(s) detected").arg(devices.size()));
         camera_details_->setText("Select a camera and start live preview");
-        start_button_->setEnabled(camera_ == nullptr);
+        start_button_->setEnabled(cameras_.empty());
     }
 }
 
 void StudioMainWindow::start_camera() {
-    if (camera_ || camera_selector_->currentIndex() < 0) return;
-
-    bdfrpc::CameraConfig config;
-    config.device_index = camera_selector_->currentData().toInt();
-    config.width = 1280;
-    config.height = 720;
-    config.fps = 30.0;
-    config.buffer_frames = 2;
-    config.source_id = "studio_camera_" + std::to_string(config.device_index);
-    config.stream_id = "studio_camera:" + std::to_string(config.device_index);
-
-    auto candidate = std::make_unique<bdfrpc::OpenCVCameraSource>(config);
-    if (!candidate->start()) {
-        status_->setText("Unable to open the selected camera");
-        show_preview_placeholder("Camera could not be opened");
+    if (!cameras_.empty()) return;
+    std::vector<int> selected_devices;
+    for (int row = 0; row < camera_list_->count(); ++row) {
+        const auto* item = camera_list_->item(row);
+        if (item->checkState() == Qt::Checked)
+            selected_devices.push_back(item->data(Qt::UserRole).toInt());
+    }
+    if (selected_devices.empty()) {
+        status_->setText("Select at least one camera before starting capture.");
         return;
     }
-
-    camera_ = std::move(candidate);
-    camera_selector_->setEnabled(false);
+    std::vector<std::string> required_streams;
+    std::vector<std::unique_ptr<bdfrpc::OpenCVCameraSource>> candidates;
+    for (const int device_index : selected_devices) {
+        bdfrpc::CameraConfig config;
+        config.device_index = device_index;
+        config.width = 1280;
+        config.height = 720;
+        config.fps = 30.0;
+        config.buffer_frames = 4;
+        config.source_id = "studio_camera_" + std::to_string(device_index);
+        config.stream_id = "studio_camera:" + std::to_string(device_index);
+        auto candidate = std::make_unique<bdfrpc::OpenCVCameraSource>(config);
+        if (!candidate->start()) {
+            for (auto& opened : candidates) opened->stop();
+            status_->setText(QString("Unable to open camera %1; all cameras stopped.").arg(device_index));
+            return;
+        }
+        required_streams.push_back(config.stream_id);
+        candidates.push_back(std::move(candidate));
+    }
+    synchronizer_.clear();
+    synchronizer_.reset_stats();
+    synchronizer_.set_required_streams(std::move(required_streams));
+    synchronizer_.set_tolerance_ns(8'000'000);
+    synchronized_sets_ = 0;
+    cameras_ = std::move(candidates);
+    camera_list_->setEnabled(false);
     refresh_button_->setEnabled(false);
     start_button_->setEnabled(false);
     stop_button_->setEnabled(true);
-    camera_details_->setText(
-        QString("Camera %1 · requesting 1280×720 at 30 FPS")
-            .arg(config.device_index));
-    status_->setText("Live camera stream started");
+    camera_details_->setText(QString("%1 camera(s) active · synchronization tolerance 8 ms").arg(cameras_.size()));
+    status_->setText("Multi-camera capture started; waiting for synchronized frames.");
     preview_timer_->start();
 }
 
 void StudioMainWindow::stop_camera() {
     if (preview_timer_) preview_timer_->stop();
-    if (camera_) {
-        camera_->stop();
-        camera_.reset();
-    }
-    if (camera_selector_) camera_selector_->setEnabled(true);
+    for (auto& camera : cameras_) if (camera) camera->stop();
+    cameras_.clear();
+    synchronizer_.clear();
+    if (camera_list_) camera_list_->setEnabled(true);
     if (refresh_button_) refresh_button_->setEnabled(true);
-    if (start_button_)
-        start_button_->setEnabled(camera_selector_ &&
-                                  camera_selector_->currentIndex() >= 0);
+    if (start_button_) start_button_->setEnabled(camera_list_ && camera_list_->count() > 0);
     if (stop_button_) stop_button_->setEnabled(false);
-    if (camera_details_) camera_details_->setText("Camera stream stopped");
+    if (camera_details_) camera_details_->setText("Camera streams stopped");
     if (preview_) show_preview_placeholder("Camera preview is stopped");
 }
 
-void StudioMainWindow::update_camera_frame() {
-    if (!camera_) return;
-    auto frame = camera_->poll();
-    if (!frame || !frame->image.valid()) return;
-
-    const auto& image = frame->image;
-    if (image.format != bdfrpc::PixelFormat::BGR8) {
-        status_->setText("Unsupported camera pixel format");
-        return;
+void StudioMainWindow::update_camera_frames() {
+    if (cameras_.empty()) return;
+    for (auto& camera : cameras_) {
+        if (!camera || !camera->running()) continue;
+        for (int drained = 0; drained < 4; ++drained) {
+            auto frame = camera->poll();
+            if (!frame) break;
+            synchronizer_.push(std::move(*frame));
+        }
     }
-
-    last_frame_ = QImage(
-        image.bytes->data(),
-        image.width,
-        image.height,
-        image.stride_bytes,
-        QImage::Format_BGR888).copy();
-
-    preview_->setPixmap(QPixmap::fromImage(last_frame_).scaled(
-        preview_->size(),
-        Qt::KeepAspectRatio,
-        Qt::SmoothTransformation));
-
-    camera_details_->setText(
-        QString("Live · %1×%2 · sequence %3 · measured %4 FPS · dropped %5")
-            .arg(image.width)
-            .arg(image.height)
-            .arg(frame->sequence)
-            .arg(camera_->measured_fps(), 0, 'f', 1)
-            .arg(camera_->dropped_frames()));
-    status_->setText("Receiving live camera frames");
+    bool emitted = false;
+    while (auto synced = synchronizer_.try_pop()) {
+        if (synced->frames.empty()) continue;
+        emitted = true;
+        ++synchronized_sets_;
+        const int count = static_cast<int>(synced->frames.size());
+        const int columns = count <= 2 ? count : 2;
+        const int rows = (count + columns - 1) / columns;
+        constexpr int cell_width = 640;
+        constexpr int cell_height = 360;
+        QImage mosaic(columns * cell_width, rows * cell_height, QImage::Format_RGB32);
+        mosaic.fill(QColor(17, 21, 28));
+        QPainter painter(&mosaic);
+        for (int i = 0; i < count; ++i) {
+            const auto& frame = synced->frames[static_cast<std::size_t>(i)];
+            const auto& image = frame.image;
+            const QRect cell((i % columns) * cell_width, (i / columns) * cell_height, cell_width, cell_height);
+            if (image.valid() && image.format == bdfrpc::PixelFormat::BGR8) {
+                const QImage view(image.bytes->data(), image.width, image.height, image.stride_bytes, QImage::Format_BGR888);
+                const QPixmap scaled = QPixmap::fromImage(view.copy()).scaled(cell.size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+                painter.drawPixmap(QPoint(cell.x() + (cell.width() - scaled.width()) / 2,
+                                           cell.y() + (cell.height() - scaled.height()) / 2), scaled);
+            }
+            painter.setPen(Qt::white);
+            painter.drawText(cell.adjusted(10, 8, -8, -8), Qt::AlignTop | Qt::AlignLeft,
+                             QString::fromStdString(frame.stream_id));
+        }
+        painter.end();
+        last_frame_ = std::move(mosaic);
+        preview_->setPixmap(QPixmap::fromImage(last_frame_).scaled(preview_->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+        camera_details_->setText(
+            QString("%1 synchronized camera(s) · set skew %2 ms · max skew %3 ms · sets %4")
+                .arg(count)
+                .arg(static_cast<double>(synced->max_skew_ns) / 1.0e6, 0, 'f', 2)
+                .arg(static_cast<double>(synchronizer_.stats().max_set_skew_ns) / 1.0e6, 0, 'f', 2)
+                .arg(static_cast<qulonglong>(synchronized_sets_)));
+    }
+    if (emitted) status_->setText("Receiving synchronized multi-camera frames");
 }
 
 void StudioMainWindow::show_preview_placeholder(const QString& message) {
