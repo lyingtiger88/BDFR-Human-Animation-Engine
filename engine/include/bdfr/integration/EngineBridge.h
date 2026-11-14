@@ -10,6 +10,7 @@
 #include "bdfr/audio/WavAudio.h"
 #include "bdfr/speech/TextSpeech.h"
 #include "bdfr/expression/BehaviorEngine.h"
+#include "bdfr/expression/EmotionEngine.h"
 
 #include <string>
 #include <vector>
@@ -38,6 +39,19 @@ performance::PerformanceFrame fuse_to_engine_frame(
 std::vector<performance::FaceCurve> mix_face_curves(
     const std::vector<performance::FaceCurve>& base,
     std::vector<bdfr::CurveLayer> layers);
+
+performance::PerformanceFrame sample_emotion(
+    bdfr::expression::Emotion emotion,
+    float intensity,
+    double time_seconds,
+    performance::Nanoseconds session_start_ns,
+    const std::string& source_id = "emotion-engine");
+
+performance::PerformanceFrame sample_instant_event(
+    const bdfr::expression::InstantEvent& event,
+    double time_seconds,
+    performance::Nanoseconds session_start_ns,
+    const std::string& source_id = "instant-event");
 
 performance::PerformanceFrame sample_procedural_face(
     const bdfr::expression::BehaviorProfile& profile,
