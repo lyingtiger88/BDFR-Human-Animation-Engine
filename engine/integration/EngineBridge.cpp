@@ -399,6 +399,77 @@ std::vector<performance::SpeechSample> plan_text_speech(
     return output;
 }
 
+std::vector<performance::PerformanceFrame> to_engine_phoneme_frames(
+    const std::vector<TimedPhoneme>& phonemes,
+    const bdfr::speech::LanguageProfile& language,
+    performance::Nanoseconds session_start_ns,
+    const std::string& source_id) {
+    std::vector<performance::PerformanceFrame> output;
+    if (session_start_ns < 0 || source_id.empty()) return output;
+    output.reserve(phonemes.size());
+
+    const auto viseme_name = [](bdfr::speech::Viseme viseme) -> const char* {
+        switch (viseme) {
+        case bdfr::speech::Viseme::Rest: return "rest";
+        case bdfr::speech::Viseme::MBP: return "MBP";
+        case bdfr::speech::Viseme::FV: return "FV";
+        case bdfr::speech::Viseme::TH: return "TH";
+        case bdfr::speech::Viseme::L: return "L";
+        case bdfr::speech::Viseme::R: return "R";
+        case bdfr::speech::Viseme::WQ: return "WQ";
+        case bdfr::speech::Viseme::EE: return "EE";
+        case bdfr::speech::Viseme::AA: return "AA";
+        case bdfr::speech::Viseme::OH: return "OH";
+        case bdfr::speech::Viseme::CHSH: return "CHSH";
+        case bdfr::speech::Viseme::KNG: return "KNG";
+        case bdfr::speech::Viseme::SZTDN: return "SZTDN";
+        }
+        return "rest";
+    };
+
+    for (const auto& phoneme : phonemes) {
+        if (phoneme.phoneme.empty() || !std::isfinite(phoneme.start_seconds) ||
+            !std::isfinite(phoneme.duration_seconds) ||
+            !std::isfinite(phoneme.confidence) || phoneme.start_seconds < 0.0 ||
+            phoneme.duration_seconds <= 0.0) continue;
+        const long double offset = static_cast<long double>(phoneme.start_seconds) * 1000000000.0L;
+        const long double duration = static_cast<long double>(phoneme.duration_seconds) * 1000000000.0L;
+        if (offset > static_cast<long double>(std::numeric_limits<performance::Nanoseconds>::max()) ||
+            duration > static_cast<long double>(std::numeric_limits<performance::Nanoseconds>::max()))
+            continue;
+        const auto offset_ns = static_cast<performance::Nanoseconds>(std::llround(offset));
+        const auto duration_ns = static_cast<performance::Nanoseconds>(std::llround(duration));
+        if (session_start_ns > std::numeric_limits<performance::Nanoseconds>::max() - offset_ns)
+            continue;
+        const auto timestamp = session_start_ns + offset_ns;
+        const float confidence = std::clamp(phoneme.confidence, 0.0F, 1.0F);
+        const auto viseme = language.mapPhoneme(phoneme.phoneme);
+
+        performance::PerformanceFrame frame;
+        frame.session_time_ns = timestamp;
+        performance::SpeechSample speech;
+        speech.header = make_header(offset_ns, timestamp, source_id, confidence);
+        speech.phoneme = phoneme.phoneme;
+        speech.viseme = viseme_name(viseme);
+        speech.normalized_energy = confidence;
+        frame.speech.push_back(std::move(speech));
+
+        const auto pose = bdfr::speech::VisemeSynthesizer::pose(viseme, confidence);
+        if (!pose.empty()) {
+            performance::FaceSample face;
+            face.header = make_header(offset_ns, timestamp, source_id, confidence);
+            std::vector<std::pair<std::string, float>> ordered(pose.begin(), pose.end());
+            std::sort(ordered.begin(), ordered.end(),
+                      [](const auto& a, const auto& b) { return a.first < b.first; });
+            for (const auto& item : ordered)
+                face.curves.push_back({item.first, item.second});
+            frame.faces.push_back(std::move(face));
+        }
+        output.push_back(std::move(frame));
+    }
+    return output;
+}
+
 std::vector<performance::PerformanceFrame> plan_audio_behavior(
     const bdfr::audio::AudioBuffer& source,
     performance::Nanoseconds session_start_ns,
