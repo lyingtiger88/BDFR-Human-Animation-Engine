@@ -22,6 +22,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+      - name: Verify migrated source snapshots
+        run: python migration/verify_snapshot.py
       - name: Configure (Windows x64)
         if: runner.os == 'Windows'
         run: cmake -S . -B build -G "${{ matrix.generator }}" -A x64 -DBDFR_BUILD_TESTS=ON
