@@ -7,7 +7,6 @@
 #include "bdfrpc/TakeSessionIndex.h"
 
 #include <QAbstractItemView>
-#include <QComboBox>
 #include <QDir>
 #include <QFileDialog>
 #include <QFont>
@@ -325,11 +324,19 @@ void StudioMainWindow::update_camera_frames() {
         painter.end();
         last_frame_ = std::move(mosaic);
         preview_->setPixmap(QPixmap::fromImage(last_frame_).scaled(preview_->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+        std::uint64_t source_drops = 0;
+        double fps_sum = 0.0;
+        for (const auto& camera : cameras_) {
+            source_drops += camera->dropped_frames();
+            fps_sum += camera->measured_fps();
+        }
         camera_details_->setText(
-            QString("%1 synchronized camera(s) · set skew %2 ms · max skew %3 ms · sets %4")
+            QString("%1 synchronized camera(s) · set skew %2 ms · max skew %3 ms · avg %4 FPS · source drops %5 · sets %6")
                 .arg(count)
                 .arg(static_cast<double>(synced->max_skew_ns) / 1.0e6, 0, 'f', 2)
                 .arg(static_cast<double>(synchronizer_.stats().max_set_skew_ns) / 1.0e6, 0, 'f', 2)
+                .arg(fps_sum / static_cast<double>(cameras_.size()), 0, 'f', 1)
+                .arg(static_cast<qulonglong>(source_drops))
                 .arg(static_cast<qulonglong>(synchronized_sets_)));
     }
     if (emitted) status_->setText("Receiving synchronized multi-camera frames");
