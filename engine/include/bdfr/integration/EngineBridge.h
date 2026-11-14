@@ -6,6 +6,7 @@
 #include "bdfrpc/FusionCore.h"
 #include "bdfrpc/Types.h"
 #include "bdfrpc/Skeleton.h"
+#include "bdfrpc/Retarget.h"
 
 #include <string>
 #include <vector>
@@ -16,6 +17,10 @@ performance::PerformanceFrame to_engine_frame(
     const bdfr::FacialFrame& source,
     performance::Nanoseconds session_time_ns,
     const std::string& source_id = "facial-solver");
+
+performance::RetargetedSkeletonSample retarget_to_engine(
+    const performance::SkeletonSample& source,
+    const bdfrpc::RetargetProfile& profile);
 
 performance::SkeletonSample to_engine_skeleton(
     const bdfrpc::SkeletonPose& source,
