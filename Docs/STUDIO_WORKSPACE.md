@@ -6,13 +6,12 @@ This branch extends the unified Qt desktop application with two usable workflows
 
 1. Open the **Live Capture** tab.
 2. Select **Refresh cameras** to enumerate OpenCV video inputs 0–9.
-3. Select a detected camera and press **Start preview**.
-4. The preview displays the latest BGR camera frame. The status line reports frame dimensions, sequence number, measured FPS and dropped-frame count.
-5. Press **Stop** before switching devices or closing the application.
+3. Check one or more detected cameras in the device list.
+4. Press **Start preview**. All selected cameras are opened as one capture group; if any selected camera fails to open, the partial group is stopped and capture does not start.
+5. The preview renders a camera mosaic. Frames are matched by their host monotonic timestamps with an 8 ms synchronization tolerance. The status line reports current and maximum observed set skew, average measured FPS, source-buffer drops and synchronized set count.
+6. Press **Stop** before changing the selected devices or closing the application.
 
-The preview uses the migrated `OpenCVCameraSource` capture adapter. The GUI polls the adapter on a 16 ms Qt timer and copies each frame into a Qt-owned image before rendering, so the display does not retain a pointer into a recycled capture buffer.
-
-The current UI intentionally opens one camera at a time. Multi-camera synchronized capture remains a later integration step; the existing rig calibration workflow remains available separately.
+Each source uses the migrated `OpenCVCameraSource` adapter. The GUI drains bounded source queues on a 16 ms Qt timer and feeds the migrated `FrameSynchronizer`; the mosaic copies image memory before rendering. This is host-clock synchronization, not hardware-trigger/genlock synchronization. The 8 ms tolerance is configurable in code and must be validated against the actual camera combination and frame rates.
 
 ## Camera Calibration
 
@@ -41,4 +40,4 @@ cmake -S . -B build-studio \
 cmake --build build-studio --parallel
 ```
 
-No release build is implied by this documentation. Live hardware behavior still requires validation on the target workstation and cameras.
+A synthetic regression test covers pairing, skew limits and stale-frame dropping. The Studio feature branch has not been built or tested with physical cameras. Host-clock alignment is not a substitute for hardware-trigger synchronization; validate frame skew, USB bandwidth and capture stability on the target workstation before production use.
