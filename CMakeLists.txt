@@ -22,6 +22,7 @@ add_library(bdfr_engine_core
     engine/core/SessionCodec.cpp
     engine/core/HandPca.cpp
     engine/core/SessionTimeline.cpp
+    engine/core/CoordinateProfile.cpp
 )
 target_include_directories(bdfr_engine_core PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/engine/include>
@@ -48,6 +49,9 @@ if(BDFR_BUILD_TESTS)
     add_executable(bdfr_hand_pca_tests tests/test_hand_pca.cpp)
     target_link_libraries(bdfr_hand_pca_tests PRIVATE bdfr_engine_core)
     add_test(NAME bdfr_hand_pca_tests COMMAND bdfr_hand_pca_tests)
+    add_executable(bdfr_coordinate_profile_tests tests/test_coordinate_profile.cpp)
+    target_link_libraries(bdfr_coordinate_profile_tests PRIVATE bdfr_engine_core)
+    add_test(NAME bdfr_coordinate_profile_tests COMMAND bdfr_coordinate_profile_tests)
 
     # Keep assert-based test checks active even when the CI configuration is Release.
     if(MSVC)
@@ -55,11 +59,13 @@ if(BDFR_BUILD_TESTS)
         target_compile_options(bdfr_session_codec_tests PRIVATE /UNDEBUG)
         target_compile_options(bdfr_session_timeline_tests PRIVATE /UNDEBUG)
         target_compile_options(bdfr_hand_pca_tests PRIVATE /UNDEBUG)
+        target_compile_options(bdfr_coordinate_profile_tests PRIVATE /UNDEBUG)
     else()
         target_compile_options(bdfr_platform_tests PRIVATE -UNDEBUG)
         target_compile_options(bdfr_session_codec_tests PRIVATE -UNDEBUG)
         target_compile_options(bdfr_session_timeline_tests PRIVATE -UNDEBUG)
         target_compile_options(bdfr_hand_pca_tests PRIVATE -UNDEBUG)
+        target_compile_options(bdfr_coordinate_profile_tests PRIVATE -UNDEBUG)
     endif()
 endif()
 
