@@ -6,6 +6,11 @@ Pinned source trees:
 - `lyingtiger88/BDFR_FacialAnimation`, branch `main`, tree `c090e6ab4612373e2c701f7ace39d69b68f242a5`
 - `lyingtiger88/BDFR_PerformanceCapture`, branch `main`, tree `4c36eeb06402cd16d635aa46bf9b5fce12aec832`
 
+## Current execution policy
+
+- [x] CI workflow changed to manual-only (`workflow_dispatch`) while the owner has requested development without builds.
+- [ ] Do not trigger Build, CTest or Release workflows until the owner explicitly requests a build.
+
 ## Exact source snapshot migration
 - [x] All 244 tracked Facial Animation files copied.
 - [x] All 82 tracked Performance Capture files copied.
