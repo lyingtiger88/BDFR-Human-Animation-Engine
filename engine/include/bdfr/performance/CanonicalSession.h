@@ -27,7 +27,7 @@ struct SampleHeader {
     std::string source_id;
 };
 
-struct FaceCurve {
+struct ScalarChannel {\n    std::string name;\n    float value{};\n    float confidence{1.0F};\n};\nstruct FaceCurve {
     std::string name;
     float value{};
 };
@@ -53,7 +53,7 @@ struct SkeletonSample {
 };
 struct HandSample {
     SampleHeader header;
-    std::array<JointSample, 25> joints{};
+    std::array<JointSample, 25> joints{};\n    std::vector<ScalarChannel> channels;
     bool has_palm_pose{false};
     Vec3f palm_position{};
     Quaternionf palm_rotation{};
