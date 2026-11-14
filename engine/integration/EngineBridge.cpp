@@ -236,6 +236,29 @@ std::vector<performance::FaceCurve> mix_face_curves(
     return output;
 }
 
+performance::PerformanceFrame sample_procedural_face(
+    const bdfr::expression::BehaviorProfile& profile,
+    double time_seconds,
+    performance::Nanoseconds session_start_ns,
+    std::uint32_t personality_seed,
+    const std::string& source_id) {
+    performance::PerformanceFrame output;
+    output.session_time_ns = session_start_ns;
+    if (!std::isfinite(time_seconds) || time_seconds < 0.0 || source_id.empty())
+        return output;
+    auto facial = bdfr::expression::BehaviorEngine::sample(
+        profile, time_seconds, personality_seed);
+    facial.timestampSeconds = time_seconds;
+    const long double offset = static_cast<long double>(time_seconds) * 1000000000.0L;
+    if (offset > static_cast<long double>(std::numeric_limits<performance::Nanoseconds>::max()))
+        return output;
+    const auto offset_ns = static_cast<performance::Nanoseconds>(std::llround(offset));
+    if (session_start_ns > std::numeric_limits<performance::Nanoseconds>::max() - offset_ns)
+        return output;
+    output = to_engine_frame(facial, session_start_ns + offset_ns, source_id);
+    return output;
+}
+
 std::vector<performance::FaceCurve> sample_text_lipsync_curves(
     const std::string& text,
     double time_seconds,
