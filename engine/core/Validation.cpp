@@ -169,4 +169,11 @@ ValidationResult validate(const Session& session) {
     return {};
 }
 
+ValidationResult validate_frame(const PerformanceFrame& frame) {
+    Session candidate;
+    candidate.session_id = "frame-validation";
+    candidate.frames.push_back(frame);
+    return validate(candidate);
+}
+
 } // namespace bdfr::performance
