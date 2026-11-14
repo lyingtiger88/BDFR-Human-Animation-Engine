@@ -100,6 +100,10 @@ if(BDFRPC_BUILD_TESTS)
     add_executable(bdfrpc_core_tests tests/test_core.cpp)
     target_link_libraries(bdfrpc_core_tests PRIVATE bdfrpc_core)
     add_test(NAME bdfrpc_core_tests COMMAND bdfrpc_core_tests)
+
+    add_executable(bdfrpc_performance_contract_tests tests/test_performance_contract.cpp)
+    target_include_directories(bdfrpc_performance_contract_tests PRIVATE include)
+    add_test(NAME bdfrpc_performance_contract_tests COMMAND bdfrpc_performance_contract_tests)
 endif()
 
 if(BDFRPC_BUILD_STUDIO)
