@@ -32,11 +32,8 @@ bool SessionRecorder::append(PerformanceFrame frame) {
     if (!active_ || frame.session_time_ns < 0) return false;
     if (!session_.frames.empty() &&
         frame.session_time_ns < session_.frames.back().session_time_ns) return false;
+    if (!validate_frame(frame).ok) return false;
     session_.frames.push_back(std::move(frame));
-    if (!validate(session_).ok) {
-        session_.frames.pop_back();
-        return false;
-    }
     return true;
 }
 
