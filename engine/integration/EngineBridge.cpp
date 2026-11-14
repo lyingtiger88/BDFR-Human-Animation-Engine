@@ -420,6 +420,60 @@ std::vector<performance::SpeechSample> plan_text_speech(
     return output;
 }
 
+bool process_audio_speech(
+    const bdfr::speech::SpeechRecognitionProvider& provider,
+    const bdfr::audio::AudioBuffer& audio,
+    const bdfr::speech::LanguageProfile& language,
+    performance::Nanoseconds session_start_ns,
+    AlignedSpeechFrames& output,
+    std::string* error,
+    const std::string& source_id) {
+    const auto fail = [error](const char* message) {
+        if (error) *error = message;
+        return false;
+    };
+    if (!audio.valid()) return fail("Invalid audio buffer");
+    if (session_start_ns < 0 || source_id.empty())
+        return fail("Invalid session timestamp or source identifier");
+
+    bdfr::speech::SpeechRecognitionResult recognized;
+    std::string provider_error;
+    if (!provider.transcribe_and_align(audio, recognized, &provider_error)) {
+        if (error) *error = provider_error.empty()
+            ? "Speech recognition provider failed" : provider_error;
+        return false;
+    }
+    if (recognized.transcript.empty() || recognized.phonemes.empty() ||
+        !std::isfinite(recognized.confidence) ||
+        recognized.confidence < 0.0F || recognized.confidence > 1.0F)
+        return fail("Provider returned an incomplete or invalid transcript");
+
+    std::vector<TimedPhoneme> timed;
+    timed.reserve(recognized.phonemes.size());
+    double previous_start = -1.0;
+    for (const auto& item : recognized.phonemes) {
+        if (item.symbol.empty() || !std::isfinite(item.start_seconds) ||
+            !std::isfinite(item.duration_seconds) || !std::isfinite(item.confidence) ||
+            item.start_seconds < 0.0 || item.duration_seconds <= 0.0 ||
+            item.confidence < 0.0F || item.confidence > 1.0F ||
+            item.start_seconds < previous_start)
+            return fail("Provider returned invalid or unordered phoneme timing");
+        previous_start = item.start_seconds;
+        timed.push_back({item.symbol, item.start_seconds,
+                         item.duration_seconds, item.confidence});
+    }
+
+    AlignedSpeechFrames candidate;
+    candidate.transcript = std::move(recognized.transcript);
+    candidate.confidence = recognized.confidence;
+    candidate.frames = to_engine_phoneme_frames(timed, language, session_start_ns, source_id);
+    if (candidate.frames.size() != timed.size())
+        return fail("One or more aligned phonemes could not be converted to canonical frames");
+    output = std::move(candidate);
+    if (error) error->clear();
+    return true;
+}
+
 std::vector<performance::FaceCurve> sample_phoneme_lipsync_curves(
     const std::vector<TimedPhoneme>& phonemes,
     const bdfr::speech::LanguageProfile& language,
