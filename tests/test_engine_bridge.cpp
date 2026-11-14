@@ -58,14 +58,14 @@ int main() {
     pose.confidence = 0.95F;
     pose.translation = {1.0F, 2.0F, 3.0F};
     pose.joints.push_back({"pelvis", -1, {0.0F, 0.0F, 0.0F}});
-    pose.joints.push_back({"spine", 0, {0.0F, 0.0F, 0.5F}});
+    pose.joints.push_back({"spine1", 0, {0.0F, 0.0F, 0.5F}});
     pose.shape = {0.1F, 0.2F};
     pose.left_hand_pca = {0.3F};
     auto skeleton = bdfr::integration::to_engine_skeleton(pose, 400, "body-worker");
     assert(skeleton.joints.size() == 2);
     assert(skeleton.joints[1].parent_index == 0);
     assert(skeleton.channels.size() == 3);
-    assert(skeleton.root_translation.y == 2.0F);
+    assert(skeleton.root_translation.y == 2.0F);\n    auto target_skeleton = bdfr::integration::retarget_to_engine(\n        skeleton, bdfrpc::RetargetProfile::unreal_mannequin());\n    assert(target_skeleton.profile_name == "Unreal Mannequin");\n    assert(target_skeleton.bones.size() == 2);\n    assert(target_skeleton.bones[1].target_bone == "spine_01");
 
     bdfrpc::SourceRouter router;
     router.set_route(bdfrpc::Domain::Face, {{"camera-1", 0.5F, 1000000}});
