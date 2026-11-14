@@ -41,6 +41,25 @@ std::vector<performance::ScalarChannel> copy_channels(
 
 } // namespace
 
+performance::PerformanceFrame fuse_to_engine_frame(
+    const bdfrpc::SyncedFrameSet& source,
+    performance::Nanoseconds session_time_ns) {
+    bdfrpc::FusionCore fusion;
+    return to_engine_frame(fusion.fuse(source), session_time_ns, "bdfrpc-fusion");
+}
+
+std::vector<performance::FaceCurve> mix_face_curves(
+    const std::vector<performance::FaceCurve>& base,
+    std::vector<bdfr::CurveLayer> layers) {
+    bdfr::CurveMap base_map;
+    for (const auto& curve : base) base_map[curve.name] = curve.value;
+    const auto mixed = bdfr::CurveMixer::mix(base_map, std::move(layers));
+    std::vector<performance::FaceCurve> output;
+    output.reserve(mixed.size());
+    for (const auto& item : mixed) output.push_back({item.first, item.second});
+    return output;
+}
+
 performance::PerformanceFrame to_engine_frame(
     const bdfrpc::FusedPerformanceFrame& source,
     performance::Nanoseconds session_time_ns,
