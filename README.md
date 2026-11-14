@@ -47,6 +47,6 @@ The top-level CMake superbuild compiles the migrated facial and performance-capt
 - Capture FusionCore output to canonical face, head, body and hand tracks.
 - Facial CurveMixer layers to canonical facial curves.
 - Audio buffers to canonical speech tracks with windowed energy, prosody and pitch estimates.
-- TextSpeechPlanner output to timestamped canonical phoneme-token and viseme-label samples (text-planned visemes; not yet audio-recognized phonemes or final facial-curve lip sync).
+- TextSpeechPlanner output to timestamped canonical speech samples and heuristic grapheme-to-viseme facial curves (not audio-recognized phonemes or speech-driven lip sync).
 
 Build and test status is recorded in `migration/MIGRATION_STATUS.md`; the exact capability-by-capability parity and remaining work are listed in `Docs/FEATURE_PARITY_MATRIX.md`. The Qt Studio, Android capture client, full retargeting/coordinate conversion and production asset/license review remain separate migration gates.
