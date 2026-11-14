@@ -18,6 +18,7 @@
 #include <QMessageBox>
 #include <QPushButton>
 #include <QStatusBar>
+#include <QStringList>
 #include <QTabWidget>
 #include <QTableWidget>
 #include <QTableWidgetItem>
@@ -356,9 +357,9 @@ void StudioMainWindow::refresh_sessions() {
 
     session_summary_->setText(
         QString("%1 session file(s) · %2 valid · %3 invalid")
-            .arg(sessions.size())
-            .arg(valid_count)
-            .arg(sessions.size() - valid_count));
+            .arg(static_cast<qulonglong>(sessions.size()))
+            .arg(static_cast<qulonglong>(valid_count))
+            .arg(static_cast<qulonglong>(sessions.size() - valid_count)));
     inspect_session_button_->setEnabled(false);
 }
 
@@ -380,7 +381,7 @@ void StudioMainWindow::inspect_selected_session() {
     const QString report = QString(
         "File: %1\nFrames: %2\nDuration: %3 seconds\nStart: %4 ns\nEnd: %5 ns\nRecovered truncated tail: %6")
         .arg(path)
-        .arg(reader.frames().size())
+        .arg(static_cast<qulonglong>(reader.frames().size()))
         .arg(static_cast<double>(reader.duration_ns()) / 1.0e9, 0, 'f', 3)
         .arg(reader.start_time_ns())
         .arg(reader.end_time_ns())
