@@ -51,6 +51,7 @@ struct HeadSample {
 };
 struct JointSample {
     std::string name;
+    std::int32_t parent_index{-1};
     Vec3f translation{};
     Quaternionf rotation{};
     float confidence{1.0F};
@@ -71,6 +72,10 @@ struct HandSample {
     Vec3f palm_position{};
     Quaternionf palm_rotation{};
 };
+struct GazeSample {
+    SampleHeader header;
+    std::vector<ScalarChannel> channels;
+};
 struct SpeechSample {
     SampleHeader header;
     std::string text;
@@ -88,6 +93,7 @@ struct PerformanceFrame {
     Nanoseconds session_time_ns{};
     std::vector<FaceSample> faces;
     std::vector<HeadSample> heads;
+    std::vector<GazeSample> gaze;
     std::vector<SkeletonSample> bodies;
     std::vector<HandSample> left_hands;
     std::vector<HandSample> right_hands;
