@@ -19,7 +19,7 @@ This matrix distinguishes exact source preservation from compilation, canonical 
 | Full MANO/SMPL-X hand articulation | Yes | Yes | PCA preserved; expansion not complete | No |
 | OpenCV camera acquisition / calibration | Yes | Optional build target | Adapter boundary present | Not enabled in default CI |
 | BVH export | Yes | Yes | Direct canonical export pending | No |
-| Retarget profiles / MetaHuman mapping | Yes | Core source yes; proprietary runtime optional | Canonical profile layer pending | No |
+| Retarget profiles / MetaHuman mapping | Yes | Yes | Yes, adapter to existing Unreal Mannequin and MetaHuman Body profiles | Unreal Mannequin synthetic regression test; MetaHuman runtime not tested |
 | FaceBuilder / eos | Yes | Stub target built; eos optional | Adapter boundary present | No photo-to-3D test |
 | OpenRigLogic / MetaHuman DNA | Yes | Stub target built; OpenRigLogic optional | Adapter boundary present | No MetaHuman runtime test |
 | Session / take recording and playback | Yes | Yes | Canonical serialization bridge pending | Legacy tests only |
