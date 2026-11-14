@@ -139,6 +139,19 @@ int main() {
     assert(has_mouth_close);
     assert(english_phonemes[1].speech[0].viseme == "EE");
 
+    const std::vector<bdfr::integration::TimedPhoneme> coarticulation = {
+        {"m", 0.0, 0.10, 1.0F},
+        {"iy", 0.10, 0.12, 1.0F}
+    };
+    const auto before_transition = bdfr::integration::sample_phoneme_lipsync_curves(
+        coarticulation, bdfr::speech::LanguageProfile::englishBootstrap(), 0.095, 0.045);
+    const auto during_vowel = bdfr::integration::sample_phoneme_lipsync_curves(
+        coarticulation, bdfr::speech::LanguageProfile::englishBootstrap(), 0.15, 0.045);
+    assert(!before_transition.empty());
+    assert(!during_vowel.empty());
+    assert(bdfr::integration::sample_phoneme_lipsync_curves(
+        coarticulation, bdfr::speech::LanguageProfile::englishBootstrap(), -0.1).empty());
+
     const auto persian_phonemes = bdfr::integration::to_engine_phoneme_frames(
         {{"kh", 0.0, 0.09, 0.9F}, {"zh", 0.09, 0.11, 0.7F}},
         bdfr::speech::LanguageProfile::persianBootstrap(), 1200000000, "asr-fa");
