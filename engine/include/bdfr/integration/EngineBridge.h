@@ -8,6 +8,7 @@
 #include "bdfrpc/Skeleton.h"
 #include "bdfrpc/Retarget.h"
 #include "bdfr/audio/WavAudio.h"
+#include "bdfr/audio/AudioBehavior.h"
 #include "bdfr/speech/TextSpeech.h"
 #include "bdfr/expression/BehaviorEngine.h"
 #include "bdfr/expression/EmotionEngine.h"
@@ -70,6 +71,11 @@ std::vector<performance::SpeechSample> plan_text_speech(
     performance::Nanoseconds session_start_ns,
     const std::string& source_id = "text-speech",
     const bdfr::speech::TextSpeechOptions& options = {});
+
+std::vector<performance::PerformanceFrame> plan_audio_behavior(
+    const bdfr::audio::AudioBuffer& source,
+    performance::Nanoseconds session_start_ns,
+    const std::string& source_id = "audio-behavior");
 
 performance::PerformanceFrame to_engine_frame(
     const bdfr::audio::AudioBuffer& source,
