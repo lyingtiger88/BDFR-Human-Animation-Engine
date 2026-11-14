@@ -147,6 +147,41 @@ int main() {
         has_pitch = has_pitch || speech.pitch_hz > 0.0F;
     assert(has_pitch);
 
+    bdfr::audio::AudioBuffer behavior_audio;
+    behavior_audio.sampleRate = 16000;
+    behavior_audio.channels = 1;
+    behavior_audio.samples.resize(16000, 0.0F);
+    for (std::size_t i = 4000; i < 9600; ++i) {
+        behavior_audio.samples[i] = 0.25F * std::sin(
+            2.0F * 3.14159265358979323846F * 180.0F *
+            static_cast<float>(i) / 16000.0F);
+    }
+    const auto audio_behavior = bdfr::integration::plan_audio_behavior(
+        behavior_audio, 2000000000, "prosody-worker");
+    assert(!audio_behavior.empty());
+    bool has_audio_blink = false;
+    bool has_audio_head_nod = false;
+    bool has_audio_breath = false;
+    bool has_audio_emphasis = false;
+    for (const auto& cue_frame : audio_behavior) {
+        assert(cue_frame.session_time_ns >= 2000000000);
+        if (!cue_frame.faces.empty()) {
+            for (const auto& curve : cue_frame.faces[0].curves)
+                has_audio_blink = has_audio_blink || curve.name == "eyeBlinkLeft";
+        }
+        if (!cue_frame.heads.empty()) {
+            for (const auto& channel : cue_frame.heads[0].channels) {
+                has_audio_head_nod = has_audio_head_nod || channel.name == "audio_head_nod";
+                has_audio_breath = has_audio_breath || channel.name == "breath_intensity";
+                has_audio_emphasis = has_audio_emphasis || channel.name == "speech_emphasis";
+            }
+        }
+    }
+    assert(has_audio_blink);
+    assert(has_audio_head_nod);
+    assert(has_audio_breath);
+    assert(has_audio_emphasis);
+
     bdfr::audio::AudioBuffer invalid_audio;
     assert(bdfr::integration::to_engine_frame(invalid_audio, 0).speech.empty());
 
