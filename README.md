@@ -47,4 +47,4 @@ The top-level CMake superbuild compiles the migrated facial and performance-capt
 - Capture FusionCore output to canonical face, head, body and hand tracks.
 - Facial CurveMixer layers to canonical facial curves.
 
-Build and test status is recorded in `migration/MIGRATION_STATUS.md`. The Qt Studio, Android capture client, full retargeting/coordinate conversion and production asset/license review remain separate migration gates.
+Build and test status is recorded in `migration/MIGRATION_STATUS.md`; the exact capability-by-capability parity and remaining work are listed in `Docs/FEATURE_PARITY_MATRIX.md`. The Qt Studio, Android capture client, full retargeting/coordinate conversion and production asset/license review remain separate migration gates.
