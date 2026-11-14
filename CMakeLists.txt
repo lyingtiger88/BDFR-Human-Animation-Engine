@@ -15,6 +15,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_library(bdfr_engine_core
     engine/core/Platform.cpp
+    engine/core/Validation.cpp
 )
 target_include_directories(bdfr_engine_core PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/engine/include>
