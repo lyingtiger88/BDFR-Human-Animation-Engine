@@ -5,6 +5,7 @@
 #include <limits>
 #include <stdexcept>
 #include <type_traits>
+#include <utility>
 
 namespace bdfr::performance {
 namespace {
@@ -73,11 +74,6 @@ public:
         if(valid>1||space>static_cast<std::uint8_t>(CoordinateSpace::LocalJoint))
             throw std::runtime_error("Invalid sample header enum");
         h.valid=valid!=0;h.space=static_cast<CoordinateSpace>(space);h.source_id=str();return h;
-    }
-    std::vector<ScalarChannel> channels(){
-        std::vector<ScalarChannel> v;v.reserve(count());
-        // Reserve count once via the loop's fixed upper bound below.
-        return v;
     }
     std::vector<ScalarChannel> read_channels(){
         const auto n=count();std::vector<ScalarChannel> v;v.reserve(n);
