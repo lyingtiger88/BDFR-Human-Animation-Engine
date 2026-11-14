@@ -60,3 +60,26 @@ if(BDFR_MIGRATE_BUILD_CAPTURE_MODULE)
     set(BDFRPC_BUILD_STUDIO OFF CACHE BOOL "Keep legacy capture Studio disabled in engine superbuild" FORCE)
     add_subdirectory(migration/source-snapshots/BDFR_PerformanceCapture)
 endif()
+
+# Canonical integration facade: one public engine frame model over both migrated modules.
+if(BDFR_MIGRATE_BUILD_FACE_MODULE AND BDFR_MIGRATE_BUILD_CAPTURE_MODULE)
+    add_library(bdfr_human_runtime
+        engine/integration/EngineBridge.cpp
+    )
+    target_include_directories(bdfr_human_runtime PUBLIC
+        engine/include
+        migration/source-snapshots/BDFR_FacialAnimation/include
+        migration/source-snapshots/BDFR_PerformanceCapture/include
+    )
+    target_link_libraries(bdfr_human_runtime PUBLIC
+        bdfr_engine_core
+        bdfr_core
+        bdfrpc_core
+    )
+
+    if(BDFR_BUILD_TESTS)
+        add_executable(bdfr_engine_bridge_tests tests/test_engine_bridge.cpp)
+        target_link_libraries(bdfr_engine_bridge_tests PRIVATE bdfr_human_runtime)
+        add_test(NAME bdfr_engine_bridge_tests COMMAND bdfr_engine_bridge_tests)
+    endif()
+endif()
