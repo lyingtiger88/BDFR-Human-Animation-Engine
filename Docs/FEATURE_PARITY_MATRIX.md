@@ -8,8 +8,8 @@ This matrix distinguishes exact source preservation from compilation, canonical 
 | Facial solver frame | Yes | Yes | Yes, face/head/gaze adapter | Unit/integration test only |
 | Face camera tracking / MediaPipe | Yes | Core module yes; optional MediaPipe runtime separate | Partial | No live-camera test |
 | Head pose and gaze | Yes | Yes | Yes, raw named channels | Unit/integration test only |
-| Audio analysis / pitch / prosody | Yes | Yes | Not yet | No |
-| Speech / phoneme / viseme / coarticulation | Yes | Yes | Not yet | No |
+| Audio analysis / pitch / prosody | Yes | Yes | Yes, audio-buffer to canonical speech energy/pitch samples | Synthetic voiced-audio integration test; no microphone/hardware test |
+| Text speech planning / phoneme tokens / viseme labels | Yes | Yes | Yes, TextSpeechPlanner to canonical speech samples | Synthetic text-to-viseme integration test; no TTS/ASR alignment test |
 | Emotion / personality / procedural behavior | Yes | Yes | Not yet | No |
 | Multi-camera synchronization / clock mapping | Yes | Yes | Via capture fusion bridge | No hardware test |
 | Domain routing and confidence fusion | Yes | Yes | Yes, FusionCore bridge | Synthetic test |
@@ -32,5 +32,5 @@ This matrix distinguishes exact source preservation from compilation, canonical 
 
 - **Source migration complete:** all 326 tracked files are preserved and SHA-verified.
 - **Build integration complete at baseline:** both predecessor C++ modules are part of the 64-bit superbuild and have passed Windows/Linux CI.
-- **Core runtime integration in progress:** canonical adapters exist for face, head, gaze, capture fusion, body skeleton and hand channels.
-- **Product consolidation not complete:** the unified Studio, Android client, full audio-driven path, coordinate calibration, canonical take format, complete retargeting and hardware end-to-end suite remain open.
+- **Core runtime integration in progress:** canonical adapters exist for face, head, gaze, capture fusion, body skeleton, hand channels, audio energy/pitch analysis and text-planned viseme events.
+- **Product consolidation not complete:** the unified Studio, Android client, audio-to-phoneme recognition/alignment and curve-driven lip-sync path, coordinate calibration, full hand articulation, canonical take playback and hardware end-to-end suite remain open.
