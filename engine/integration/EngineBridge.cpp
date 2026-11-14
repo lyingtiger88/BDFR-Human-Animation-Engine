@@ -249,6 +249,12 @@ performance::PerformanceFrame sample_procedural_face(
     auto facial = bdfr::expression::BehaviorEngine::sample(
         profile, time_seconds, personality_seed);
     facial.timestampSeconds = time_seconds;
+    // BehaviorProfile head amplitudes are explicitly expressed in degrees;
+    // canonical head-pose channels and quaternion conversion use radians.
+    constexpr float degrees_to_radians = 0.01745329251994329577F;
+    facial.head.pitch *= degrees_to_radians;
+    facial.head.yaw *= degrees_to_radians;
+    facial.head.roll *= degrees_to_radians;
     const long double offset = static_cast<long double>(time_seconds) * 1000000000.0L;
     if (offset > static_cast<long double>(std::numeric_limits<performance::Nanoseconds>::max()))
         return output;
