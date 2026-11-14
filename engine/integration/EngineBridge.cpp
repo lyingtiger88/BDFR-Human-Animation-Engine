@@ -549,19 +549,19 @@ std::vector<performance::FaceCurve> sample_phoneme_lipsync_curves(
         if (weight <= 0.0) continue;
 
         const auto viseme = language.mapPhoneme(event.phoneme);
-        const auto pose = bdfr::speech::VisemeSynthesizer::pose(
-            viseme, static_cast<float>(weight));
+        const auto pose = bdfr::speech::VisemeSynthesizer::pose(viseme, 1.0F);
         for (const auto& curve : pose)
-            accumulated[curve.first] += curve.second;
+            accumulated[curve.first] += curve.second * static_cast<float>(weight);
         total_weight += weight;
     }
 
     if (total_weight <= 0.0) return {};
     std::vector<performance::FaceCurve> output;
     output.reserve(accumulated.size());
+    const double normalization = std::max(1.0, total_weight);
     for (const auto& curve : accumulated)
         output.push_back({curve.first, std::clamp(
-            static_cast<float>(static_cast<double>(curve.second) / total_weight),
+            static_cast<float>(static_cast<double>(curve.second) / normalization),
             0.0F, 1.0F)});
     return output;
 }
