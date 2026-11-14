@@ -42,7 +42,7 @@ std::vector<performance::ScalarChannel> copy_channels(
     return result;
 }
 
-performance::Quaternionf axis_angle_to_quaternion(const bdfrpc::AxisAngle& value) {
+performance::Quaternionf to_engine_quaternion(const bdfrpc::AxisAngle& value) {
     const float angle = std::sqrt(value.x * value.x + value.y * value.y + value.z * value.z);
     if (!std::isfinite(angle) || angle < 1.0e-8F) return {};
     const float half = angle * 0.5F;
@@ -145,7 +145,7 @@ performance::RetargetedSkeletonSample retarget_to_engine(
         retargeted.root_translation[1],
         retargeted.root_translation[2]
     };
-    output.root_rotation = axis_angle_to_quaternion({
+    output.root_rotation = to_engine_quaternion({
         retargeted.root_orientation[0],
         retargeted.root_orientation[1],
         retargeted.root_orientation[2]
@@ -154,7 +154,7 @@ performance::RetargetedSkeletonSample retarget_to_engine(
     for (const auto& bone : retargeted.bones) {
         output.bones.push_back({
             bone.bone,
-            axis_angle_to_quaternion(bone.rotation)
+            to_engine_quaternion(bone.rotation)
         });
     }
     return output;
@@ -168,14 +168,14 @@ performance::SkeletonSample to_engine_skeleton(
     body.header = make_header(source.timestamp_ns, session_time_ns, source_id, source.confidence);
     body.skeleton_profile = bdfrpc::EasyMocapSkeletonMapper::model_name(source.model);
     body.root_translation = {source.translation[0], source.translation[1], source.translation[2]};
-    body.root_rotation = axis_angle_to_quaternion(
+    body.root_rotation = to_engine_quaternion(
         {source.global_orientation[0], source.global_orientation[1], source.global_orientation[2]});
     body.joints.reserve(source.joints.size());
     for (const auto& source_joint : source.joints) {
         performance::JointSample joint;
         joint.name = source_joint.name;
         joint.parent_index = source_joint.parent;
-        joint.rotation = axis_angle_to_quaternion(source_joint.rotation);
+        joint.rotation = to_engine_quaternion(source_joint.rotation);
         joint.confidence = source.confidence;
         body.joints.push_back(std::move(joint));
     }
