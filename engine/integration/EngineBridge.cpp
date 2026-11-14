@@ -433,12 +433,9 @@ std::vector<performance::PerformanceFrame> to_engine_phoneme_frames(
             !std::isfinite(phoneme.confidence) || phoneme.start_seconds < 0.0 ||
             phoneme.duration_seconds <= 0.0) continue;
         const long double offset = static_cast<long double>(phoneme.start_seconds) * 1000000000.0L;
-        const long double duration = static_cast<long double>(phoneme.duration_seconds) * 1000000000.0L;
-        if (offset > static_cast<long double>(std::numeric_limits<performance::Nanoseconds>::max()) ||
-            duration > static_cast<long double>(std::numeric_limits<performance::Nanoseconds>::max()))
+        if (offset > static_cast<long double>(std::numeric_limits<performance::Nanoseconds>::max()))
             continue;
         const auto offset_ns = static_cast<performance::Nanoseconds>(std::llround(offset));
-        const auto duration_ns = static_cast<performance::Nanoseconds>(std::llround(duration));
         if (session_start_ns > std::numeric_limits<performance::Nanoseconds>::max() - offset_ns)
             continue;
         const auto timestamp = session_start_ns + offset_ns;
