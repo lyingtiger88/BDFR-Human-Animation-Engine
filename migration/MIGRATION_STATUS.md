@@ -40,14 +40,19 @@ The snapshots preserve all tracked source files and paths. They do not mirror so
 - [x] EmotionEngine pose mapping and instant facial-event mapping (blink, double blink, brow flick, lip twitch, nose flare, jaw clench) into canonical face/emotion tracks.
 - [x] Prosody-driven audio behavior adapter mapping speech pauses and emphasis to canonical blink, head-nod, breath and emphasis cues.
 - [x] Provider-neutral timed phoneme adapter mapping externally aligned English/Persian phonemes through LanguageProfile into canonical speech and facial-viseme frames.
-- [ ] ASR / forced-alignment provider integration and recorded-speech acceptance tests (timed-phoneme adapter is ready for provider output; recognizer itself is not included).
+- [x] Provider-neutral ASR/transcribe-and-align interface and adapter from provider output to canonical speech/viseme frames.
+- [ ] Concrete ASR/forced-alignment backend, model packaging/licensing and recorded-speech acceptance tests.
 - [x] Cross-module integration regression tests for facial, skeleton, audio, text-viseme and procedural behavior paths.
 - [x] Release test targets explicitly retain assertions (NDEBUG disabled) so CI assertions execute in Release builds.
 - [ ] Latest expanded integration CI run pending; see GitHub Actions for current Windows/Linux status.
 - [ ] Full coordinate-system calibration/conversion and rig-specific basis-profile authoring.
-- [ ] Full MANO/SMPL-X hand-PCA expansion to articulated hand joints.
-- [ ] Lossless canonical session serialization and schema migration tests.
-- [ ] Audio phoneme recognition / forced alignment and speech-driven lip-sync (current text-driven viseme synthesis is heuristic).
+- [x] Generic six-component hand-PCA basis expansion into canonical 25-joint hand samples; model basis remains caller-supplied.
+- [ ] Integrate authorized MANO/SMPL-X basis assets and validate against official model outputs.
+- [x] Versioned canonical session serialization and deterministic round-trip/corruption/schema validation tests.
+- [x] Streaming session recorder with incremental frame validation and monotonic timestamp enforcement.
+- [x] Seekable session playback core with playback-rate control.
+- [ ] Schema migration fixtures, long-session stress testing and UI recording/playback controls.
+- [ ] Production ASR/forced alignment and speech-driven lip-sync using a licensed model backend (provider interface and coarticulation sampler are implemented).
 - [ ] Full live camera/audio/face/body/hand end-to-end tests.
 - [ ] Unified Qt Studio and Android capture application.
 
