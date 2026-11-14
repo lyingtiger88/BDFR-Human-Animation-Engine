@@ -4,6 +4,7 @@
 #include <cassert>
 #include <cstdint>
 #include <string>
+#include <stdexcept>
 #include <limits>
 #include <vector>
 
