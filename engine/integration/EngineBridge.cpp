@@ -1,4 +1,7 @@
 #include "bdfr/integration/EngineBridge.h"
+#include "bdfr/audio/AudioFeatures.h"
+#include "bdfr/audio/PitchTracker.h"
+#include "bdfr/audio/Prosody.h"
 
 #include <algorithm>
 #include <cmath>
@@ -230,6 +233,42 @@ std::vector<performance::FaceCurve> mix_face_curves(
     std::vector<performance::FaceCurve> output;
     output.reserve(mixed.size());
     for (const auto& item : mixed) output.push_back({item.first, item.second});
+    return output;
+}
+
+performance::PerformanceFrame to_engine_frame(
+    const bdfr::audio::AudioBuffer& source,
+    performance::Nanoseconds session_time_ns,
+    const std::string& source_id) {
+    performance::PerformanceFrame output;
+    output.session_time_ns = session_time_ns;
+    if (!source.valid()) return output;
+
+    const auto features = bdfr::audio::AudioFeatures::analyze(source);
+    const auto prosody = bdfr::audio::ProsodyAnalyzer::analyze(features);
+    const auto pitch = bdfr::audio::PitchTracker::analyze(source);
+
+    for (std::size_t i = 0; i < features.size(); ++i) {
+        const auto& feature = features[i];
+        const bdfr::audio::ProsodyFrame* prosody_frame =
+            i < prosody.size() ? &prosody[i] : nullptr;
+        const bdfr::audio::PitchFrame* pitch_frame =
+            i < pitch.size() ? &pitch[i] : nullptr;
+
+        performance::SpeechSample speech;
+        const auto source_ns = static_cast<performance::Nanoseconds>(
+            std::llround(feature.startSeconds * 1000000000.0));
+        speech.header = make_header(source_ns, session_time_ns + source_ns,
+                                    source_id,
+                                    pitch_frame && pitch_frame->voiced
+                                        ? pitch_frame->confidence
+                                        : (prosody_frame && prosody_frame->speechActive ? 0.5F : 0.0F));
+        speech.normalized_energy = prosody_frame
+            ? std::clamp(prosody_frame->normalizedEnergy, 0.0F, 1.0F) : 0.0F;
+        speech.pitch_hz = pitch_frame && pitch_frame->voiced
+            ? pitch_frame->frequencyHz : 0.0F;
+        output.speech.push_back(std::move(speech));
+    }
     return output;
 }
 
