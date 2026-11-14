@@ -27,7 +27,12 @@ struct SampleHeader {
     std::string source_id;
 };
 
-struct ScalarChannel {\n    std::string name;\n    float value{};\n    float confidence{1.0F};\n};\nstruct FaceCurve {
+struct ScalarChannel {
+    std::string name;
+    float value{};
+    float confidence{1.0F};
+};
+struct FaceCurve {
     std::string name;
     float value{};
 };
@@ -37,6 +42,12 @@ struct FaceSample {
     Vec3f head_translation{};
     Quaternionf head_rotation{};
     Vec3f gaze_direction{};
+};
+struct HeadSample {
+    SampleHeader header;
+    Vec3f translation{};
+    Quaternionf rotation{};
+    std::vector<ScalarChannel> channels;
 };
 struct JointSample {
     std::string name;
@@ -48,12 +59,14 @@ struct SkeletonSample {
     SampleHeader header;
     std::string skeleton_profile;
     std::vector<JointSample> joints;
+    std::vector<ScalarChannel> channels;
     Vec3f root_translation{};
     Quaternionf root_rotation{};
 };
 struct HandSample {
     SampleHeader header;
-    std::array<JointSample, 25> joints{};\n    std::vector<ScalarChannel> channels;
+    std::array<JointSample, 25> joints{};
+    std::vector<ScalarChannel> channels;
     bool has_palm_pose{false};
     Vec3f palm_position{};
     Quaternionf palm_rotation{};
@@ -74,6 +87,7 @@ struct EmotionSample {
 struct PerformanceFrame {
     Nanoseconds session_time_ns{};
     std::vector<FaceSample> faces;
+    std::vector<HeadSample> heads;
     std::vector<SkeletonSample> bodies;
     std::vector<HandSample> left_hands;
     std::vector<HandSample> right_hands;
