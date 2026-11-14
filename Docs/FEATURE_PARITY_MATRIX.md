@@ -23,7 +23,8 @@ This matrix distinguishes exact source preservation from compilation, canonical 
 | Coordinate basis and unit conversion | Yes | Yes | Signed-axis permutation, handedness conversion and unit scaling for skeleton/hand transforms | Synthetic vector/quaternion conversion tests |
 | Hand PCA channels | Yes | Yes | Preserved as named scalar channels | Synthetic test |
 | Full MANO/SMPL-X hand articulation | Yes | Yes | Generic 6-component basis expansion to canonical 25-joint hands; licensed MANO/SMPL-X basis assets remain external | Synthetic basis regression test; no official model-basis acceptance test |
-| OpenCV camera acquisition / calibration | Yes | Optional build target | Adapter boundary present | Not enabled in default CI |
+| Camera calibration profile / projection | Yes | Core module registered in CMake | Intrinsics, distortion, extrinsics, profile persistence, projection and reprojection RMSE promoted to `bdfr_engine_core` | New synthetic regression test added; CI pending |
+| OpenCV camera acquisition / calibration solver | Yes | Optional build target | Acquisition adapter exists; calibration estimation and device workflow remain pending | Not enabled in default CI |
 | BVH export | Yes | Yes | Direct canonical export pending | No |
 | Retarget profiles / MetaHuman mapping | Yes | Yes | Yes, adapter to existing Unreal Mannequin and MetaHuman Body profiles | Unreal Mannequin synthetic regression test; MetaHuman runtime not tested |
 | FaceBuilder / eos | Yes | Stub target built; eos optional | Adapter boundary present | No photo-to-3D test |
@@ -39,4 +40,4 @@ This matrix distinguishes exact source preservation from compilation, canonical 
 - **Source migration complete:** all 326 tracked files are preserved and SHA-verified.
 - **Build integration complete at baseline:** both predecessor C++ modules are part of the 64-bit superbuild and have passed Windows/Linux CI.
 - **Core runtime integration in progress:** canonical adapters exist for face, head, gaze, capture fusion, body skeleton, hand channels, audio energy/pitch analysis, text-planned viseme events, timed phoneme-to-viseme frames with English/Persian profiles, text-driven facial lip curves, procedural blink/gaze/head motion, emotion/instant-event tracks and prosody-driven blink/nod/breath/emphasis cues.
-- **Product consolidation not complete:** the unified Studio, Android client, concrete ASR/forced-alignment model backend and recorded-speech acceptance for the provider adapter, sensor extrinsic calibration, rig-specific basis authoring and official MANO/SMPL-X hand-basis integration, runtime recorder/playback UI, Studio, Android and hardware end-to-end suite remain open.
+- **Product consolidation not complete:** the unified Studio, Android client, concrete ASR/forced-alignment model backend and recorded-speech acceptance for the provider adapter, camera calibration estimation/solver, sensor extrinsic calibration, rig-specific basis authoring and official MANO/SMPL-X hand-basis integration, runtime recorder/playback UI, Studio, Android and hardware end-to-end suite remain open.
