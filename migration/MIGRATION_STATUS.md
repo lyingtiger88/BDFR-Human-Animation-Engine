@@ -34,11 +34,16 @@ The snapshots preserve all tracked source files and paths. They do not mirror so
 - [x] Canonical skeleton to Unreal Mannequin / MetaHuman Body retarget-profile adapter.
 - [x] Configurable capture FusionCore to canonical frame bridge.
 - [x] Facial CurveMixer integration helper.
-- [x] Cross-module integration regression test added.
-- [x] Current integration build and all 12 CTest cases pass on Linux x86-64 and Windows x64 (run `43582229770`).
+- [x] Audio-buffer adapter for windowed energy, prosody and pitch samples.
+- [x] Text-driven grapheme-to-viseme planning and canonical facial-curve sampling (heuristic; not an acoustic phoneme recognizer).
+- [x] Procedural blink, gaze and head-motion adapter with degree-to-radian normalization.
+- [x] Cross-module integration regression tests for facial, skeleton, audio, text-viseme and procedural behavior paths.
+- [x] Release test targets explicitly retain assertions (NDEBUG disabled) so CI assertions execute in Release builds.
+- [ ] Latest expanded integration CI run pending; see GitHub Actions for current Windows/Linux status.
 - [ ] Full coordinate-system calibration/conversion and rig-specific basis-profile authoring.
 - [ ] Full MANO/SMPL-X hand-PCA expansion to articulated hand joints.
 - [ ] Lossless canonical session serialization and schema migration tests.
+- [ ] Audio phoneme recognition / forced alignment and speech-driven lip-sync (current text-driven viseme synthesis is heuristic).
 - [ ] Full live camera/audio/face/body/hand end-to-end tests.
 - [ ] Unified Qt Studio and Android capture application.
 
