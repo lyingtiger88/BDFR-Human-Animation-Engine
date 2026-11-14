@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <unordered_map>
+#include <vector>
 
 namespace bdfr::performance {
 namespace {
@@ -14,6 +15,8 @@ bool valid_header(const SampleHeader& header) {
     return header.source_time_ns >= 0 &&
            header.session_time_ns >= 0 &&
            valid_confidence(header.confidence) &&
+           static_cast<std::uint8_t>(header.space) <=
+               static_cast<std::uint8_t>(CoordinateSpace::LocalJoint) &&
            !header.source_id.empty();
 }
 
@@ -101,11 +104,31 @@ ValidationResult validate(const Session& session) {
                 const auto& joint = body.joints[i];
                 if (!valid_joint(joint))
                     return {false, "Invalid skeletal joint"};
+                if (joint.parent_index < -1)
+                    return {false, "Skeletal joint parent index is invalid"};
                 if (joint.parent_index >= 0 &&
                     static_cast<std::size_t>(joint.parent_index) >= body.joints.size())
                     return {false, "Skeletal joint parent index is out of range"};
                 if (joint.parent_index == static_cast<std::int32_t>(i))
                     return {false, "Skeletal joint cannot parent itself"};
+            }
+
+            // Reject longer parent cycles without recursive traversal (safe for deep rigs).
+            std::vector<std::uint8_t> visit(body.joints.size(), 0);
+            for (std::size_t start = 0; start < body.joints.size(); ++start) {
+                if (visit[start] != 0) continue;
+                std::vector<std::size_t> chain;
+                std::size_t current = start;
+                while (visit[current] == 0) {
+                    visit[current] = 1;
+                    chain.push_back(current);
+                    const auto parent = body.joints[current].parent_index;
+                    if (parent < 0) break;
+                    current = static_cast<std::size_t>(parent);
+                }
+                if (visit[current] == 1 && body.joints[current].parent_index >= 0)
+                    return {false, "Skeletal joint hierarchy contains a cycle"};
+                for (const auto index : chain) visit[index] = 2;
             }
         }
         for (const auto& retargeted : frame.retargeted_bodies) {
