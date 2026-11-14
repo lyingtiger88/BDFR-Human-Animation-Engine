@@ -2,6 +2,7 @@
 
 #include "bdfr/performance/CanonicalSession.h"
 #include "bdfr/performance/HandPca.h"
+#include "bdfr/performance/CoordinateProfile.h"
 #include "bdfr/core/CurveMixer.h"
 #include "bdfr/core/FacialTypes.h"
 #include "bdfrpc/FusionCore.h"
@@ -63,6 +64,14 @@ performance::PerformanceFrame to_engine_frame(
 performance::RetargetedSkeletonSample retarget_to_engine(
     const performance::SkeletonSample& source,
     const bdfrpc::RetargetProfile& profile);
+
+bool transform_skeleton_coordinates(
+    performance::SkeletonSample& skeleton,
+    const performance::CoordinateProfile& profile);
+
+bool transform_hand_coordinates(
+    performance::HandSample& hand,
+    const performance::CoordinateProfile& profile);
 
 performance::HandSample to_engine_hand(
     const std::vector<float>& pca_coefficients,
