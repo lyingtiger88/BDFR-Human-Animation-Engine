@@ -2,6 +2,9 @@
 #include "bdfr/performance/Validation.h"
 
 #include <cassert>
+#include <cmath>
+#include <cstdint>
+#include <vector>
 #include <utility>
 
 int main() {
@@ -75,6 +78,25 @@ int main() {
     assert(target_skeleton.profile_name == "Unreal Mannequin");
     assert(target_skeleton.bones.size() == 2);
     assert(target_skeleton.bones[1].target_bone == "spine_01");
+
+    bdfr::audio::AudioBuffer audio;
+    audio.sampleRate = 16000;
+    audio.channels = 1;
+    audio.samples.resize(6400);
+    for (std::size_t i = 0; i < audio.samples.size(); ++i)
+        audio.samples[i] = 0.35F * std::sin(2.0F * 3.14159265358979323846F *
+                                           150.0F * static_cast<float>(i) / 16000.0F);
+    auto audio_frame = bdfr::integration::to_engine_frame(audio, 500000000, "microphone-1");
+    assert(!audio_frame.speech.empty());
+    assert(audio_frame.speech.front().header.source_id == "microphone-1");
+    assert(audio_frame.speech.front().header.session_time_ns == 500000000);
+    bool has_pitch = false;
+    for (const auto& speech : audio_frame.speech)
+        has_pitch = has_pitch || speech.pitch_hz > 0.0F;
+    assert(has_pitch);
+
+    bdfr::audio::AudioBuffer invalid_audio;
+    assert(bdfr::integration::to_engine_frame(invalid_audio, 0).speech.empty());
 
     bdfrpc::SourceRouter router;
     router.set_route(bdfrpc::Domain::Face, {{"camera-1", 0.5F, 1000000}});
