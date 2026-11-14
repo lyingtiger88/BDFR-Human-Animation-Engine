@@ -29,7 +29,10 @@ int main() {
     assert(left.joints[1].name == "left_index_metacarpal");
     assert(left.joints[2].name == "left_index_1");
     assert(left.joints[2].rotation.w < 1.0F);
-    assert(left.joints[24].name == "left_thumb_3");
+    assert(left.joints[20].name == "left_thumb_3");
+    for (std::size_t i = 21; i < left.joints.size(); ++i) {
+        assert(left.joints[i].name.empty());
+    }
 
     HandSample right;
     assert(expand_hand_pca(coefficients, basis, false, right, header));
