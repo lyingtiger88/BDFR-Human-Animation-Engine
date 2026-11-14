@@ -10,7 +10,8 @@ This matrix distinguishes exact source preservation from compilation, canonical 
 | Head pose and gaze | Yes | Yes | Yes, raw named channels | Unit/integration test only |
 | Audio analysis / pitch / prosody | Yes | Yes | Yes, audio-buffer to canonical speech energy/pitch samples | Synthetic voiced-audio integration test; no microphone/hardware test |
 | Text speech planning / phoneme tokens / viseme labels | Yes | Yes | Yes, TextSpeechPlanner to canonical speech samples | Synthetic text-to-viseme integration test; no TTS/ASR alignment test |
-| Emotion / personality / procedural behavior | Yes | Yes | Not yet | No |
+| Procedural facial behavior (blink, gaze, head motion) | Yes | Yes | Yes, BehaviorEngine to canonical face/head/gaze tracks | Synthetic adapter regression test |
+| Emotion / personality-driven expression synthesis | Yes | Yes | Partial; deterministic behavior profile adapter only | No emotion-recognition or personality acceptance test |
 | Multi-camera synchronization / clock mapping | Yes | Yes | Via capture fusion bridge | No hardware test |
 | Domain routing and confidence fusion | Yes | Yes | Yes, FusionCore bridge | Synthetic test |
 | SMPL24 / SMPL-X skeleton parsing | Yes | Yes | Yes, SkeletonPose adapter | Synthetic test |
