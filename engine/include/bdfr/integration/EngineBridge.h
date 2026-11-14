@@ -38,6 +38,11 @@ std::vector<performance::FaceCurve> mix_face_curves(
     const std::vector<performance::FaceCurve>& base,
     std::vector<bdfr::CurveLayer> layers);
 
+std::vector<performance::FaceCurve> sample_text_lipsync_curves(
+    const std::string& text,
+    double time_seconds,
+    const bdfr::speech::TextSpeechOptions& options = {});
+
 std::vector<performance::SpeechSample> plan_text_speech(
     const std::string& text,
     performance::Nanoseconds session_start_ns,
