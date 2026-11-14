@@ -3,6 +3,7 @@
 #include <array>
 #include <cassert>
 #include <cmath>
+#include <limits>
 
 using namespace bdfr::performance;
 
