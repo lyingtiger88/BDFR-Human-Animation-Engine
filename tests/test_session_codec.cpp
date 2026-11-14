@@ -89,7 +89,8 @@ int main() {
 
     Session decoded;
     std::string error;
-    assert(deserialize_session(bytes, decoded, &error));
+    const bool decoded_ok = deserialize_session(bytes, decoded, &error);
+    assert(decoded_ok);
     assert(error.empty());
     assert(decoded.session_id == original.session_id);
     assert(decoded.actors.size() == 1);
@@ -112,13 +113,15 @@ int main() {
     truncated.pop_back();
     Session unchanged;
     unchanged.session_id = "must-not-be-overwritten";
-    assert(!deserialize_session(truncated, unchanged, &error));
+    const bool truncated_ok = deserialize_session(truncated, unchanged, &error);
+    assert(!truncated_ok);
     assert(!error.empty());
     assert(unchanged.session_id == "must-not-be-overwritten");
 
     auto bad_magic = bytes;
     bad_magic[0] = 0;
-    assert(!deserialize_session(bad_magic, unchanged, &error));
+    const bool bad_magic_ok = deserialize_session(bad_magic, unchanged, &error);
+    assert(!bad_magic_ok);
 
     Session future = original;
     future.schema_version_minor = schema_minor + 1;
