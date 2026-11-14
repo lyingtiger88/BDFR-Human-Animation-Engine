@@ -64,6 +64,17 @@ struct SkeletonSample {
     Vec3f root_translation{};
     Quaternionf root_rotation{};
 };
+struct RetargetedBoneSample {
+    std::string target_bone;
+    Quaternionf rotation{};
+};
+struct RetargetedSkeletonSample {
+    SampleHeader header;
+    std::string profile_name;
+    Vec3f root_translation{};
+    Quaternionf root_rotation{};
+    std::vector<RetargetedBoneSample> bones;
+};
 struct HandSample {
     SampleHeader header;
     std::array<JointSample, 25> joints{};
@@ -95,6 +106,7 @@ struct PerformanceFrame {
     std::vector<HeadSample> heads;
     std::vector<GazeSample> gaze;
     std::vector<SkeletonSample> bodies;
+    std::vector<RetargetedSkeletonSample> retargeted_bodies;
     std::vector<HandSample> left_hands;
     std::vector<HandSample> right_hands;
     std::vector<SpeechSample> speech;
