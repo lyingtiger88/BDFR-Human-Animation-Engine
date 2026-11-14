@@ -98,8 +98,9 @@ performance::PerformanceFrame to_engine_frame(
     performance::FaceSample face;
     face.header = make_header(timestamp_ns, session_time_ns, source_id, source.confidence);
     // Facial HeadPose angles are radians in pitch/yaw/roll order.
-    face.head_rotation = euler_xyz_to_quaternion(
+    const auto head_rotation = euler_xyz_to_quaternion(
         source.head.pitch, source.head.yaw, source.head.roll);
+    face.head_rotation = head_rotation;
     face.gaze_direction = {source.gaze.x, source.gaze.y, 1.0F};
     std::vector<std::pair<std::string, float>> ordered_curves(source.curves.begin(), source.curves.end());
     std::sort(ordered_curves.begin(), ordered_curves.end(),
@@ -110,7 +111,7 @@ performance::PerformanceFrame to_engine_frame(
 
     performance::HeadSample head;
     head.header = make_header(timestamp_ns, session_time_ns, source_id, source.confidence);
-    head.rotation = face.head_rotation;
+    head.rotation = head_rotation;
     head.channels = {
         {"pitch", source.head.pitch, source.confidence},
         {"yaw", source.head.yaw, source.confidence},
