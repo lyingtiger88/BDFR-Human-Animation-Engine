@@ -70,7 +70,10 @@ The snapshots preserve all tracked source files and paths. They do not mirror so
 - [x] Live Capture tab implemented: OpenCV camera enumeration, start/stop controls, BGR frame preview and FPS/sequence/drop metrics.
 - [x] Session Library tab implemented: directory scan, format/size/frame/duration/validation columns and selected-take inspection.
 - [ ] Feature branch has not been built or hardware-tested; keep build disabled until owner approval.
-- [ ] Multi-camera live preview/synchronized capture, session playback/scrubbing and Android capture application.
+- [x] Multi-camera selection, all-or-nothing camera startup, host-monotonic timestamp synchronization and mosaic preview implemented in Studio.
+- [x] Synthetic FrameSynchronizer regression test added for pair matching, skew rejection and stale-frame recovery.
+- [ ] Feature branch not built or tested with physical cameras; 8 ms host-clock tolerance requires hardware validation.
+- [ ] Multi-camera Take recording, session playback/scrubbing and Android capture application.
 
 ## Licensing and external assets
 - [x] Third-party dependency and model-asset review register created at `Docs/THIRD_PARTY_DEPENDENCIES.md`.
