@@ -33,5 +33,5 @@ int main() {
     auto safe = bdfr::integration::to_engine_frame(fused, 987654321);
     assert(safe.faces.empty()); // malformed named-channel/value pairing is rejected
 
-    return 0;
+    bdfr::CurveLayer smile;\n    smile.curves["mouthSmileLeft"] = 0.8F;\n    smile.weight = 0.5F;\n    auto mixed = bdfr::integration::mix_face_curves({{"jawOpen", 0.2F}}, {smile});\n    assert(mixed.size() == 2);\n\n    bdfrpc::SyncedFrameSet synced;\n    synced.timestamp_ns = 555;\n    bdfrpc::CaptureFrame capture;\n    capture.timestamp_ns = 555;\n    capture.samples.push_back({bdfrpc::Domain::Face, 0.95F, {0.6F}, {"jawOpen"}});\n    synced.frames.push_back(capture);\n    auto fusedFrame = bdfr::integration::fuse_to_engine_frame(synced, 777);\n    assert(fusedFrame.session_time_ns == 777);\n    assert(fusedFrame.faces.size() == 1);\n\n    return 0;
 }
