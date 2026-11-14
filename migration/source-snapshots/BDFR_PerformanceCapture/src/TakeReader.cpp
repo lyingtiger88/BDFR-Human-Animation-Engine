@@ -125,8 +125,8 @@ bool TakeReader::load(const std::string& path) {
 
         const auto fields = parse_csv_row(line);
         if (fields.size() != 6) {
-            last_error_ = "invalid CSV row at line " + std::to_string(line_number);
             clear();
+            last_error_ = "invalid CSV row at line " + std::to_string(line_number);
             return false;
         }
 
@@ -145,15 +145,15 @@ bool TakeReader::load(const std::string& path) {
             value = std::stof(fields[5], &used);
             if (used != fields[5].size()) throw std::invalid_argument("value");
         } catch (...) {
-            last_error_ = "invalid numeric field at line " + std::to_string(line_number);
             clear();
+            last_error_ = "invalid numeric field at line " + std::to_string(line_number);
             return false;
         }
 
         const auto domain = parse_domain(fields[1]);
         if (!domain) {
-            last_error_ = "invalid domain at line " + std::to_string(line_number);
             clear();
+            last_error_ = "invalid domain at line " + std::to_string(line_number);
             return false;
         }
 
@@ -179,8 +179,8 @@ bool TakeReader::load(const std::string& path) {
         }
 
         if (sample_index >= frame.samples.size()) {
-            last_error_ = "internal take grouping error";
             clear();
+            last_error_ = "internal take grouping error";
             return false;
         }
 
