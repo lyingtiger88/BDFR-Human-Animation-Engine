@@ -184,6 +184,26 @@ performance::RetargetedSkeletonSample retarget_to_engine(
     return output;
 }
 
+performance::HandSample to_engine_hand(
+    const std::vector<float>& pca_coefficients,
+    const performance::HandPcaBasis& basis,
+    bool left_hand,
+    performance::Nanoseconds source_time_ns,
+    performance::Nanoseconds session_time_ns,
+    const std::string& source_id,
+    float confidence) {
+    performance::HandSample output;
+    if (pca_coefficients.size() != 6 || source_time_ns < 0 ||
+        session_time_ns < 0 || source_id.empty() ||
+        !std::isfinite(confidence) || confidence < 0.0F || confidence > 1.0F)
+        return output;
+    std::array<float, 6> coefficients{};
+    std::copy(pca_coefficients.begin(), pca_coefficients.end(), coefficients.begin());
+    const auto header = make_header(source_time_ns, session_time_ns, source_id, confidence);
+    (void)performance::expand_hand_pca(coefficients, basis, left_hand, output, header);
+    return output;
+}
+
 performance::SkeletonSample to_engine_skeleton(
     const bdfrpc::SkeletonPose& source,
     performance::Nanoseconds session_time_ns,
