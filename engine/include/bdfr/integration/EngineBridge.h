@@ -9,6 +9,7 @@
 #include "bdfrpc/Retarget.h"
 #include "bdfr/audio/WavAudio.h"
 #include "bdfr/speech/TextSpeech.h"
+#include "bdfr/expression/BehaviorEngine.h"
 
 #include <string>
 #include <vector>
@@ -37,6 +38,13 @@ performance::PerformanceFrame fuse_to_engine_frame(
 std::vector<performance::FaceCurve> mix_face_curves(
     const std::vector<performance::FaceCurve>& base,
     std::vector<bdfr::CurveLayer> layers);
+
+performance::PerformanceFrame sample_procedural_face(
+    const bdfr::expression::BehaviorProfile& profile,
+    double time_seconds,
+    performance::Nanoseconds session_start_ns,
+    std::uint32_t personality_seed = 0,
+    const std::string& source_id = "procedural-behavior");
 
 std::vector<performance::FaceCurve> sample_text_lipsync_curves(
     const std::string& text,
