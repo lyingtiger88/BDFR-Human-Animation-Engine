@@ -43,3 +43,16 @@ jobs:
       - name: Test (Linux single-config)
         if: runner.os == 'Linux'
         run: ctest --test-dir build --output-on-failure
+
+  studio-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Qt and OpenCV development packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qt6-base-dev libopencv-dev
+      - name: Configure unified Qt Studio
+        run: cmake -S . -B build-studio -DCMAKE_BUILD_TYPE=Release -DBDFR_BUILD_TESTS=OFF -DBDFR_ENABLE_OPENCV=ON -DBDFR_BUILD_UNIFIED_STUDIO=ON
+      - name: Build unified Qt Studio
+        run: cmake --build build-studio --config Release --parallel
