@@ -1,0 +1,135 @@
+name: Complete legacy repository migration
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/complete-legacy-migration.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: legacy-repository-migration
+  cancel-in-progress: false
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Mirror legacy Git history and refs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEST_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          DEST="https://x-access-token:${GH_TOKEN}@github.com/${DEST_REPO}.git"
+          mkdir -p "$RUNNER_TEMP/legacy-migration"
+
+          git clone --mirror https://github.com/lyingtiger88/BDFR_FacialAnimation.git "$RUNNER_TEMP/facial.git"
+          git clone --mirror https://github.com/lyingtiger88/BDFR_PerformanceCapture.git "$RUNNER_TEMP/performance.git"
+
+          git -C "$RUNNER_TEMP/facial.git" push "$DEST" \
+            refs/heads/main:refs/heads/legacy/facial-animation/main
+          git -C "$RUNNER_TEMP/facial.git" push "$DEST" \
+            refs/tags/studio-test-latest:refs/tags/legacy/facial-animation/studio-test-latest
+          git -C "$RUNNER_TEMP/facial.git" push "$DEST" \
+            refs/tags/hardware-test-latest:refs/tags/legacy/facial-animation/hardware-test-latest
+
+          git -C "$RUNNER_TEMP/performance.git" push "$DEST" \
+            refs/heads/main:refs/heads/legacy/performance-capture/main
+          git -C "$RUNNER_TEMP/performance.git" push "$DEST" \
+            refs/heads/architecture/unified-human-engine-v1:refs/heads/legacy/performance-capture/architecture/unified-human-engine-v1
+
+          # Verify exact original commit IDs now exist in destination refs.
+          git ls-remote "$DEST" > "$RUNNER_TEMP/destination-refs.txt"
+          grep -F "$(git -C "$RUNNER_TEMP/facial.git" rev-parse refs/heads/main)" "$RUNNER_TEMP/destination-refs.txt"
+          grep -F "$(git -C "$RUNNER_TEMP/performance.git" rev-parse refs/heads/main)" "$RUNNER_TEMP/destination-refs.txt"
+          grep -F "$(git -C "$RUNNER_TEMP/performance.git" rev-parse refs/heads/architecture/unified-human-engine-v1)" "$RUNNER_TEMP/destination-refs.txt"
+
+      - name: Download and checksum original release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/releases/studio" "$RUNNER_TEMP/releases/hardware"
+
+          gh release download studio-test-latest \
+            --repo lyingtiger88/BDFR_FacialAnimation \
+            --dir "$RUNNER_TEMP/releases/studio"
+          gh release download hardware-test-latest \
+            --repo lyingtiger88/BDFR_FacialAnimation \
+            --dir "$RUNNER_TEMP/releases/hardware"
+
+          cd "$RUNNER_TEMP/releases"
+          printf '%s  %s\n' \
+            '2996fe814603e97123a07d90b42a2d6cd510fa6baa4ac510aac2f1536bab3422' \
+            'studio/BDFR_Studio_Windows.zip' \
+            'ff86dc80d6ddae2854818e8d4260e4603728ba0d2bcf33f30f1a7ba7002fcdb9' \
+            'hardware/BDFR_Android_Hardware_Test.apk' \
+            '076250ea326a63119d75afe9b541edb235f4ab9ca5a045f566c0760f0b1374b6' \
+            'hardware/BDFR_Windows_Hardware_Test_Kit.zip' | sha256sum --check -
+
+      - name: Recreate legacy releases in destination
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEST_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh release create legacy/facial-animation/studio-test-latest \
+            "$RUNNER_TEMP/releases/studio/BDFR_Studio_Windows.zip" \
+            --repo "$DEST_REPO" \
+            --title "Legacy — BDFR Studio Latest Test Build" \
+            --notes "Migrated from BDFR_FacialAnimation. Original release tag: studio-test-latest. SHA-256 verified during migration." \
+            --prerelease
+
+          gh release create legacy/facial-animation/hardware-test-latest \
+            "$RUNNER_TEMP/releases/hardware/BDFR_Android_Hardware_Test.apk" \
+            "$RUNNER_TEMP/releases/hardware/BDFR_Windows_Hardware_Test_Kit.zip" \
+            --repo "$DEST_REPO" \
+            --title "Legacy — BDFR Hardware Test" \
+            --notes "Migrated from BDFR_FacialAnimation. Original release tag: hardware-test-latest. SHA-256 verified during migration." \
+            --prerelease
+
+      - name: Verify destination refs, releases and asset checksums
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEST_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --bare "https://x-access-token:${GH_TOKEN}@github.com/${DEST_REPO}.git" "$RUNNER_TEMP/verify.git"
+
+          for ref in \
+            refs/heads/legacy/facial-animation/main \
+            refs/heads/legacy/performance-capture/main \
+            refs/heads/legacy/performance-capture/architecture/unified-human-engine-v1 \
+            refs/tags/legacy/facial-animation/studio-test-latest \
+            refs/tags/legacy/facial-animation/hardware-test-latest; do
+            git -C "$RUNNER_TEMP/verify.git" show-ref --verify "$ref"
+          done
+
+          gh release download legacy/facial-animation/studio-test-latest --repo "$DEST_REPO" --dir "$RUNNER_TEMP/verify-studio"
+          gh release download legacy/facial-animation/hardware-test-latest --repo "$DEST_REPO" --dir "$RUNNER_TEMP/verify-hardware"
+
+          cd "$RUNNER_TEMP"
+          printf '%s  %s\n' \
+            '2996fe814603e97123a07d90b42a2d6cd510fa6baa4ac510aac2f1536bab3422' \
+            'verify-studio/BDFR_Studio_Windows.zip' \
+            'ff86dc80d6ddae2854818e8d4260e4603728ba0d2bcf33f30f1a7ba7002fcdb9' \
+            'verify-hardware/BDFR_Android_Hardware_Test.apk' \
+            '076250ea326a63119d75afe9b541edb235f4ab9ca5a045f566c0760f0b1374b6' \
+            'verify-hardware/BDFR_Windows_Hardware_Test_Kit.zip' | sha256sum --check -
+
+          echo "LEGACY_MIGRATION_VERIFIED=true" >> "$GITHUB_STEP_SUMMARY"
+          echo "All selected Git refs and three binary release assets are present and checksum-verified." >> "$GITHUB_STEP_SUMMARY"
