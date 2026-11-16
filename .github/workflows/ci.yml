@@ -37,12 +37,43 @@ jobs:
         run: cmake -S . -B build -G "${{ matrix.generator }}" -DCMAKE_BUILD_TYPE=Release -DBDFR_BUILD_TESTS=ON
       - name: Build
         run: cmake --build build --config Release --parallel
+      - name: Sign Windows engine binaries with BDFR self-signed test certificate
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $cert = New-SelfSignedCertificate -Type CodeSigningCert -Subject "CN=BDFR Test Publisher" -CertStoreLocation "Cert:\CurrentUser\My" -KeyAlgorithm RSA -KeyLength 3072 -HashAlgorithm SHA256 -NotAfter (Get-Date).AddYears(3)
+          New-Item -ItemType Directory -Force artifacts/signing | Out-Null
+          Export-Certificate -Cert $cert -FilePath artifacts/signing/BDFR-Test-Publisher.cer | Out-Null
+          $sdk = Get-ChildItem "C:\Program Files (x86)\Windows Kits\10\bin" -Filter signtool.exe -Recurse | Where-Object { $_.FullName -match "\\x64\\signtool.exe$" } | Sort-Object FullName -Descending | Select-Object -First 1
+          if (-not $sdk) { throw "Windows SDK SignTool not found" }
+          $files = @(Get-ChildItem build -Filter *.exe -Recurse -File)
+          if ($files.Count -eq 0) { throw "No Windows engine executables found in build output" }
+          foreach ($file in $files) {
+            & $sdk.FullName sign /fd SHA256 /sha1 $cert.Thumbprint $file.FullName
+            if ($LASTEXITCODE -ne 0) { throw "Signing failed: $($file.FullName)" }
+            & $sdk.FullName verify /pa /v $file.FullName
+            if ($LASTEXITCODE -ne 0) { throw "Signature verification failed: $($file.FullName)" }
+          }
+          $files | ForEach-Object { Get-FileHash $_.FullName -Algorithm SHA256 } | ForEach-Object { "$($_.Hash) *$($_.Path)" } | Set-Content artifacts/signing/SHA256SUMS.txt
+          Write-Host "Signed and verified $($files.Count) Windows engine executables using test-only identity."
       - name: Test (Windows multi-config)
         if: runner.os == 'Windows'
         run: ctest --test-dir build -C Release --output-on-failure
       - name: Test (Linux single-config)
         if: runner.os == 'Linux'
         run: ctest --test-dir build --output-on-failure
+
+      - name: Upload signed Windows engine test artifacts
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: BDFR-Human-Animation-Engine-Windows-SelfSigned-Test
+          path: |
+            build/**/*.exe
+            artifacts/signing/*
+          if-no-files-found: error
+          retention-days: 30
 
   studio-linux:
     runs-on: ubuntu-latest
