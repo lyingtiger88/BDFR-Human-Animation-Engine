@@ -37,28 +37,53 @@ jobs:
         run: cmake -S . -B build -G "${{ matrix.generator }}" -DCMAKE_BUILD_TYPE=Release -DBDFR_BUILD_TESTS=ON
       - name: Build
         run: cmake --build build --config Release --parallel
-      - name: Sign Windows engine binaries with BDFR self-signed test certificate
+      - name: Prepare persistent BDFR signing certificate
         if: runner.os == 'Windows'
         shell: pwsh
+        timeout-minutes: 1
+        env:
+          PFX_BASE64: ${{ secrets.BDFR_CODESIGN_PFX_BASE64 }}
+          PFX_PASSWORD: ${{ secrets.BDFR_CODESIGN_PFX_PASSWORD }}
+          EXPECTED_THUMBPRINT: ${{ secrets.BDFR_CODESIGN_THUMBPRINT }}
         run: |
           $ErrorActionPreference = "Stop"
-          $cert = New-SelfSignedCertificate -Type CodeSigningCert -Subject "CN=BDFR Test Publisher" -CertStoreLocation "Cert:\CurrentUser\My" -KeyAlgorithm RSA -KeyLength 3072 -HashAlgorithm SHA256 -NotAfter (Get-Date).AddYears(3)
+          foreach ($name in @("PFX_BASE64", "PFX_PASSWORD", "EXPECTED_THUMBPRINT")) {
+            if ([string]::IsNullOrWhiteSpace([Environment]::GetEnvironmentVariable($name))) { throw "Required signing secret $name is missing." }
+          }
+          $pfxBytes = [Convert]::FromBase64String($env:PFX_BASE64)
+          $flags = [System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]::EphemeralKeySet
+          $cert = [System.Security.Cryptography.X509Certificates.X509Certificate2]::new($pfxBytes, $env:PFX_PASSWORD, $flags)
+          if (-not $cert.HasPrivateKey) { throw "PFX does not contain a private key." }
+          if ($cert.Thumbprint -ne $env:EXPECTED_THUMBPRINT) { throw "PFX thumbprint mismatch." }
           New-Item -ItemType Directory -Force artifacts/signing | Out-Null
-          Export-Certificate -Cert $cert -FilePath artifacts/signing/BDFR-Test-Publisher.cer | Out-Null
-          Import-Certificate -FilePath artifacts/signing/BDFR-Test-Publisher.cer -CertStoreLocation "Cert:\CurrentUser\Root" | Out-Null
-          Import-Certificate -FilePath artifacts/signing/BDFR-Test-Publisher.cer -CertStoreLocation "Cert:\CurrentUser\TrustedPublisher" | Out-Null
+          [IO.File]::WriteAllBytes("artifacts/signing/BDFR-CodeSigning.cer", $cert.Export([System.Security.Cryptography.X509Certificates.X509ContentType]::Cert))
+          $pfxPath = Join-Path $env:RUNNER_TEMP "BDFR-CodeSigning.pfx"
+          [IO.File]::WriteAllBytes($pfxPath, $pfxBytes)
+          "BDFR_CODESIGN_THUMBPRINT=$($cert.Thumbprint)" | Out-File $env:GITHUB_ENV -Append -Encoding utf8
+          "BDFR_PFX_PATH=$pfxPath" | Out-File $env:GITHUB_ENV -Append -Encoding utf8
+      - name: Sign and verify Windows engine binaries with persistent BDFR identity
+        if: runner.os == 'Windows'
+        shell: pwsh
+        timeout-minutes: 5
+        env:
+          PFX_PASSWORD: ${{ secrets.BDFR_CODESIGN_PFX_PASSWORD }}
+        run: |
+          $ErrorActionPreference = "Stop"
           $sdk = Get-ChildItem "C:\Program Files (x86)\Windows Kits\10\bin" -Filter signtool.exe -Recurse | Where-Object { $_.FullName -match "\\x64\\signtool.exe$" } | Sort-Object FullName -Descending | Select-Object -First 1
-          if (-not $sdk) { throw "Windows SDK SignTool not found" }
+          if (-not $sdk) { throw "Windows SDK SignTool not found." }
           $files = @(Get-ChildItem build -Filter *.exe -Recurse -File)
-          if ($files.Count -eq 0) { throw "No Windows engine executables found in build output" }
+          if ($files.Count -eq 0) { throw "No Windows engine executables found." }
           foreach ($file in $files) {
-            & $sdk.FullName sign /fd SHA256 /sha1 $cert.Thumbprint $file.FullName
+            & $sdk.FullName sign /f "$env:BDFR_PFX_PATH" /p "$env:PFX_PASSWORD" /fd SHA256 $file.FullName
             if ($LASTEXITCODE -ne 0) { throw "Signing failed: $($file.FullName)" }
-            & $sdk.FullName verify /pa /v $file.FullName
-            if ($LASTEXITCODE -ne 0) { throw "Signature verification failed: $($file.FullName)" }
+            $signature = Get-AuthenticodeSignature -FilePath $file.FullName
+            if (-not $signature.SignerCertificate -or $signature.SignerCertificate.Thumbprint -ne $env:BDFR_CODESIGN_THUMBPRINT) { throw "Wrong BDFR signer on $($file.Name)." }
+            $expectedUntrustedRoot = $signature.Status -eq "UnknownError" -and $signature.StatusMessage -match "root certificate which is not trusted"
+            if ($signature.Status -ne "Valid" -and -not $expectedUntrustedRoot) { throw "Authenticode validation failed for $($file.Name): $($signature.Status) $($signature.StatusMessage)" }
           }
           $files | ForEach-Object { Get-FileHash $_.FullName -Algorithm SHA256 } | ForEach-Object { "$($_.Hash) *$($_.Path)" } | Set-Content artifacts/signing/SHA256SUMS.txt
-          Write-Host "Signed and verified $($files.Count) Windows engine executables using test-only identity."
+          Remove-Item $env:BDFR_PFX_PATH -Force
+          Write-Host "Signed $($files.Count) Windows engine executables with persistent BDFR identity."
       - name: Test (Windows multi-config)
         if: runner.os == 'Windows'
         run: ctest --test-dir build -C Release --output-on-failure
